@@ -1,0 +1,5 @@
+syntax='syntax3';
+
+// service Backend {
+//  rpc RegisterUser(User) returns (Empty);
+//}
