@@ -2,9 +2,6 @@
 
 This is the monolithic backend for the website.  In the future, the various packages in this folder should be split off into their own microservices.
 
-
-//create tree so that we can specify what each folder is for 
-
 ## api
 Contains api functions that allow data communication between outside this package
 
@@ -40,5 +37,3 @@ Contains functions that handle join-project request or project recruitment
 
 ## user
 Contains user related services
-
-user
