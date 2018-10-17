@@ -8,6 +8,6 @@ type Config struct {
 // NewConfig returns a default config object
 func NewConfig() *Config {
 	return &Config{
-		ElasticAddr: "localhost:9200"
+		ElasticAddr: "localhost:9200",
 	}
 }

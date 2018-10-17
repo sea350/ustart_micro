@@ -22,5 +22,5 @@ func New(cfg *Config) (*Eclient, error) {
 		client: client,
 	}
 
-	return rds, nil
+	return client, nil
 }

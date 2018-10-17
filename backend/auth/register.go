@@ -15,7 +15,7 @@ import (
 func (eclient *Eclient) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
 	// make sure email is not in use
 	termQuery := elastic.NewTermQuery("Email", strings.ToLower(req.Email))
-	res, err := eclient.Search().
+	res, err := eclient.client.Search().
 		Index(eIndex).
 		Query(termQuery).
 		Do(ctx)
@@ -28,14 +28,14 @@ func (eclient *Eclient) Register(ctx context.Context, req *authpb.RegisterReques
 		return &authpb.RegisterResponse{}, errors.New("Email is in use")
 	}
 
-	exists, err := eclient.IndexExists(eIndex).Do(ctx)
+	exists, err := eclient.client.IndexExists(eIndex).Do(ctx)
 	if err != nil {
-		return ID, err
+		return &authpb.RegisterResponse{}, err
 	}
 
 	// If the index doesn't exist, create it and return error.
 	if !exists {
-		createIndex, err := eclient.CreateIndex(eIndex).BodyString("").Do(ctx)
+		createIndex, err := eclient.client.CreateIndex(eIndex).BodyString("").Do(ctx)
 		if err != nil {
 			panic(err)
 		}
@@ -51,9 +51,9 @@ func (eclient *Eclient) Register(ctx context.Context, req *authpb.RegisterReques
 		return &authpb.RegisterResponse{}, err
 	}
 
-	store := authpb.Stored{Email: req.Email, Password: hashedPass}
+	store := authpb.Stored{Email: req.Email, Password: string(hashedPass)}
 	//NOT SURE ABOUT THE BODY JSON
-	newUser, err := eclient.Index().
+	newUser, err := eclient.client.Index().
 		Index(eIndex).
 		Type(eType).
 		BodyJson(store).
