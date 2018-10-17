@@ -8,7 +8,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/olivere/elastic"
-	"github.com/sea350/ustart_go/backend/auth/authpb"
+	"github.com/sea350/ustart_mono/backend/auth/authpb"
 )
 
 // Register does what it does

@@ -4,6 +4,10 @@ package auth.models;
 
 option go_package= "authpb";
 
-message UUID {
-  string UUID = 1;
+message Stored {
+  string Email = 1;
+  string Password = 2;
+  string Token = 3;
+  bool Verified = 4;
+  int32 AccType = 5;
 }

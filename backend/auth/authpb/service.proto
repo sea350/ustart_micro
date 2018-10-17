@@ -17,7 +17,7 @@ service Auth {
 message Empty{}
 
 message AuthenticateRequest {
-  auth.models.UUID UUID = 1;
+  auth.models.Stored Email = 1;
   string Challenge = 2;
 }
 
@@ -33,14 +33,14 @@ message RegisterResponse{
 }
 
 message DeleteRequest {
-  auth.models.UUID UUID = 1;
+  auth.models.Stored Email = 1;
   string Challenge = 2;
 }
 
 message DeleteResponse {}
 
 message ChangePasswordRequest {
-  auth.models.UUID UUID = 1;
+  auth.models.Stored Email = 1;
   string Challenge = 2;
   string NewPassword = 3;
 }
@@ -52,6 +52,6 @@ message LookupRequest{
 }
 
 message LookupResponse{
-  auth.models.UUID UUID = 1;
+  auth.models.Stored Email = 1;
 }
 
