@@ -51,11 +51,12 @@ func (eclient *Eclient) Register(ctx context.Context, req *authpb.RegisterReques
 		return &authpb.RegisterResponse{}, err
 	}
 
+	store := authpb.Stored{Email: req.Email, Password: hashedPass}
 	//NOT SURE ABOUT THE BODY JSON
 	newUser, err := eclient.Index().
 		Index(eIndex).
 		Type(eType).
-		BodyJson(req).
+		BodyJson(store).
 		Do(ctx)
 
 	if err != nil {
