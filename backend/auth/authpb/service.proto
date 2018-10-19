@@ -17,11 +17,13 @@ service Auth {
 message Empty{}
 
 message AuthenticateRequest {
-  auth.models.Stored Email = 1;
+  string Email = 1;
   string Challenge = 2;
 }
 
-message AuthenticateResponse {}
+message AuthenticateResponse {
+  bool Success = 1;
+}
 
 message RegisterRequest{
   string Email = 1;
@@ -30,17 +32,18 @@ message RegisterRequest{
 
 message RegisterResponse{
   string UID = 1;
+  string Token = 2;
 }
 
 message DeleteRequest {
-  auth.models.Stored Email = 1;
+  string Email = 1;
   string Challenge = 2;
 }
 
 message DeleteResponse {}
 
 message ChangePasswordRequest {
-  auth.models.Stored Email = 1;
+  string Email = 1;
   string Challenge = 2;
   string NewPassword = 3;
 }
@@ -52,6 +55,6 @@ message LookupRequest{
 }
 
 message LookupResponse{
-  auth.models.Stored Email = 1;
+  bool Exists = 1;
 }
 

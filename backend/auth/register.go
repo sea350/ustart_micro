@@ -3,47 +3,27 @@ package auth
 import (
 	"context"
 	"errors"
-	"strings"
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/olivere/elastic"
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
 )
 
-// Register does what it does
+// Register does what it does, works with pb req
 func (eclient *Eclient) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
+
+	//Lock just to make sure no two people can sign up with the same email at the same time
+	newUserLock.Lock()
+	defer newUserLock.Unlock()
+
 	// make sure email is not in use
-	termQuery := elastic.NewTermQuery("Email", strings.ToLower(req.Email))
-	res, err := eclient.client.Search().
-		Index(eIndex).
-		Query(termQuery).
-		Do(ctx)
-
-	if err != nil {
-		return &authpb.RegisterResponse{}, err
+	exists := eclient.EmailExists(ctx, req.Email)
+	if exists {
+		return &authpb.RegisterResponse{}, errors.New("Email in use")
 	}
 
-	if res.Hits.TotalHits > 0 {
-		return &authpb.RegisterResponse{}, errors.New("Email is in use")
-	}
-
-	exists, err := eclient.client.IndexExists(eIndex).Do(ctx)
-	if err != nil {
-		return &authpb.RegisterResponse{}, err
-	}
-
-	// If the index doesn't exist, create it and return error.
-	if !exists {
-		createIndex, err := eclient.client.CreateIndex(eIndex).BodyString("").Do(ctx)
-		if err != nil {
-			panic(err)
-		}
-		// TODO fix this.
-		if !createIndex.Acknowledged {
-			return &authpb.RegisterResponse{}, errors.New("Index not acknowledged")
-		}
-	}
+	//before instering into database make sure the index exists
+	eclient.IndexExists(ctx)
 
 	// encrypt the password
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), 12)
@@ -52,6 +32,9 @@ func (eclient *Eclient) Register(ctx context.Context, req *authpb.RegisterReques
 	}
 
 	store := authpb.Stored{Email: req.Email, Password: string(hashedPass)}
+
+	//GENERATE TOKEN HERE
+
 	//NOT SURE ABOUT THE BODY JSON
 	newUser, err := eclient.client.Index().
 		Index(eIndex).

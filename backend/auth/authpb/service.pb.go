@@ -7,6 +7,11 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
 var _ = fmt.Errorf
@@ -28,7 +33,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{0}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{0}
 }
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Empty.Unmarshal(m, b)
@@ -49,7 +54,7 @@ func (m *Empty) XXX_DiscardUnknown() {
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 type AuthenticateRequest struct {
-	Email                *Stored  `protobuf:"bytes,1,opt,name=Email,json=email,proto3" json:"Email,omitempty"`
+	Email                string   `protobuf:"bytes,1,opt,name=Email,json=email,proto3" json:"Email,omitempty"`
 	Challenge            string   `protobuf:"bytes,2,opt,name=Challenge,json=challenge,proto3" json:"Challenge,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -60,7 +65,7 @@ func (m *AuthenticateRequest) Reset()         { *m = AuthenticateRequest{} }
 func (m *AuthenticateRequest) String() string { return proto.CompactTextString(m) }
 func (*AuthenticateRequest) ProtoMessage()    {}
 func (*AuthenticateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{1}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{1}
 }
 func (m *AuthenticateRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AuthenticateRequest.Unmarshal(m, b)
@@ -80,11 +85,11 @@ func (m *AuthenticateRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AuthenticateRequest proto.InternalMessageInfo
 
-func (m *AuthenticateRequest) GetEmail() *Stored {
+func (m *AuthenticateRequest) GetEmail() string {
 	if m != nil {
 		return m.Email
 	}
-	return nil
+	return ""
 }
 
 func (m *AuthenticateRequest) GetChallenge() string {
@@ -95,6 +100,7 @@ func (m *AuthenticateRequest) GetChallenge() string {
 }
 
 type AuthenticateResponse struct {
+	Success              bool     `protobuf:"varint,1,opt,name=Success,json=success,proto3" json:"Success,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -104,7 +110,7 @@ func (m *AuthenticateResponse) Reset()         { *m = AuthenticateResponse{} }
 func (m *AuthenticateResponse) String() string { return proto.CompactTextString(m) }
 func (*AuthenticateResponse) ProtoMessage()    {}
 func (*AuthenticateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{2}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{2}
 }
 func (m *AuthenticateResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AuthenticateResponse.Unmarshal(m, b)
@@ -124,6 +130,13 @@ func (m *AuthenticateResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_AuthenticateResponse proto.InternalMessageInfo
 
+func (m *AuthenticateResponse) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
+}
+
 type RegisterRequest struct {
 	Email                string   `protobuf:"bytes,1,opt,name=Email,json=email,proto3" json:"Email,omitempty"`
 	Password             string   `protobuf:"bytes,2,opt,name=Password,json=password,proto3" json:"Password,omitempty"`
@@ -136,7 +149,7 @@ func (m *RegisterRequest) Reset()         { *m = RegisterRequest{} }
 func (m *RegisterRequest) String() string { return proto.CompactTextString(m) }
 func (*RegisterRequest) ProtoMessage()    {}
 func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{3}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{3}
 }
 func (m *RegisterRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RegisterRequest.Unmarshal(m, b)
@@ -172,6 +185,7 @@ func (m *RegisterRequest) GetPassword() string {
 
 type RegisterResponse struct {
 	UID                  string   `protobuf:"bytes,1,opt,name=UID,json=uID,proto3" json:"UID,omitempty"`
+	Token                string   `protobuf:"bytes,2,opt,name=Token,json=token,proto3" json:"Token,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -181,7 +195,7 @@ func (m *RegisterResponse) Reset()         { *m = RegisterResponse{} }
 func (m *RegisterResponse) String() string { return proto.CompactTextString(m) }
 func (*RegisterResponse) ProtoMessage()    {}
 func (*RegisterResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{4}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{4}
 }
 func (m *RegisterResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RegisterResponse.Unmarshal(m, b)
@@ -208,8 +222,15 @@ func (m *RegisterResponse) GetUID() string {
 	return ""
 }
 
+func (m *RegisterResponse) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
 type DeleteRequest struct {
-	Email                *Stored  `protobuf:"bytes,1,opt,name=Email,json=email,proto3" json:"Email,omitempty"`
+	Email                string   `protobuf:"bytes,1,opt,name=Email,json=email,proto3" json:"Email,omitempty"`
 	Challenge            string   `protobuf:"bytes,2,opt,name=Challenge,json=challenge,proto3" json:"Challenge,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -220,7 +241,7 @@ func (m *DeleteRequest) Reset()         { *m = DeleteRequest{} }
 func (m *DeleteRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteRequest) ProtoMessage()    {}
 func (*DeleteRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{5}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{5}
 }
 func (m *DeleteRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteRequest.Unmarshal(m, b)
@@ -240,11 +261,11 @@ func (m *DeleteRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DeleteRequest proto.InternalMessageInfo
 
-func (m *DeleteRequest) GetEmail() *Stored {
+func (m *DeleteRequest) GetEmail() string {
 	if m != nil {
 		return m.Email
 	}
-	return nil
+	return ""
 }
 
 func (m *DeleteRequest) GetChallenge() string {
@@ -264,7 +285,7 @@ func (m *DeleteResponse) Reset()         { *m = DeleteResponse{} }
 func (m *DeleteResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteResponse) ProtoMessage()    {}
 func (*DeleteResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{6}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{6}
 }
 func (m *DeleteResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteResponse.Unmarshal(m, b)
@@ -285,7 +306,7 @@ func (m *DeleteResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_DeleteResponse proto.InternalMessageInfo
 
 type ChangePasswordRequest struct {
-	Email                *Stored  `protobuf:"bytes,1,opt,name=Email,json=email,proto3" json:"Email,omitempty"`
+	Email                string   `protobuf:"bytes,1,opt,name=Email,json=email,proto3" json:"Email,omitempty"`
 	Challenge            string   `protobuf:"bytes,2,opt,name=Challenge,json=challenge,proto3" json:"Challenge,omitempty"`
 	NewPassword          string   `protobuf:"bytes,3,opt,name=NewPassword,json=newPassword,proto3" json:"NewPassword,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -297,7 +318,7 @@ func (m *ChangePasswordRequest) Reset()         { *m = ChangePasswordRequest{} }
 func (m *ChangePasswordRequest) String() string { return proto.CompactTextString(m) }
 func (*ChangePasswordRequest) ProtoMessage()    {}
 func (*ChangePasswordRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{7}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{7}
 }
 func (m *ChangePasswordRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChangePasswordRequest.Unmarshal(m, b)
@@ -317,11 +338,11 @@ func (m *ChangePasswordRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ChangePasswordRequest proto.InternalMessageInfo
 
-func (m *ChangePasswordRequest) GetEmail() *Stored {
+func (m *ChangePasswordRequest) GetEmail() string {
 	if m != nil {
 		return m.Email
 	}
-	return nil
+	return ""
 }
 
 func (m *ChangePasswordRequest) GetChallenge() string {
@@ -348,7 +369,7 @@ func (m *ChangePasswordResponse) Reset()         { *m = ChangePasswordResponse{}
 func (m *ChangePasswordResponse) String() string { return proto.CompactTextString(m) }
 func (*ChangePasswordResponse) ProtoMessage()    {}
 func (*ChangePasswordResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{8}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{8}
 }
 func (m *ChangePasswordResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ChangePasswordResponse.Unmarshal(m, b)
@@ -379,7 +400,7 @@ func (m *LookupRequest) Reset()         { *m = LookupRequest{} }
 func (m *LookupRequest) String() string { return proto.CompactTextString(m) }
 func (*LookupRequest) ProtoMessage()    {}
 func (*LookupRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{9}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{9}
 }
 func (m *LookupRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LookupRequest.Unmarshal(m, b)
@@ -407,7 +428,7 @@ func (m *LookupRequest) GetEmail() string {
 }
 
 type LookupResponse struct {
-	Email                *Stored  `protobuf:"bytes,1,opt,name=Email,json=email,proto3" json:"Email,omitempty"`
+	Exists               bool     `protobuf:"varint,1,opt,name=Exists,json=exists,proto3" json:"Exists,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -417,7 +438,7 @@ func (m *LookupResponse) Reset()         { *m = LookupResponse{} }
 func (m *LookupResponse) String() string { return proto.CompactTextString(m) }
 func (*LookupResponse) ProtoMessage()    {}
 func (*LookupResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_service_679ed93c34bb3e19, []int{10}
+	return fileDescriptor_service_0de6cb27bbad5167, []int{10}
 }
 func (m *LookupResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LookupResponse.Unmarshal(m, b)
@@ -437,11 +458,11 @@ func (m *LookupResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_LookupResponse proto.InternalMessageInfo
 
-func (m *LookupResponse) GetEmail() *Stored {
+func (m *LookupResponse) GetExists() bool {
 	if m != nil {
-		return m.Email
+		return m.Exists
 	}
-	return nil
+	return false
 }
 
 func init() {
@@ -458,33 +479,237 @@ func init() {
 	proto.RegisterType((*LookupResponse)(nil), "auth.service.LookupResponse")
 }
 
-func init() { proto.RegisterFile("service.proto", fileDescriptor_service_679ed93c34bb3e19) }
+// Reference imports to suppress errors if they are not otherwise used.
+var _ context.Context
+var _ grpc.ClientConn
 
-var fileDescriptor_service_679ed93c34bb3e19 = []byte{
-	// 394 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xb4, 0x93, 0x4f, 0x4f, 0xe2, 0x40,
-	0x18, 0xc6, 0xc3, 0x76, 0x61, 0xdb, 0x97, 0x3f, 0x4b, 0x06, 0x96, 0x90, 0x2e, 0xbb, 0x61, 0x67,
-	0xd9, 0x64, 0xbd, 0xf4, 0x80, 0x47, 0x4f, 0x0a, 0x1e, 0x48, 0x8c, 0x31, 0x35, 0x24, 0x46, 0x13,
-	0x93, 0x02, 0x6f, 0xa0, 0xb1, 0x74, 0x6a, 0x67, 0x2a, 0xf1, 0xea, 0x17, 0xf0, 0x2b, 0xdb, 0xd2,
-	0xa9, 0x30, 0x0d, 0x12, 0x0f, 0x7a, 0x64, 0x9e, 0x87, 0xdf, 0x3c, 0xf3, 0x3e, 0x6f, 0xa1, 0xca,
-	0x31, 0x7c, 0x70, 0xa7, 0x68, 0x05, 0x21, 0x13, 0x8c, 0x54, 0x9c, 0x48, 0x2c, 0x2c, 0x79, 0x66,
-	0x56, 0x96, 0x6c, 0x86, 0x1e, 0x4f, 0x35, 0xfa, 0x0d, 0x8a, 0xa7, 0xcb, 0x40, 0x3c, 0xd2, 0x5b,
-	0x68, 0x1c, 0xc7, 0x36, 0xf4, 0x85, 0x3b, 0x75, 0x04, 0xda, 0x78, 0x1f, 0x21, 0x17, 0xe4, 0x20,
-	0xd1, 0x1d, 0xd7, 0x6b, 0x17, 0xba, 0x85, 0xff, 0xe5, 0x7e, 0xc3, 0x5a, 0xb3, 0x24, 0xe2, 0x52,
-	0xb0, 0x10, 0x67, 0x76, 0x11, 0x13, 0x07, 0xe9, 0x80, 0x31, 0x58, 0x38, 0x9e, 0x87, 0xfe, 0x1c,
-	0xdb, 0x5f, 0x62, 0xbb, 0x61, 0x1b, 0xd3, 0xec, 0x80, 0xb6, 0xa0, 0xa9, 0xf2, 0x79, 0xc0, 0x7c,
-	0x8e, 0x74, 0x00, 0xdf, 0x6d, 0x9c, 0xbb, 0x5c, 0x60, 0x98, 0xdd, 0xd9, 0xdc, 0xbe, 0xd3, 0xc8,
-	0xf0, 0x26, 0xe8, 0x17, 0x0e, 0xe7, 0x2b, 0x16, 0xce, 0x24, 0x5d, 0x0f, 0xe4, 0x6f, 0xda, 0x83,
-	0xfa, 0x06, 0x92, 0x82, 0x49, 0x1d, 0xb4, 0xf1, 0x68, 0x28, 0x19, 0x5a, 0x34, 0x1a, 0xd2, 0x2b,
-	0xa8, 0x0e, 0xd1, 0xc3, 0x4f, 0x78, 0x5c, 0x1d, 0x6a, 0x19, 0x59, 0x3e, 0xeb, 0xa9, 0x00, 0x3f,
-	0xe2, 0x3f, 0xc4, 0x62, 0x16, 0xfa, 0xa3, 0x2f, 0x25, 0x5d, 0x28, 0x9f, 0xe3, 0xea, 0x75, 0x26,
-	0xda, 0x5a, 0x2f, 0xfb, 0x9b, 0x23, 0xda, 0x86, 0x56, 0x3e, 0x83, 0x8c, 0xf7, 0x0f, 0xaa, 0x67,
-	0x8c, 0xdd, 0x45, 0xc1, 0xde, 0x99, 0xd3, 0x23, 0xa8, 0x65, 0x36, 0x39, 0xd5, 0xf7, 0xa7, 0xef,
-	0x3f, 0x6b, 0xf0, 0x35, 0xa9, 0x9c, 0x8c, 0xa1, 0xb2, 0x5d, 0x3d, 0xf9, 0x63, 0x6d, 0x2f, 0xa4,
-	0xb5, 0x63, 0xed, 0x4c, 0xba, 0xcf, 0x22, 0xa3, 0x8c, 0x40, 0xcf, 0x4a, 0x27, 0xbf, 0x54, 0x7f,
-	0x6e, 0xa3, 0xcc, 0xdf, 0x6f, 0xc9, 0x12, 0x35, 0x80, 0x52, 0xda, 0x1f, 0xf9, 0xa9, 0x3a, 0x95,
-	0x7d, 0x31, 0x3b, 0xbb, 0x45, 0x09, 0xb9, 0x81, 0x9a, 0x3a, 0x6d, 0xf2, 0x57, 0xf5, 0xef, 0xdc,
-	0x07, 0xb3, 0xb7, 0xdf, 0xb4, 0x49, 0x98, 0x36, 0x91, 0x4f, 0xa8, 0xd4, 0x98, 0x4f, 0xa8, 0x96,
-	0x77, 0xa2, 0x5f, 0x97, 0x12, 0x39, 0x98, 0x4c, 0x4a, 0xeb, 0xaf, 0xff, 0xf0, 0x25, 0x00, 0x00,
-	0xff, 0xff, 0xe0, 0xe8, 0x1f, 0xb8, 0x2a, 0x04, 0x00, 0x00,
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
+
+// AuthClient is the client API for Auth service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type AuthClient interface {
+	Authenticate(ctx context.Context, in *AuthenticateRequest, opts ...grpc.CallOption) (*AuthenticateResponse, error)
+	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
+	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error)
+	Lookup(ctx context.Context, in *LookupRequest, opts ...grpc.CallOption) (*LookupResponse, error)
+}
+
+type authClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewAuthClient(cc *grpc.ClientConn) AuthClient {
+	return &authClient{cc}
+}
+
+func (c *authClient) Authenticate(ctx context.Context, in *AuthenticateRequest, opts ...grpc.CallOption) (*AuthenticateResponse, error) {
+	out := new(AuthenticateResponse)
+	err := c.cc.Invoke(ctx, "/auth.service.Auth/Authenticate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
+	out := new(RegisterResponse)
+	err := c.cc.Invoke(ctx, "/auth.service.Auth/Register", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error) {
+	out := new(DeleteResponse)
+	err := c.cc.Invoke(ctx, "/auth.service.Auth/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error) {
+	out := new(ChangePasswordResponse)
+	err := c.cc.Invoke(ctx, "/auth.service.Auth/ChangePassword", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) Lookup(ctx context.Context, in *LookupRequest, opts ...grpc.CallOption) (*LookupResponse, error) {
+	out := new(LookupResponse)
+	err := c.cc.Invoke(ctx, "/auth.service.Auth/Lookup", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AuthServer is the server API for Auth service.
+type AuthServer interface {
+	Authenticate(context.Context, *AuthenticateRequest) (*AuthenticateResponse, error)
+	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
+	ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error)
+	Lookup(context.Context, *LookupRequest) (*LookupResponse, error)
+}
+
+func RegisterAuthServer(s *grpc.Server, srv AuthServer) {
+	s.RegisterService(&_Auth_serviceDesc, srv)
+}
+
+func _Auth_Authenticate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthenticateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).Authenticate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.service.Auth/Authenticate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).Authenticate(ctx, req.(*AuthenticateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegisterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).Register(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.service.Auth/Register",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).Register(ctx, req.(*RegisterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.service.Auth/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).Delete(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_ChangePassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangePasswordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).ChangePassword(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.service.Auth/ChangePassword",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).ChangePassword(ctx, req.(*ChangePasswordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_Lookup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LookupRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).Lookup(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/auth.service.Auth/Lookup",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).Lookup(ctx, req.(*LookupRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Auth_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "auth.service.Auth",
+	HandlerType: (*AuthServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Authenticate",
+			Handler:    _Auth_Authenticate_Handler,
+		},
+		{
+			MethodName: "Register",
+			Handler:    _Auth_Register_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _Auth_Delete_Handler,
+		},
+		{
+			MethodName: "ChangePassword",
+			Handler:    _Auth_ChangePassword_Handler,
+		},
+		{
+			MethodName: "Lookup",
+			Handler:    _Auth_Lookup_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "service.proto",
+}
+
+func init() { proto.RegisterFile("service.proto", fileDescriptor_service_0de6cb27bbad5167) }
+
+var fileDescriptor_service_0de6cb27bbad5167 = []byte{
+	// 400 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xa4, 0x53, 0x4d, 0xaf, 0xd2, 0x40,
+	0x14, 0x0d, 0x56, 0x4a, 0xb9, 0x7c, 0x48, 0x46, 0x24, 0x4d, 0x45, 0x83, 0xa3, 0x26, 0xac, 0x1a,
+	0xa3, 0x3b, 0x77, 0x0a, 0x2c, 0x9a, 0x18, 0x63, 0xaa, 0x6c, 0x74, 0x55, 0xca, 0x0d, 0x34, 0x94,
+	0x4e, 0xed, 0x4c, 0x45, 0x7f, 0x85, 0x7f, 0xf9, 0xf5, 0x63, 0xfa, 0x60, 0x1a, 0x5e, 0x37, 0x2c,
+	0xef, 0x9c, 0xd3, 0x73, 0xce, 0xdc, 0x33, 0x85, 0x01, 0xc7, 0xe4, 0x4f, 0xe0, 0xa3, 0x1d, 0x27,
+	0x4c, 0x30, 0xd2, 0xf7, 0x52, 0xb1, 0xb7, 0xe5, 0x99, 0xd5, 0x3f, 0xb2, 0x2d, 0x86, 0xbc, 0xc4,
+	0x68, 0x07, 0xda, 0xab, 0x63, 0x2c, 0xfe, 0x51, 0x07, 0x9e, 0x7e, 0xca, 0x68, 0x18, 0x89, 0xc0,
+	0xf7, 0x04, 0xba, 0xf8, 0x3b, 0x45, 0x2e, 0xc8, 0x38, 0xc7, 0xbd, 0x20, 0x34, 0x5b, 0xb3, 0xd6,
+	0xbc, 0xeb, 0xb6, 0x31, 0x1f, 0xc8, 0x14, 0xba, 0x8b, 0xbd, 0x17, 0x86, 0x18, 0xed, 0xd0, 0x7c,
+	0x54, 0x20, 0x5d, 0xbf, 0x3a, 0xa0, 0xef, 0x60, 0xac, 0x4a, 0xf1, 0x98, 0x45, 0x1c, 0x89, 0x09,
+	0x9d, 0xef, 0xa9, 0xef, 0x23, 0xe7, 0x85, 0x9a, 0xe1, 0x76, 0x78, 0x39, 0xd2, 0x05, 0x3c, 0x71,
+	0x71, 0x17, 0x70, 0x81, 0x49, 0xb3, 0xb1, 0x05, 0xc6, 0x37, 0x8f, 0xf3, 0x13, 0x4b, 0xb6, 0xd2,
+	0xd7, 0x88, 0xe5, 0x4c, 0x3f, 0xc2, 0xe8, 0x2c, 0x22, 0x2d, 0x47, 0xa0, 0xad, 0x9d, 0xa5, 0xd4,
+	0xd0, 0x52, 0x67, 0x99, 0xeb, 0xfe, 0x60, 0x07, 0x8c, 0xe4, 0xe7, 0x6d, 0x91, 0x0f, 0x59, 0x80,
+	0xc1, 0x12, 0x43, 0xbc, 0xed, 0xde, 0x23, 0x18, 0x56, 0x22, 0xa5, 0x3d, 0x3d, 0xc2, 0xb3, 0x8c,
+	0x9f, 0x61, 0x55, 0xe8, 0x1b, 0xe4, 0xc9, 0x0c, 0x7a, 0x5f, 0xf1, 0x74, 0x7f, 0x7d, 0xad, 0xc0,
+	0x7b, 0xd1, 0xf9, 0x88, 0x9a, 0x30, 0xa9, 0xdb, 0xc9, 0x20, 0x6f, 0x61, 0xf0, 0x85, 0xb1, 0x43,
+	0x1a, 0x37, 0x06, 0xa0, 0x73, 0x18, 0x56, 0x34, 0xb9, 0xc0, 0x09, 0xe8, 0xab, 0xbf, 0xd9, 0x4e,
+	0xab, 0xca, 0x74, 0x2c, 0xa6, 0xf7, 0xff, 0x35, 0x78, 0x9c, 0x97, 0x4c, 0xd6, 0xd0, 0xbf, 0x2c,
+	0x9b, 0xbc, 0xb2, 0x2f, 0x5f, 0x9b, 0x7d, 0xe5, 0x4d, 0x59, 0xb4, 0x89, 0x22, 0x7d, 0x1d, 0x30,
+	0xaa, 0x32, 0xc9, 0x0b, 0x95, 0x5f, 0x7b, 0x29, 0xd6, 0xcb, 0x87, 0x60, 0x29, 0xb5, 0x00, 0xbd,
+	0xac, 0x85, 0x3c, 0x57, 0x99, 0x4a, 0xe3, 0xd6, 0xf4, 0x3a, 0x28, 0x45, 0x7e, 0xc1, 0x50, 0x5d,
+	0x2d, 0x79, 0xad, 0xf2, 0xaf, 0xf6, 0x6c, 0xbd, 0x69, 0x26, 0x9d, 0x13, 0x96, 0x6b, 0xaf, 0x27,
+	0x54, 0x3a, 0xab, 0x27, 0x54, 0x9b, 0xfa, 0x6c, 0xfc, 0xd4, 0x73, 0x38, 0xde, 0x6c, 0xf4, 0xe2,
+	0xd7, 0xfe, 0x70, 0x17, 0x00, 0x00, 0xff, 0xff, 0x03, 0xe4, 0x53, 0x98, 0x07, 0x04, 0x00, 0x00,
 }

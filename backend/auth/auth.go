@@ -16,11 +16,14 @@ type Eclient struct {
 
 // New returns a new Eclient auth server
 func New(cfg *Config) (*Eclient, error) {
-	client := elastic.NewClient(elastic.SetURL(cfg.ElasticAddr))
+	client, err := elastic.NewClient(elastic.SetURL(cfg.ElasticAddr))
+	if err != nil {
+		return nil, err
+	}
 
 	ecl := &Eclient{
 		client: client,
 	}
 
-	return client, nil
+	return ecl, nil
 }
