@@ -24,6 +24,10 @@ func (eclient *Eclient) Authenticate(ctx context.Context, req *authpb.Authentica
 	if err != nil {
 		return &authpb.AuthenticateResponse{}, err
 	}
+	//if there are no hits, then no one exists by that email
+	if res.Hits.TotalHits < 1 {
+		return &authpb.AuthenticateResponse{}, errors.New("No documents found with that email")
+	}
 
 	//there should never be more than one result. If there is, there is an issue
 	if res.Hits.TotalHits > 1 {
@@ -31,10 +35,10 @@ func (eclient *Eclient) Authenticate(ctx context.Context, req *authpb.Authentica
 	}
 
 	var usr authpb.Stored
-	//var ID string //this is  here in case it is needed in the future
+	var ID string
 
 	for _, element := range res.Hits.Hits {
-		//ID = element.Id
+		ID = element.Id
 		err := json.Unmarshal(*element.Source, &usr)
 		if err != nil {
 			return &authpb.AuthenticateResponse{}, err
@@ -48,5 +52,5 @@ func (eclient *Eclient) Authenticate(ctx context.Context, req *authpb.Authentica
 		return &authpb.AuthenticateResponse{}, err
 	}
 
-	return &authpb.AuthenticateResponse{Success: true}, nil
+	return &authpb.AuthenticateResponse{UID: ID}, nil
 }

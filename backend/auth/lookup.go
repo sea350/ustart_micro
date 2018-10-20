@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"errors"
 	"strings"
 
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
@@ -11,6 +12,7 @@ import (
 
 //Lookup checks elastic search if a document exists with the criteria of the req
 func (eclient *Eclient) Lookup(ctx context.Context, req *authpb.LookupRequest) (*authpb.LookupResponse, error) {
+	//search for docs with the email specified in req
 	termQuery := elastic.NewTermQuery("Email", strings.ToLower(req.Email))
 	res, err := eclient.client.Search().
 		Index(eIndex).
@@ -21,8 +23,14 @@ func (eclient *Eclient) Lookup(ctx context.Context, req *authpb.LookupRequest) (
 		return &authpb.LookupResponse{}, err
 	}
 
-	if res.Hits.TotalHits > 0 {
+	//if there are no hits, then no one exists by that email
+	if res.Hits.TotalHits < 1 {
 		return &authpb.LookupResponse{}, nil
+	}
+
+	//if theres more than a single result then a problem has occurred
+	if res.Hits.Hits > 1 {
+		return &authpb.LookupResponse{}, errors.New("More than one result found")
 	}
 	return &authpb.LookupResponse{Exists: true}, nil
 }
