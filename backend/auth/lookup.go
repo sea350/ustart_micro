@@ -29,7 +29,7 @@ func (eclient *Eclient) Lookup(ctx context.Context, req *authpb.LookupRequest) (
 	}
 
 	//if theres more than a single result then a problem has occurred
-	if res.Hits.Hits > 1 {
+	if res.Hits.TotalHits > 1 {
 		return &authpb.LookupResponse{}, errors.New("More than one result found")
 	}
 	return &authpb.LookupResponse{Exists: true}, nil
