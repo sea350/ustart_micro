@@ -17,13 +17,31 @@ func (eclient *Eclient) Register(ctx context.Context, req *authpb.RegisterReques
 	defer newUserLock.Unlock()
 
 	// make sure email is not in use
-	exists := eclient.EmailExists(ctx, req.Email)
-	if exists {
+	res, err := eclient.Lookup(ctx, &authpb.LookupRequest{Email: req.Email})
+	if err != nil {
+		return &authpb.RegisterResponse{}, err
+	}
+	if res.Exists {
 		return &authpb.RegisterResponse{}, errors.New("Email in use")
 	}
 
 	//before instering into database make sure the index exists
-	eclient.IndexExists(ctx)
+	exists, err := eclient.client.IndexExists(eIndex).Do(ctx)
+	if err != nil {
+		panic(err)
+	}
+
+	// If the index doesn't exist, create it. there shouldnt be any errors but if there are they are critical
+	if !exists {
+		createIndex, err := eclient.client.CreateIndex(eIndex).BodyString("").Do(ctx)
+		if err != nil {
+			panic(err)
+		}
+		// TODO fix this.
+		if !createIndex.Acknowledged {
+			panic(err)
+		}
+	}
 
 	// encrypt the password
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), 12)
