@@ -4,14 +4,13 @@ import (
 	elastic "github.com/olivere/elastic"
 )
 
-const (
-	eIndex = "test-auth_data"
-	eType  = "AUTH"
-)
+const ()
 
 // ElasticAuth is an implementation of the auth service defined in service.proto
 type ElasticAuth struct {
 	client *elastic.Client
+	eIndex string
+	eType  string
 }
 
 // New returns a new Eclient auth server
@@ -23,6 +22,8 @@ func New(cfg *Config) (*ElasticAuth, error) {
 
 	ecl := &ElasticAuth{
 		client: client,
+		eIndex: cfg.EIndex,
+		eType:  cfg.EType,
 	}
 
 	return ecl, nil

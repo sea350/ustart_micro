@@ -10,14 +10,14 @@ import (
 )
 
 // Register does what it does, works with pb req
-func (eclient *ElasticAuth) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
+func (eauth *ElasticAuth) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
 
 	//Lock just to make sure no two people can sign up with the same email at the same time
 	newUserLock.Lock()
 	defer newUserLock.Unlock()
 
 	// make sure email is not in use
-	res, err := eclient.Lookup(ctx, &authpb.LookupRequest{Email: req.Email})
+	res, err := eauth.Lookup(ctx, &authpb.LookupRequest{Email: req.Email})
 	if err != nil {
 		return &authpb.RegisterResponse{}, err
 	}
@@ -26,14 +26,14 @@ func (eclient *ElasticAuth) Register(ctx context.Context, req *authpb.RegisterRe
 	}
 
 	//before instering into database make sure the index exists
-	exists, err := eclient.client.IndexExists(eIndex).Do(ctx)
+	exists, err := eauth.client.IndexExists(eauth.eIndex).Do(ctx)
 	if err != nil {
 		panic(err)
 	}
 
 	// If the index doesn't exist, create it. there shouldnt be any errors but if there are they are critical
 	if !exists {
-		createIndex, err := eclient.client.CreateIndex(eIndex).BodyString("").Do(ctx)
+		createIndex, err := eauth.client.CreateIndex(eauth.eIndex).BodyString("").Do(ctx)
 		if err != nil {
 			panic(err)
 		}
@@ -54,9 +54,9 @@ func (eclient *ElasticAuth) Register(ctx context.Context, req *authpb.RegisterRe
 	//GENERATE TOKEN HERE
 
 	//NOT SURE ABOUT THE BODY JSON
-	newUser, err := eclient.client.Index().
-		Index(eIndex).
-		Type(eType).
+	newUser, err := eauth.client.Index().
+		Index(eauth.eIndex).
+		Type(eauth.eType).
 		BodyJson(store).
 		Do(ctx)
 
