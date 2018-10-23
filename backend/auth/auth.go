@@ -9,19 +9,19 @@ const (
 	eType  = "AUTH"
 )
 
-// Eclient is an implementation of the auth service defined in service.proto
-type Eclient struct {
+// ElasticAuth is an implementation of the auth service defined in service.proto
+type ElasticAuth struct {
 	client *elastic.Client
 }
 
 // New returns a new Eclient auth server
-func New(cfg *Config) (*Eclient, error) {
+func New(cfg *Config) (*ElasticAuth, error) {
 	client, err := elastic.NewClient(elastic.SetURL(cfg.ElasticAddr))
 	if err != nil {
 		return nil, err
 	}
 
-	ecl := &Eclient{
+	ecl := &ElasticAuth{
 		client: client,
 	}
 

@@ -10,7 +10,7 @@ import (
 )
 
 // Register does what it does, works with pb req
-func (eclient *Eclient) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
+func (eclient *ElasticAuth) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
 
 	//Lock just to make sure no two people can sign up with the same email at the same time
 	newUserLock.Lock()

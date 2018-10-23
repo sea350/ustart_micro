@@ -9,7 +9,7 @@ import (
 )
 
 //ChangePassword automatically authenticates and then updates
-func (eclient *Eclient) ChangePassword(ctx context.Context, req *authpb.ChangePasswordRequest) (*authpb.ChangePasswordResponse, error) {
+func (eclient *ElasticAuth) ChangePassword(ctx context.Context, req *authpb.ChangePasswordRequest) (*authpb.ChangePasswordResponse, error) {
 	//submit an authentication request to confirm valid acc info
 	res, err := eclient.Authenticate(ctx, &authpb.AuthenticateRequest{Email: req.Email, Challenge: req.Challenge})
 	if err != nil {

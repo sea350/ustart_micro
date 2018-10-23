@@ -12,7 +12,7 @@ import (
 )
 
 //Authenticate validates an authentication request, works with pb req
-func (eclient *Eclient) Authenticate(ctx context.Context, req *authpb.AuthenticateRequest) (*authpb.AuthenticateResponse, error) {
+func (eclient *ElasticAuth) Authenticate(ctx context.Context, req *authpb.AuthenticateRequest) (*authpb.AuthenticateResponse, error) {
 
 	//pull soted data attached to the email
 	query := elastic.NewTermQuery("Email", strings.ToLower(req.Email))

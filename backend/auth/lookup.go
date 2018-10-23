@@ -11,7 +11,7 @@ import (
 )
 
 //Lookup checks elastic search if a document exists with the criteria of the req
-func (eclient *Eclient) Lookup(ctx context.Context, req *authpb.LookupRequest) (*authpb.LookupResponse, error) {
+func (eclient *ElasticAuth) Lookup(ctx context.Context, req *authpb.LookupRequest) (*authpb.LookupResponse, error) {
 	//search for docs with the email specified in req
 	termQuery := elastic.NewTermQuery("Email", strings.ToLower(req.Email))
 	res, err := eclient.client.Search().
