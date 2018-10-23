@@ -9,9 +9,9 @@ import (
 )
 
 //ChangePassword automatically authenticates and then updates
-func (eauth *ElasticAuth) ChangePassword(ctx context.Context, req *authpb.ChangePasswordRequest) (*authpb.ChangePasswordResponse, error) {
+func (auth *Auth) ChangePassword(ctx context.Context, req *authpb.ChangePasswordRequest) (*authpb.ChangePasswordResponse, error) {
 	//submit an authentication request to confirm valid acc info
-	res, err := eauth.Authenticate(ctx, &authpb.AuthenticateRequest{Email: req.Email, Challenge: req.Challenge})
+	_, err := auth.Authenticate(ctx, &authpb.AuthenticateRequest{Email: req.Email, Challenge: req.Challenge})
 	if err != nil {
 		return &authpb.ChangePasswordResponse{}, err
 	}
@@ -21,11 +21,7 @@ func (eauth *ElasticAuth) ChangePassword(ctx context.Context, req *authpb.Change
 		return &authpb.ChangePasswordResponse{}, err
 	}
 
-	_, err = eauth.client.Update().
-		Index(eauth.eIndex).
-		Id(res.UID).
-		Doc(map[string]interface{}{"Password": hashedPass}).
-		Do(ctx)
+	err = auth.eclient.ChangePassword(ctx, req.Email, string(hashedPass))
 
 	return &authpb.ChangePasswordResponse{}, err
 

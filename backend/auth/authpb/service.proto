@@ -22,7 +22,7 @@ message AuthenticateRequest {
 }
 
 message AuthenticateResponse {
-  string UID = 1;
+  string UUID = 1;
 }
 
 message RegisterRequest{

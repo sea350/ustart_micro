@@ -7,7 +7,7 @@ import (
 // ElasticAuthRESTAPI implements a REST api
 // as a wrapper around the auth package.
 type ElasticAuthRESTAPI struct {
-	eauth *auth.ElasticAuth
+	eauth *auth.Auth
 }
 
 // New creates a new auth api, given the config
