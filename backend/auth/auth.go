@@ -1,6 +1,9 @@
 package auth
 
 import (
+	"context"
+	"time"
+
 	elastic "github.com/olivere/elastic"
 )
 
@@ -13,7 +16,7 @@ type ElasticAuth struct {
 	eType  string
 }
 
-// New returns a new Eclient auth server
+// New returns a new Eclient auth service
 func New(cfg *Config) (*ElasticAuth, error) {
 	client, err := elastic.NewClient(elastic.SetURL(cfg.ElasticAddr))
 	if err != nil {
@@ -26,5 +29,10 @@ func New(cfg *Config) (*ElasticAuth, error) {
 		eType:  cfg.EType,
 	}
 
-	return ecl, nil
+	pingCtx, cancel := context.WithTimeout(context.Background(), time.Second*2)
+	defer cancel()
+
+	_, _, err = ecl.client.Ping(cfg.ElasticAddr).Do(pingCtx)
+
+	return ecl, err
 }
