@@ -13,12 +13,7 @@ type Auth struct {
 
 // New returns a new Eclient auth service
 func New(cfg *Config) (*Auth, error) {
-	conf := &elasticstore.Config{
-		ElasticAddr: cfg.ElasticAddr,
-		EIndex:      cfg.EIndex,
-		EType:       cfg.EType,
-	}
-	estor, err := elasticstore.New(conf)
+	estor, err := elasticstore.New(cfg.ElasticConfig)
 
 	auth := &Auth{
 		eclient: estor,

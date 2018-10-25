@@ -9,21 +9,23 @@ import (
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
 )
 
-// Register wraps backend/auth/register.go
-func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
+// ChangePassword wraps backend/auth/changePassword.go
+func (rapi *RESTAPI) ChangePassword(w http.ResponseWriter, req *http.Request) {
 	regCtx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
 	defer cancel()
 
 	req.ParseForm()
 	email := req.Form.Get("email")
 	pass := req.Form.Get("password")
+	newPass := req.Form.Get("newPassword")
 
-	authReq := &authpb.RegisterRequest{
-		Email:    email,
-		Password: pass,
+	chPassReq := &authpb.ChangePasswordRequest{
+		Email:       email,
+		Challenge:   pass,
+		NewPassword: newPass,
 	}
 
-	resp, err := rapi.auth.Register(regCtx, authReq)
+	resp, err := rapi.auth.ChangePassword(regCtx, chPassReq)
 	if err != nil {
 		json.NewEncoder(w).Encode(struct {
 			errMsg error

@@ -9,8 +9,8 @@ import (
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
 )
 
-// Register wraps backend/auth/register.go
-func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
+// Authenticate wraps backend/auth/authenticate.go
+func (rapi *RESTAPI) Authenticate(w http.ResponseWriter, req *http.Request) {
 	regCtx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
 	defer cancel()
 
@@ -18,12 +18,12 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 	email := req.Form.Get("email")
 	pass := req.Form.Get("password")
 
-	authReq := &authpb.RegisterRequest{
-		Email:    email,
-		Password: pass,
+	authReq := &authpb.AuthenticateRequest{
+		Email:     email,
+		Challenge: pass,
 	}
 
-	resp, err := rapi.auth.Register(regCtx, authReq)
+	resp, err := rapi.auth.Authenticate(regCtx, authReq)
 	if err != nil {
 		json.NewEncoder(w).Encode(struct {
 			errMsg error

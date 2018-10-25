@@ -1,17 +1,15 @@
 package auth
 
+import (
+	"github.com/sea350/ustart_mono/backend/auth/storage/elastic"
+)
+
 // Config determines the runtime behavior of the redis-backed auth server
 type Config struct {
-	ElasticAddr string
-	EIndex      string
-	EType       string
+	ElasticConfig *elasticstore.Config
 }
 
 // NewConfig returns a default config object
 func NewConfig() *Config {
-	return &Config{
-		ElasticAddr: "localhost:9200",
-		EIndex:      "test-auth_data",
-		EType:       "AUTH",
-	}
+	return &Config{ElasticConfig: elasticstore.NewConfig()}
 }
