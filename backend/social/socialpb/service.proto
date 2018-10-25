@@ -1,0 +1,102 @@
+syntax="proto3";
+
+package social.service;
+
+import "models.proto";
+
+option go_package= "socialpb";
+
+service Social {
+  rpc Follow(FollowRequest) returns (FollowReponse);
+  rpc Unfollow(UnfollowRequest) returns (UnfollowResponse);
+  rpc Block(BlockRequest) returns (BlockResponse);
+  rpc Unblock(UnblockRequest) returns (UnblockResponse);
+  rpc LookupFollowers(LookupFollowersRequest) returns (LookupFollowersResponse);
+  rpc LookupFollowing(LookupFollowingRequest) returns (LookupFollowingResponse);
+  rpc LookupBlocked (LookupBlockedRequest) returns (LookupBlockedResponse);
+  rpc CountFollowers (CountFollowersRequest) returns (CountFollowersResponse);
+  rpc CountFollowing (CountFollowingRequest) returns (CountFollowingResponse);
+}
+
+message Empty{}
+
+message FollowRequest {
+  string FollowerUUID = 1;
+  string FollowedUUID = 2;
+  bool Notified = 3;
+  string FollowerType = 4;
+  string FollowedType = 5;
+}
+
+message FollowReponse {}
+
+message UnfollowRequest{
+    string FollowerUUID = 1;
+    string FollowedUUID = 2;
+    bool Notified = 3;
+    string FollowerType = 4;
+    string FollowedType = 5;
+}
+
+message UnfollowResponse{}
+
+message BlockRequest {
+    string BlockerUUID = 1;
+    string BlockedUUID = 2;
+    string BlockerType = 3;
+    string BlockedType = 4;
+}
+
+message BlockResponse {}
+
+message UnblockRequest {
+    string BlockerUUID = 1;
+    string BlockedUUID = 2;
+}
+
+message UnblockResponse {}
+
+message LookupFollowersRequest{
+  string UUID = 1;
+  string FollowerType = 2;
+}
+
+message LookupFollowersResponse{
+  repeated string UUIDs = 1;
+}
+
+message LookupFollowingRequest{
+  string UUID = 1;
+  string FollowingType = 2;
+}
+  
+message LookupFollowingResponse{
+  repeated string UUIDs = 1;
+}
+
+message LookupBlockedRequest{
+    string UUID = 1;
+    string BlockedType = 2;
+}
+  
+message LookupBlockedResponse{
+    repeated string UUIDs = 1;
+}
+
+message CountFollowersRequest{
+    string UUID = 1;
+    string FollowerType = 2;
+}
+
+message CountFollowersResponse{
+    repeated string UUIDs = 1;
+}
+
+message CountFollowingRequest{
+    string UUID = 1;
+    string FollowingType = 2;
+}
+
+message CountFollowingResponse{
+    repeated string UUIDs = 1;
+}
