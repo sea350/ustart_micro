@@ -9,6 +9,7 @@ message Stored {
   string Email = 2;
   string Password = 3;
   string Token = 4;
-  bool Verified = 5;
-  string AccType = 6;
+  string ExpirationDate = 5;
+  bool Verified = 6;
+  string AccType = 7;
 }

@@ -1,0 +1,50 @@
+syntax="proto3";
+
+package profile.service;
+
+import "models.proto";
+
+option go_package= "profilepb";
+
+service Profile {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Pull(PullRequest) returns (PullResponse);
+  rpc Lite(LiteRequest) returns (LiteResponse);
+  rpc Lookup(LookupRequest) returns (LookupResponse);
+}
+
+message Empty{}
+
+message RegisterRequest{
+  string Email = 1;
+  string Password = 2;
+}
+
+message RegisterResponse{
+  string UID = 1;
+  string Token = 2;
+}
+
+message PullRequest{
+    string Email = 1;
+}
+
+message PullResponse{
+    bool Exists = 1;
+}
+
+message LiteRequest{
+    string Email = 1;
+}
+
+message LiteResponse{
+    bool Exists = 1;
+}
+
+message LookupRequest{
+    string Email = 1;
+}
+  
+message LookupResponse{
+    bool Exists = 1;
+}
