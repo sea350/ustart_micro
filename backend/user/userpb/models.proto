@@ -19,6 +19,8 @@ message Profile {
   bool Visible = 12;
   bool Available = 13;
   repeated string WidgetIDs = 14;
+  string DOB = 15;
+  string AccountCreationDate = 16;
 }
 
 message AcademicRecord{
