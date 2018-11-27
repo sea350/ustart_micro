@@ -41,12 +41,10 @@ func (estor *ElasticStore) Register(ctx context.Context, email string, password,
 		}
 	}
 
-	store := authpb.User{Email: email, Password: password}
-
 	_, err = estor.client.Index().
 		Index(estor.eIndex).
 		Type(estor.eType).
-		BodyJson(store).
+		BodyJson(authpb.User{Email: email, Password: password}).
 		Do(ctx)
 
 	return err

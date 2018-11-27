@@ -31,13 +31,9 @@ func (estor *ElasticStore) ChangePassword(ctx context.Context, email string, new
 		return storage.ErrTooManyResults
 	}
 
-	var ID string
-
-	ID = res.Hits.Hits[0].Id
-
 	_, err = estor.client.Update().
 		Index(estor.eIndex).
-		Id(ID).
+		Id(res.Hits.Hits[0].Id).
 		Doc(map[string]interface{}{"Password": newPassword}).
 		Do(ctx)
 

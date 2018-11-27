@@ -32,8 +32,8 @@ func (estor *ElasticStore) GetPassword(ctx context.Context, email string) (strin
 	if res.Hits.TotalHits > 1 {
 		return "", storage.ErrTooManyResults
 	}
-	var usr authpb.User
 
+	var usr authpb.User
 	err = json.Unmarshal(*res.Hits.Hits[0].Source, &usr)
 	if err != nil {
 		return "", err
