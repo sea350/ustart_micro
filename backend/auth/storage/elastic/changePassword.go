@@ -10,7 +10,7 @@ import (
 
 // ChangePassword changes a user's password
 func (estor *ElasticStore) ChangePassword(ctx context.Context, email string, newPassword string) error {
-	//pull soted data attached to the email
+	// pull soted data attached to the email
 	query := elastic.NewTermQuery("Email", strings.ToLower(email))
 	res, err := estor.client.Search().
 		Index(estor.eIndex).
@@ -20,22 +20,20 @@ func (estor *ElasticStore) ChangePassword(ctx context.Context, email string, new
 	if err != nil {
 		return err
 	}
-	//if there are no hits, then no one exists by that email
+
+	// if there are no hits, then no one exists by that email
 	if res.Hits.TotalHits < 1 {
 		return storage.ErrUserDoesNotExist
 	}
 
-	//there should never be more than one result. If there is, there is an issue
+	// there should never be more than one result. If there is, there is an issue
 	if res.Hits.TotalHits > 1 {
 		return storage.ErrTooManyResults
 	}
 
 	var ID string
 
-	for _, element := range res.Hits.Hits {
-		ID = element.Id
-		break
-	}
+	ID = res.Hits.Hits[0].Id
 
 	_, err = estor.client.Update().
 		Index(estor.eIndex).

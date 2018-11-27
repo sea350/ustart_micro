@@ -23,7 +23,7 @@ func (estor *ElasticStore) Register(ctx context.Context, email string, password,
 		return storage.ErrEmailInUse
 	}
 
-	//before instering into database make sure the index exists
+	// before instering into database make sure the index exists
 	exists, err = estor.client.IndexExists(estor.eIndex).Do(ctx)
 	if err != nil {
 		panic(err)
@@ -41,7 +41,7 @@ func (estor *ElasticStore) Register(ctx context.Context, email string, password,
 		}
 	}
 
-	store := authpb.Stored{Email: email, Password: password}
+	store := authpb.User{Email: email, Password: password}
 
 	_, err = estor.client.Index().
 		Index(estor.eIndex).

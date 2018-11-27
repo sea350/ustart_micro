@@ -4,7 +4,7 @@ package auth.models;
 
 option go_package= "authpb";
 
-message Stored {
+message User {
   string UUID = 1;
   string Email = 2;
   string Password = 3;

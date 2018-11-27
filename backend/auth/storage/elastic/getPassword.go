@@ -10,9 +10,9 @@ import (
 	"github.com/sea350/ustart_mono/backend/auth/storage"
 )
 
-//GetPassword retreivs a user's password
+// GetPassword retreivs a user's password
 func (estor *ElasticStore) GetPassword(ctx context.Context, email string) (string, error) {
-	//pull soted data attached to the email
+	// pull sorted data attached to the email
 	query := elastic.NewTermQuery("Email", strings.ToLower(email))
 	res, err := estor.client.Search().
 		Index(estor.eIndex).
@@ -22,23 +22,21 @@ func (estor *ElasticStore) GetPassword(ctx context.Context, email string) (strin
 	if err != nil {
 		return "", err
 	}
-	//if there are no hits, then no one exists by that email
+
+	// if there are no hits, then no one exists by that email
 	if res.Hits.TotalHits < 1 {
 		return "", storage.ErrUserDoesNotExist
 	}
 
-	//there should never be more than one result. If there is, there is an issue
+	// there should never be more than one result. If there is, there is an issue
 	if res.Hits.TotalHits > 1 {
 		return "", storage.ErrTooManyResults
 	}
-	var usr authpb.Stored
+	var usr authpb.User
 
-	for _, element := range res.Hits.Hits {
-		err := json.Unmarshal(*element.Source, &usr)
-		if err != nil {
-			return "", err
-		}
-		break
+	err = json.Unmarshal(*res.Hits.Hits[0].Source, &usr)
+	if err != nil {
+		return "", err
 	}
 
 	return usr.Password, nil
