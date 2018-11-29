@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package project.models;
+
+option go_package = "projectpb";
+
+message JoinRequest {
+    string PID = 1;
+    repeated Member ListRequests = 2;
+}
+
+message Member {
+    string UUID = 1;
+    string RequestTime = 2;
+}
