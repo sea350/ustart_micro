@@ -30,6 +30,6 @@ message Location {
     string Country = 1;
     string State = 2;
     string City = 3;
-    string Zipcode = 4;
+    string Zip = 4;
 }
 

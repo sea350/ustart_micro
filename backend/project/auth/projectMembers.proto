@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package project.models;
+
+option go_package = "auth";
+
+message ProjectMembers {
+    string PID = 1;             //Project ID
+    string UUID = 2;            //User ID
+    string ProfileName = 3;     //Name of profile in permissions.proto
+}
