@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
-	"github.com/sea350/ustart_mono/backend/auth/storage"
 )
 
 //Register creates a new ES document for a new registering user
@@ -20,7 +19,7 @@ func (estor *ElasticStore) Register(ctx context.Context, email string, password,
 		return err
 	}
 	if exists {
-		return storage.ErrEmailInUse
+		return ErrEmailInUse
 	}
 
 	// before instering into database make sure the index exists

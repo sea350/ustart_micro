@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/olivere/elastic"
-	"github.com/sea350/ustart_mono/backend/auth/storage"
 )
 
 // ChangePassword changes a user's password
@@ -23,12 +22,12 @@ func (estor *ElasticStore) ChangePassword(ctx context.Context, email string, new
 
 	// if there are no hits, then no one exists by that email
 	if res.Hits.TotalHits < 1 {
-		return storage.ErrUserDoesNotExist
+		return ErrUserDoesNotExist
 	}
 
 	// there should never be more than one result. If there is, there is an issue
 	if res.Hits.TotalHits > 1 {
-		return storage.ErrTooManyResults
+		return ErrTooManyResults
 	}
 
 	_, err = estor.client.Update().

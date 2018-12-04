@@ -7,7 +7,6 @@ import (
 
 	"github.com/olivere/elastic"
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
-	"github.com/sea350/ustart_mono/backend/auth/storage"
 )
 
 // GetPassword retreivs a user's password
@@ -25,12 +24,12 @@ func (estor *ElasticStore) GetPassword(ctx context.Context, email string) (strin
 
 	// if there are no hits, then no one exists by that email
 	if res.Hits.TotalHits < 1 {
-		return "", storage.ErrUserDoesNotExist
+		return "", ErrUserDoesNotExist
 	}
 
 	// there should never be more than one result. If there is, there is an issue
 	if res.Hits.TotalHits > 1 {
-		return "", storage.ErrTooManyResults
+		return "", ErrTooManyResults
 	}
 
 	var usr authpb.User

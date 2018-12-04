@@ -1,22 +1,23 @@
 package auth
 
 import (
-	"github.com/sea350/ustart_mono/backend/auth/storage/elastic"
+	"github.com/sea350/ustart_mono/backend/auth/storage"
 )
 
 const ()
 
 // Auth is an implementation of the auth service defined in service.proto
 type Auth struct {
-	eclient *elasticstore.ElasticStore
+	strg storage.Storage
 }
 
 // New returns a new Eclient auth service
 func New(cfg *Config) (*Auth, error) {
-	estor, err := elasticstore.New(cfg.ElasticConfig)
+	// if cfg.useDummy
+	strg, err := storage.New(cfg.StorageConfig)
 
 	auth := &Auth{
-		eclient: estor,
+		strg: strg,
 	}
 	return auth, err
 }
