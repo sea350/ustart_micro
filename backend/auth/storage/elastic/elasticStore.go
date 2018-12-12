@@ -7,7 +7,7 @@ import (
 	"github.com/olivere/elastic"
 )
 
-//ElasticStore manages database interactions with elastic search for Auth
+// ElasticStore implements the storage interface for the Auth module
 type ElasticStore struct {
 	client *elastic.Client
 	eIndex string

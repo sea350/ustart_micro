@@ -10,7 +10,7 @@ import (
 //Authenticate validates an authentication request, works with pb req
 func (auth *Auth) Authenticate(ctx context.Context, req *authpb.AuthenticateRequest) (*authpb.AuthenticateResponse, error) {
 
-	pass, err := auth.eclient.GetPassword(ctx, req.Email)
+	pass, err := auth.strg.GetPassword(ctx, req.Email)
 	if err != nil {
 		return &authpb.AuthenticateResponse{}, err
 	}

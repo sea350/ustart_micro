@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package project.models;
+
+option go_package = "auth";
+
+message Permissions {
+    bool CanChangeImage = 1;
+    bool CanChangeName = 2;
+    bool CanChangeDescription = 3;
+    bool CanChangeCategory = 4;
+    bool CanChangeLocation = 5;
+    bool CanChangeURL = 6;
+    bool CanManageMember = 7;
+    string ProfileName = 8;
+    string PID = 9;
+}

@@ -1,14 +1,16 @@
-package auth
+package storage
 
-import "github.com/sea350/ustart_mono/backend/auth/storage"
+import (
+	"github.com/sea350/ustart_mono/backend/auth/storage/elastic"
+)
 
 // Config determines the runtime behavior of the redis-backed auth server
 type Config struct {
 	useDummy      bool
-	StorageConfig *storage.Config
+	ElasticConfig *elasticstore.Config
 }
 
 // NewConfig returns a default config object
 func NewConfig() *Config {
-	return &Config{StorageConfig: storage.NewConfig()}
+	return &Config{ElasticConfig: elasticstore.NewConfig()}
 }
