@@ -3,7 +3,6 @@ package elasticstore
 import (
 	"context"
 	"strings"
-
 	"github.com/olivere/elastic"
 	"github.com/sea350/ustart_mono/backend/auth/storage"
 )

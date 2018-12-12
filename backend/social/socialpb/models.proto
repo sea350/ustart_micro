@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package social.models;
+
+option go_package= "socialpb";
+
+message Follow {
+  
+  string Follower = 1;
+  string FollowerClass = 2;
+  string Followed = 3;
+  string FollowedClass = 4;
+  bool Notify = 5;
+  string Timestamp = 6;
+}
+
+message Block {
+
+  string Blocker = 1;
+  string BlockerClass = 2;
+  string Blocked = 3;
+  string BlockedClass = 4;
+  string Timestamp = 5;
+
+}

@@ -8,7 +8,7 @@ totalCount=${#total[@]}
 for dname in `find . -name *pb -type d | cut -c 2- | while read line; do echo "\`pwd\`$line"; done`; do
   (( count++ ))
 
-  # Remove old files, if they exist
+  # Remove old files, if they existx
   rm -rf $dname/*.pb.go > /dev/null 2>&1
 
   # Generate new files

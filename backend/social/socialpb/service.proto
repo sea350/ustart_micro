@@ -47,7 +47,9 @@ message BlockRequest {
     string BlockedType = 4;
 }
 
-message BlockResponse {}
+message BlockResponse {
+    
+}
 
 message UnblockRequest {
     string BlockerUUID = 1;
