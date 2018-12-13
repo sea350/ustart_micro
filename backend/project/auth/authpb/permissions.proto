@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package project.models;
 
-option go_package = "auth";
+option go_package = "authpb";
 
 message Permissions {
     bool CanChangeImage = 1;
