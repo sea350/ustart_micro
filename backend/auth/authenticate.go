@@ -21,5 +21,5 @@ func (auth *Auth) Authenticate(ctx context.Context, req *authpb.AuthenticateRequ
 		return &authpb.AuthenticateResponse{}, err
 	}
 
-	return &authpb.AuthenticateResponse{UUID: "This is a filler responce"}, nil
+	return &authpb.AuthenticateResponse{UUID: "This is a filler response"}, nil
 }

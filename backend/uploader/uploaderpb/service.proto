@@ -1,0 +1,30 @@
+syntax="proto3";
+
+package uploader.service;
+
+option go_package= "uploaderpb";
+
+service Uploader {
+  rpc UploadProfile(UploadProfileRequest) returns (UploadProfileResponse);
+  rpc UploadBanner(UploadBannerRequest) returns (UploadBannerResponse);
+}
+
+message Empty{}
+
+message UploadProfileRequest{
+    string Base64 = 1;
+    string UploaderID = 2;
+}
+
+message UploadProfileResponse{
+    string URL = 1;
+}
+
+message UploadBannerRequest{
+    string Blob = 1;
+    string UploaderID = 2;
+}
+
+message UploadBannerResponse{
+    string URL = 1;
+}
