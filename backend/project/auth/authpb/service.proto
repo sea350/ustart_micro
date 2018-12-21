@@ -8,7 +8,6 @@ import "permissions.proto";
 option go_package = "authpb"; 
 
 service Auth {
-    //Owner, mod, regular. Owner perms doesnt change
     //Request to change privilege profile (promote/demote)
     rpc AddProfile (AddProfileResponse) returns (AddProfileRequest);
     rpc ChangeProfile (ChangeProfileRequest) returns (ChangeProfileResponse);
@@ -25,6 +24,7 @@ message AddProfileRequest{
     string UUID = 1;            //UserID
     string PID = 2;             //ProjectID
     string ProfileName = 3;     //Name of profile
+    //New Profile settings
     message Permissions {
         bool CanChangeImage = 1;
         bool CanChangeName = 2;
@@ -35,7 +35,7 @@ message AddProfileRequest{
         bool CanManageMember = 7;
         string ProfileName = 8;
         string PID = 9;   
-    }//New Profile settings
+    }
 }
 
 message AddProfileResponse{}
@@ -52,8 +52,18 @@ message ChangeProfileRequest{
     string UUID = 1;    //UserID
     string PID = 2;     //ProjectID
     string Profile = 3; //Name of profile
-    string Field = 4;   //Name of field
-    string Value = 5;   //Value for field
+    //New Profile to overwrite previous one
+    message Permissions {
+        bool CanChangeImage = 1;
+        bool CanChangeName = 2;
+        bool CanChangeDescription = 3;
+        bool CanChangeCategory = 4;
+        bool CanChangeLocation = 5;
+        bool CanChangeURL = 6;
+        bool CanManageMember = 7;
+        string ProfileName = 8;
+        string PID = 9;   
+    }
 }
 
 message ChangeProfileResponse{}
