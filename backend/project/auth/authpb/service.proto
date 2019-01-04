@@ -9,9 +9,9 @@ option go_package = "authpb";
 
 service Auth {
     //Request to change privilege profile (promote/demote)
-    rpc AddProfile (AddProfileResponse) returns (AddProfileRequest);
-    rpc ChangeProfile (ChangeProfileRequest) returns (ChangeProfileResponse);
-    rpc DeleteProfile (DeleteProfileRequest) returns (DeleteProfileResponse);
+    rpc AddPermissionProfile (AddPermissionProfileRequest) returns (AddPermissionProfileResponse);
+    rpc ChangePermissionProfile (ChangePermissionProfileRequest) returns (ChangePermissionProfileResponse);
+    rpc DeletePermissionProfile (DeletePermissionProfileRequest) returns (DeletePermissionProfileResponse);
     rpc AddMember (AddMemberRequest) returns (AddMemberResponse);
     rpc DeleteMember (DeleteMemberRequest) returns (DeleteMemberResponse);
     rpc CreateProject (CreateProjectRequest) returns (CreateProjectRequest);
@@ -20,7 +20,7 @@ service Auth {
     //Checks to see if requester has permission perform task (Change settings, add tags, etc.)
     rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse); 
 }
-message AddProfileRequest{
+message AddPermissionProfileRequest{
     string UUID = 1;            //UserID
     string PID = 2;             //ProjectID
     string ProfileName = 3;     //Name of profile
@@ -38,17 +38,17 @@ message AddProfileRequest{
     }
 }
 
-message AddProfileResponse{}
+message AddPermissionProfileResponse{}
 
-message DeleteProfileRequest{
+message DeletePermissionProfileRequest{
     string UUID = 1;
     string PID = 2;
     string ProfileName = 3;
 }
 
-message DeleteProfileResponse{}
+message DeletePermissionProfileResponse{}
 
-message ChangeProfileRequest{
+message ChangePermissionProfileRequest{
     string UUID = 1;    //UserID
     string PID = 2;     //ProjectID
     string Profile = 3; //Name of profile
@@ -66,7 +66,7 @@ message ChangeProfileRequest{
     }
 }
 
-message ChangeProfileResponse{}
+message ChangePermissionProfileResponse{}
 
 message AddMemberRequest{
     string UUID = 1;            //UserID of user accepting/denying request
