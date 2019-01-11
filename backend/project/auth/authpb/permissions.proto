@@ -12,6 +12,7 @@ message Permissions {
     bool CanChangeLocation = 5;
     bool CanChangeURL = 6;
     bool CanManageMember = 7;
-    string ProfileName = 8;
-    string PID = 9;
+    bool CanChangeProfile = 8;
+    string ProfileName = 9;
+    string PID = 10;
 }
