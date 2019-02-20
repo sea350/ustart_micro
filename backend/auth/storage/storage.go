@@ -6,6 +6,7 @@ type Storage interface {
 	GetPassword() error
 	Lookup() (bool, error)
 	Register() error
+	New() (*Storage, error)
 	// rest of the functions
 }
 
