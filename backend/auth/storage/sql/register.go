@@ -9,6 +9,7 @@ func (dbConn *SQLStore) Register(ctx context.Context, email string, password, to
 	//todo:
 	//FIGURE OUT HOW AND WHERE TO GEN UUID
 	//IMPORT EXPIRATION DATE
+	//BUILD DUPLICATE UUID/EMAIL CONTINGENCIES
 	var uuid string
 	var expirationdate string
 	_, err := dbConn.db.QueryContext(ctx, "INSERT INTO "+dbConn.RegistryTN+" (uuid, email, password, token, expiration_date, verified, acc_type) VALUES ( "+uuid+", "+email+", "+password+", "+token+", "+expirationdate+", false, "+accountType+");")
