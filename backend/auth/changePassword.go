@@ -21,7 +21,7 @@ func (auth *Auth) ChangePassword(ctx context.Context, req *authpb.ChangePassword
 		return &authpb.ChangePasswordResponse{}, err
 	}
 
-	err = auth.eclient.ChangePassword(ctx, req.Email, string(hashedPass))
+	err = auth.strg.ChangePassword(ctx, req.Email, string(hashedPass))
 
 	return &authpb.ChangePasswordResponse{}, err
 

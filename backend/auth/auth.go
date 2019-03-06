@@ -14,7 +14,7 @@ type Auth struct {
 // New returns a new Eclient auth service
 func New(cfg *Config) (*Auth, error) {
 	// if cfg.useDummy
-	strg, err := storage.New(cfg.StorageConfig)
+	strg, err := storage.NewSQL(cfg.StorageConfig)
 
 	auth := &Auth{
 		strg: strg,

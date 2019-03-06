@@ -8,7 +8,7 @@ import (
 
 //Lookup checks elastic search if a document exists with the criteria of the req
 func (auth *Auth) Lookup(ctx context.Context, req *authpb.LookupRequest) (*authpb.LookupResponse, error) {
-	exists, err := auth.eclient.Lookup(ctx, req.Email)
+	exists, err := auth.strg.Lookup(ctx, req.Email)
 
 	return &authpb.LookupResponse{Exists: exists}, err
 }

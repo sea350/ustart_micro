@@ -8,7 +8,7 @@ type Config struct {
 	StorageConfig *storage.Config
 }
 
-// NewConfig returns a default config object
+// NewConfig returns a default config objects
 func NewConfig() *Config {
-	return &Config{StorageConfig: storage.NewConfig()}
+	return &Config{StorageConfig: storage.SQLNewConfig()}
 }

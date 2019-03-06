@@ -11,6 +11,9 @@ import (
 // Register does what it does
 func (auth *Auth) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
 
+	//todo:
+	//CHECK IF SOMEONE IS ALREADY REGISTERED USNIG GIVEN CREDENTIALS
+
 	// encrypt the password
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), 12)
 	if err != nil {
@@ -19,10 +22,9 @@ func (auth *Auth) Register(ctx context.Context, req *authpb.RegisterRequest) (*a
 
 	//todo:
 	//DONT FORGET ABOUT SETTING UP UUID
-	//CREATE TOKEN HERE THEN SEND A REQUEST TO EMAILER
 	//INSERT ACC TYEP SWITCH HERE
 
-	err = auth.eclient.Register(ctx, req.Email, string(hashedPass), "INSERT TOKEN HERE", "user")
+	err = auth.strg.Register(ctx, req.Email, string(hashedPass), "INSERT TOKEN HERE", "user")
 
 	return &authpb.RegisterResponse{}, err
 
