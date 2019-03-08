@@ -3,6 +3,7 @@ package auth
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -23,19 +24,18 @@ func (rapi *RESTAPI) Authenticate(w http.ResponseWriter, req *http.Request) {
 		Challenge: pass,
 	}
 
+	ret := make(map[string]interface{})
+
 	resp, err := rapi.auth.Authenticate(regCtx, authReq)
 	if err != nil {
-		logger.Println(err)
-		err = json.NewEncoder(w).Encode(struct {
-			errMsg error
-		}{
-			errMsg: err,
-		})
-		if err != nil {
-			logger.Println(err)
-		}
-		return
+		ret["errMsg"] = err.Error()
+	} else {
+		ret["response"] = resp
+	}
+	data, err := json.Marshal(ret)
+	if err != nil {
+		logger.Panic(err)
 	}
 
-	json.NewEncoder(w).Encode(resp)
+	fmt.Fprintln(w, string(data))
 }

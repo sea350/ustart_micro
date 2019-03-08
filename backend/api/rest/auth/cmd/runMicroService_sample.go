@@ -10,7 +10,7 @@ import (
 	"github.com/sea350/ustart_mono/backend/auth/storage/sql"
 )
 
-var config = auth.Config{
+var config = &auth.Config{
 	AuthCfg: &sAuth.Config{
 		StorageConfig: &storage.Config{
 			SQLConfig: &sqlstore.Config{
@@ -31,7 +31,7 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	log.Println("Dialing up...")
 
-	restAPI, err := auth.New(&config)
+	restAPI, err := auth.New(config)
 	if err != nil {
 		panic(err)
 	}
