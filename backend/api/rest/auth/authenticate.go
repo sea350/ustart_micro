@@ -25,11 +25,15 @@ func (rapi *RESTAPI) Authenticate(w http.ResponseWriter, req *http.Request) {
 
 	resp, err := rapi.auth.Authenticate(regCtx, authReq)
 	if err != nil {
-		json.NewEncoder(w).Encode(struct {
+		logger.Println(err)
+		err = json.NewEncoder(w).Encode(struct {
 			errMsg error
 		}{
 			errMsg: err,
 		})
+		if err != nil {
+			logger.Println(err)
+		}
 		return
 	}
 

@@ -19,8 +19,8 @@ func NewConfig() *Config {
 		Host:               "localhost",
 		Port:               "5432",
 		DBName:             "ustart_auth",
-		Username:           "admin",
-		Password:           "",
+		Username:           "postgres",
+		Password:           "postgres",
 		RegistryTable:      "auth",
 		LoginTrackingTable: "logins",
 	}

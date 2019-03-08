@@ -1,2 +1,3 @@
 *.pb.go
+backend/api/rest/auth/cmd/config.go
 vendor
