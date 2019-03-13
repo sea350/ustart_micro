@@ -1,36 +1,29 @@
 # HOW TO RUN
 
-Create a `config.go` file. Then create an auth config pointer within it to be used within your `run.go` script
+Create a `config.json` file. Then create an auth config object, this will be imported into the reun and unmarshalled.
 
 ## Sample Config object
 
-You can literally copy paste this into your `config.go` but remember to fill out proper credentials depending on your run environment
+You can verbatim copy paste this object into your `config.json` but remember to fill out proper credentials depending on your run environment.
+Note that the port doesn't have to be 5001 but since this is the root sub service it's recomended to start at 5001 and count up.
 
-```go
-package main
-
-import (
-  "github.com/sea350/ustart_mono/backend/api/rest/auth"
-  sAuth "github.com/sea350/ustart_mono/backend/auth"
-  "github.com/sea350/ustart_mono/backend/auth/storage"
-  "github.com/sea350/ustart_mono/backend/auth/storage/sql"
-)
-
-var config = &auth.Config{
-  AuthCfg: &sAuth.Config{
-    StorageConfig: &storage.Config{
-      SQLConfig: &sqlstore.Config{
-        DriverName:         "postgres",
-        Host:               "localhost",
-        Port:               "5432",
-        DBName:             "localhost",
-        Username:           "postgres",
-        Password:           "postgres",
-        RegistryTable:      "auth",
-        LoginTrackingTable: "logins",
-      },
+```json
+{"AuthCfg":
+    {"StorageConfig":{
+        "ElasticConfig":null,
+        "SQLConfig":{
+            "DriverName":"",
+            "Host":"",
+            "Port":"",
+            "DBName":"",
+            "Username":"",
+            "Password":"",
+            "RegistryTable":"",
+            "LoginTrackingTable":""
+            }
+        }
     },
-  },
+    "Port":5001
 }
 
 ```
