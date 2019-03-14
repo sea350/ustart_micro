@@ -28,9 +28,13 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 	resp, err := rapi.auth.Register(context.Background(), authReq)
 	if err != nil {
 		ret["errMsg"] = err.Error()
+
+		//debugging
+		// logger.Panic(err)
 	} else {
 		ret["response"] = resp
 	}
+
 	data, err := json.Marshal(ret)
 	if err != nil {
 		logger.Panic(err)

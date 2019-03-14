@@ -2,12 +2,13 @@ package elasticstore
 
 import (
 	"context"
+	"time"
 
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
 )
 
 //Register creates a new ES document for a new registering user
-func (estor *ElasticStore) Register(ctx context.Context, email string, password, token string, accountType string) error {
+func (estor *ElasticStore) Register(ctx context.Context, uuid string, email string, password, token string, accountType string, expiration time.Time) error {
 
 	//Lock just to make sure no two people can sign up with the same email at the same time
 	newUserLock.Lock()
