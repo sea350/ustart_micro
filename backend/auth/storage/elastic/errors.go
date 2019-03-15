@@ -12,3 +12,18 @@ var (
 	// ErrEmailInUse happens when a signup using an existing email occurs
 	ErrEmailInUse = errors.New("Email in use")
 )
+
+//ErrUserDoesNotExist returns a standardized error
+func (estor *ElasticStore) ErrUserDoesNotExist() error {
+	return ErrUserDoesNotExist
+}
+
+//ErrTooManyResults returns a standardized error
+func (estor *ElasticStore) ErrTooManyResults() error {
+	return ErrTooManyResults
+}
+
+//ErrEmailInUse returns a standardized error
+func (estor *ElasticStore) ErrEmailInUse() error {
+	return ErrEmailInUse
+}

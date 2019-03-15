@@ -2,20 +2,30 @@ package auth
 
 import (
 	"context"
+	"regexp"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
-	"github.com/sea350/ustart_mono/backend/auth/storage/sql"
 )
 
-// Register does what it does
+// Register is a generic register function that registers a user in a database
 func (auth *Auth) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
 
-	//todo:
-	//CHECK IF SOMEONE IS ALREADY REGISTERED USNIG GIVEN CREDENTIALS
-	//VALIDATE THE EMAIL ACCORDING TO THE REGISTRATION FUNCTION
+	emailInUse, err := auth.strg.Lookup(ctx, req.Email)
+	if err != nil && err != auth.strg.ErrUserDoesNotExist() {
+		return nil, err
+	}
+
+	if emailInUse {
+		return nil, ErrEmailInUse
+	}
+
+	rxEmail := regexp.MustCompile(`^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$`) //checks for the format of the email
+	if !rxEmail.MatchString(req.Email) {
+		return nil, ErrInvalidEmail
+	}
 
 	// encrypt the password
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), 12)
@@ -27,7 +37,7 @@ func (auth *Auth) Register(ctx context.Context, req *authpb.RegisterRequest) (*a
 	length := 16
 	uuid := randString(length)
 	inUse, err := auth.strg.IDLookup(ctx, uuid)
-	if err != nil && err != sqlstore.ErrUserDoesNotExist { //todo: MAKE THIS DATABASE AGNOSTIC
+	if err != nil && err != auth.strg.ErrUserDoesNotExist() {
 		return nil, err
 	}
 	for inUse {
@@ -37,7 +47,7 @@ func (auth *Auth) Register(ctx context.Context, req *authpb.RegisterRequest) (*a
 		}
 		uuid = randString(length)
 		inUse, err = auth.strg.IDLookup(ctx, uuid)
-		if err != nil && err != sqlstore.ErrUserDoesNotExist { //todo: MAKE THIS DATABASE AGNOSTIC
+		if err != nil && err != auth.strg.ErrUserDoesNotExist() {
 			return nil, err
 		}
 	}

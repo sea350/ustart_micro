@@ -14,4 +14,7 @@ type Storage interface {
 	IDLookup(context.Context, string) (bool, error)
 	//New(interface{}) (*Storage, error)
 	// rest of the functions
+	ErrUserDoesNotExist() error
+	ErrTooManyResults() error
+	ErrEmailInUse() error
 }

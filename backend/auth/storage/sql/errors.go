@@ -12,3 +12,18 @@ var (
 	// ErrEmailInUse happens when a signup using an existing email occurs
 	ErrEmailInUse = errors.New("Email in use")
 )
+
+//ErrUserDoesNotExist returns a standardized error
+func (dbConn *SQLStore) ErrUserDoesNotExist() error {
+	return ErrUserDoesNotExist
+}
+
+//ErrTooManyResults returns a standardized error
+func (dbConn *SQLStore) ErrTooManyResults() error {
+	return ErrTooManyResults
+}
+
+//ErrEmailInUse returns a standardized error
+func (dbConn *SQLStore) ErrEmailInUse() error {
+	return ErrEmailInUse
+}
