@@ -13,12 +13,12 @@ import (
 // Register is a generic register function that registers a user in a database
 func (auth *Auth) Register(ctx context.Context, req *authpb.RegisterRequest) (*authpb.RegisterResponse, error) {
 
-	emailInUse, err := auth.strg.Lookup(ctx, req.Email)
+	id, err := auth.strg.Lookup(ctx, req.Email)
 	if err != nil && err != auth.strg.ErrUserDoesNotExist() {
 		return nil, err
 	}
 
-	if emailInUse {
+	if id != "" {
 		return nil, ErrEmailInUse
 	}
 

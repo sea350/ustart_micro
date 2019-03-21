@@ -14,6 +14,7 @@ type SQLStore struct {
 	db              *sql.DB
 	RegistryTN      string
 	LoginTrackingTN string
+	TimeFormat      string
 }
 
 // New returns a new SQLStore service
@@ -32,6 +33,7 @@ func New(cfg *Config) (*SQLStore, error) {
 		db:              client,
 		RegistryTN:      cfg.RegistryTable,
 		LoginTrackingTN: cfg.LoginTrackingTable,
+		TimeFormat:      time.RFC3339,
 	}
 
 	pingCtx, cancel := context.WithTimeout(context.Background(), time.Second*2)

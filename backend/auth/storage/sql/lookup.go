@@ -4,11 +4,11 @@ import (
 	"context"
 )
 
-// Lookup looks up if a document exists using a certain email
-func (dbConn *SQLStore) Lookup(ctx context.Context, email string) (bool, error) {
+// Lookup looks up if a document exists using a certain email. It returns a uuid and an error
+func (dbConn *SQLStore) Lookup(ctx context.Context, email string) (string, error) {
 	rows, err := dbConn.db.QueryContext(ctx, `SELECT "uuid" FROM `+dbConn.RegistryTN+` WHERE email= '`+email+"';")
 	if err != nil {
-		return false, err
+		return "", err
 	}
 
 	defer rows.Close()
@@ -16,12 +16,12 @@ func (dbConn *SQLStore) Lookup(ctx context.Context, email string) (bool, error) 
 	var uuid string
 	if rows.Next() {
 		if err := rows.Scan(&uuid); err != nil {
-			return false, err
+			return "", err
 		}
 		if rows.Next() {
-			return true, ErrTooManyResults
+			return uuid, ErrTooManyResults
 		}
-		return true, nil
+		return uuid, nil
 	}
-	return false, ErrUserDoesNotExist
+	return "", ErrUserDoesNotExist
 }

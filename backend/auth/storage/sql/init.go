@@ -11,6 +11,7 @@ func (dbConn *SQLStore) Init(ctx context.Context) error {
 	password char(128) NOT NULL,
 	token text,
 	expiration_date text,
+	creation_date text,
 	verified bool,
 	acc_type text NOT NULL,
 	PRIMARY KEY  (uuid)

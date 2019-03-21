@@ -3,6 +3,7 @@ package auth
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -25,15 +26,18 @@ func (rapi *RESTAPI) ChangePassword(w http.ResponseWriter, req *http.Request) {
 		NewPassword: newPass,
 	}
 
+	ret := make(map[string]interface{})
+
 	resp, err := rapi.auth.ChangePassword(regCtx, chPassReq)
 	if err != nil {
-		json.NewEncoder(w).Encode(struct {
-			errMsg error
-		}{
-			errMsg: err,
-		})
-		return
+		ret["errMsg"] = err.Error()
+	} else {
+		ret["response"] = resp
+	}
+	data, err := json.Marshal(ret)
+	if err != nil {
+		logger.Panic(err)
 	}
 
-	json.NewEncoder(w).Encode(resp)
+	fmt.Fprintln(w, string(data))
 }

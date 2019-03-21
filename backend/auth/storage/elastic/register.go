@@ -15,16 +15,16 @@ func (estor *ElasticStore) Register(ctx context.Context, uuid string, email stri
 	defer newUserLock.Unlock()
 
 	// make sure email is not in use
-	exists, err := estor.Lookup(ctx, email)
+	id, err := estor.Lookup(ctx, email)
 	if err != nil {
 		return err
 	}
-	if exists {
+	if id != "" {
 		return ErrEmailInUse
 	}
 
 	// before instering into database make sure the index exists
-	exists, err = estor.client.IndexExists(estor.eIndex).Do(ctx)
+	exists, err := estor.client.IndexExists(estor.eIndex).Do(ctx)
 	if err != nil {
 		panic(err)
 	}

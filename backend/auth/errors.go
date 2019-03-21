@@ -8,4 +8,7 @@ var (
 
 	// ErrEmailInUse Email is already in use
 	ErrEmailInUse = errors.New("Email is already in use")
+
+	// ErrInvalidToken Token is invalid
+	ErrInvalidToken = errors.New("Token is invalid")
 )

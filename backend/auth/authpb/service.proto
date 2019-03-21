@@ -12,6 +12,9 @@ service Auth {
   rpc Delete(DeleteRequest) returns (DeleteResponse);
   rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
   rpc Lookup(LookupRequest) returns (LookupResponse);
+  rpc Verify(VerifyRequest) returns (VerifyResponse);
+  rpc Reverify(ReverifyRequest) returns (ReverifyResponse);
+  rpc RecoverPassword(RecoverRequest) returns (RecoverResponse);
 }
 
 message Empty{}
@@ -57,4 +60,26 @@ message LookupRequest{
 message LookupResponse{
   bool Exists = 1;
 }
+
+message VerifyRequest{
+  string Email = 1;
+  string Token = 2;
+}
+message VerifyResponse{}
+
+message ReverifyRequest{
+  string Email = 1;
+}
+
+message ReverifyResponse{
+  string Token = 1;
+}
+
+message RecoverRequest{
+  string Email = 1;
+  string Token = 2;
+  string NewPassword = 3;
+}
+
+message RecoverResponse{}
 
