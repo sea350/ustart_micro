@@ -10,27 +10,24 @@ import (
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
 )
 
-// ChangePassword wraps backend/auth/changePassword.go
-func (rapi *RESTAPI) ChangePassword(w http.ResponseWriter, req *http.Request) {
+// Reverify wraps backend/auth/reverify.go
+func (rapi *RESTAPI) Reverify(w http.ResponseWriter, req *http.Request) {
 	regCtx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
 	defer cancel()
 
 	req.ParseForm()
 	email := req.Form.Get("email")
-	pass := req.Form.Get("password")
-	newPass := req.Form.Get("newPassword")
 
-	chPassReq := &authpb.ChangePasswordRequest{
-		Email:       email,
-		Challenge:   pass,
-		NewPassword: newPass,
+	verifReq := &authpb.ReverifyRequest{
+		Email: email,
 	}
 
 	ret := make(map[string]interface{})
 
-	resp, err := rapi.auth.ChangePassword(regCtx, chPassReq)
+	resp, err := rapi.auth.Reverify(regCtx, verifReq)
 	ret["response"] = resp
 	ret["error"] = err
+
 	data, err := json.Marshal(ret)
 	if err != nil {
 		logger.Panic(err)

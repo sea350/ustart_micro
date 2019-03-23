@@ -15,7 +15,12 @@ func (auth *Auth) Verify(ctx context.Context, req *authpb.VerifyRequest) (*authp
 	}
 
 	if token == req.Token && time.Now().Before(expiration) {
-		return &authpb.VerifyResponse{}, auth.strg.Validate(ctx, req.Email, true)
+		err := auth.strg.Validate(ctx, req.Email, true)
+		if err != nil {
+			return nil, err
+		}
+
+		return &authpb.VerifyResponse{}, auth.strg.SetToken(ctx, req.Email, "", time.Time{})
 	}
 
 	return &authpb.VerifyResponse{}, ErrInvalidToken

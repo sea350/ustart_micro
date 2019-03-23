@@ -38,6 +38,10 @@ func main() {
 	http.HandleFunc("/authenticate", restAPI.Authenticate)
 	http.HandleFunc("/changepassword", restAPI.ChangePassword)
 	http.HandleFunc("/register", restAPI.Register)
+	http.HandleFunc("/lookup", restAPI.Lookup)
+	http.HandleFunc("/verify", restAPI.Verify)
+	http.HandleFunc("/reverify", restAPI.Reverify)
+	http.HandleFunc("/recoverPassword", restAPI.RecoverPassword)
 
 	//Hear and handle
 	http.ListenAndServe(":"+strconv.Itoa(config.Port), nil)

@@ -27,11 +27,8 @@ func (rapi *RESTAPI) Authenticate(w http.ResponseWriter, req *http.Request) {
 	ret := make(map[string]interface{})
 
 	resp, err := rapi.auth.Authenticate(regCtx, authReq)
-	if err != nil {
-		ret["errMsg"] = err.Error()
-	} else {
-		ret["response"] = resp
-	}
+	ret["response"] = resp
+	ret["error"] = err
 	data, err := json.Marshal(ret)
 	if err != nil {
 		logger.Panic(err)
