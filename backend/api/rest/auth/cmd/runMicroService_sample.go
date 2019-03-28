@@ -36,7 +36,7 @@ func main() {
 	//Assigning the handler functions to a url
 	http.HandleFunc("/", nil)
 	http.HandleFunc("/authenticate", restAPI.Authenticate)
-	http.HandleFunc("/changepassword", restAPI.ChangePassword)
+	http.HandleFunc("/changePassword", restAPI.ChangePassword)
 	http.HandleFunc("/register", restAPI.Register)
 	http.HandleFunc("/lookup", restAPI.Lookup)
 	http.HandleFunc("/verify", restAPI.Verify)

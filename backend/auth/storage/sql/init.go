@@ -6,9 +6,9 @@ import "context"
 func (dbConn *SQLStore) Init(ctx context.Context) error {
 	// the table mirrors the authpb
 	_, err := dbConn.db.QueryContext(ctx, `CREATE TABLE IF NOT EXISTS  `+dbConn.RegistryTN+` (
-	uuid char(32) NOT NULL UNIQUE,
+	uuid text NOT NULL UNIQUE,
 	email text NOT NULL UNIQUE,
-	password char(128) NOT NULL,
+	password text NOT NULL,
 	token text,
 	expiration_date text,
 	creation_date text,

@@ -12,7 +12,7 @@ import (
 
 // Verify wraps backend/auth/verify.go
 func (rapi *RESTAPI) Verify(w http.ResponseWriter, req *http.Request) {
-	regCtx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
 	req.ParseForm()
@@ -28,7 +28,11 @@ func (rapi *RESTAPI) Verify(w http.ResponseWriter, req *http.Request) {
 
 	resp, err := rapi.auth.Verify(regCtx, verifReq)
 	ret["response"] = resp
-	ret["error"] = err
+	if err != nil {
+		ret["error"] = err.Error()
+	} else {
+		ret["error"] = ""
+	}
 
 	data, err := json.Marshal(ret)
 	if err != nil {

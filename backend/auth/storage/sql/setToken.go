@@ -12,7 +12,7 @@ func (dbConn *SQLStore) SetToken(ctx context.Context, email string, token string
 	expirationdate := expiration.Format(dbConn.TimeFormat) //format may need to be changed
 
 	queryString := fmt.Sprintf(
-		`UPDATE %s SET password= '%s', expiration_date = '%s' WHERE email = "%s";`,
+		`UPDATE %s SET token= '%s', expiration_date = '%s' WHERE email = '%s';`,
 		dbConn.RegistryTN, token, expirationdate, email)
 
 	_, err := dbConn.db.QueryContext(ctx, queryString)

@@ -5,14 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/sea350/ustart_mono/backend/auth/authpb"
 )
 
 // Register wraps backend/auth/register.go
 func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
-	// regCtx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
-	// defer cancel()
+	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
 
 	req.ParseForm()
 	email := req.Form.Get("email")
@@ -25,9 +26,13 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 
 	ret := make(map[string]interface{})
 
-	resp, err := rapi.auth.Register(context.Background(), authReq)
+	resp, err := rapi.auth.Register(regCtx, authReq)
 	ret["response"] = resp
-	ret["error"] = err
+	if err != nil {
+		ret["error"] = err.Error()
+	} else {
+		ret["error"] = ""
+	}
 
 	data, err := json.Marshal(ret)
 	if err != nil {

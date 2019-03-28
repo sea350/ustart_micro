@@ -11,4 +11,7 @@ var (
 
 	// ErrInvalidToken Token is invalid
 	ErrInvalidToken = errors.New("Token is invalid")
+
+	// ErrIncorrectPassword Password is invalid
+	ErrIncorrectPassword = errors.New("Password is invalid")
 )

@@ -12,7 +12,7 @@ import (
 
 // ChangePassword wraps backend/auth/changePassword.go
 func (rapi *RESTAPI) ChangePassword(w http.ResponseWriter, req *http.Request) {
-	regCtx, cancel := context.WithTimeout(context.Background(), 100*time.Millisecond)
+	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
 	req.ParseForm()
@@ -30,7 +30,12 @@ func (rapi *RESTAPI) ChangePassword(w http.ResponseWriter, req *http.Request) {
 
 	resp, err := rapi.auth.ChangePassword(regCtx, chPassReq)
 	ret["response"] = resp
-	ret["error"] = err
+	if err != nil {
+		ret["error"] = err.Error()
+	} else {
+		ret["error"] = ""
+	}
+
 	data, err := json.Marshal(ret)
 	if err != nil {
 		logger.Panic(err)

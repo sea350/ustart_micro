@@ -25,5 +25,5 @@ func (auth *Auth) Reverify(ctx context.Context, req *authpb.ReverifyRequest) (*a
 		return &authpb.ReverifyResponse{}, err
 	}
 
-	return &authpb.ReverifyResponse{Token: token}, ErrInvalidToken
+	return &authpb.ReverifyResponse{Token: token}, nil
 }

@@ -17,9 +17,17 @@ func (auth *Auth) Authenticate(ctx context.Context, req *authpb.AuthenticateRequ
 
 	//validate the password
 	err = bcrypt.CompareHashAndPassword([]byte(pass), []byte(req.Challenge))
+	if err == bcrypt.ErrMismatchedHashAndPassword {
+		return &authpb.AuthenticateResponse{}, ErrIncorrectPassword
+	}
 	if err != nil {
 		return &authpb.AuthenticateResponse{}, err
 	}
 
-	return &authpb.AuthenticateResponse{UUID: "This is a filler response"}, nil
+	id, err := auth.strg.Lookup(ctx, req.Email)
+	if err != nil {
+		return &authpb.AuthenticateResponse{}, err
+	}
+
+	return &authpb.AuthenticateResponse{UUID: id}, nil
 }
