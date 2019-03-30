@@ -22,7 +22,7 @@ message Empty{}
 
 message StoreRequest{
   string UID = 1;
-  google.protbuf.Any WidgetData = 2;
+  google.protobuf.Any WidgetData = 2;
 }
 
 message StoreResponse{
@@ -32,7 +32,7 @@ message StoreResponse{
 message DeleteRequest{
   string UID = 1;
   string Password = 2;
-  google.protbuf.Any WidgetData = 3;
+  google.protobuf.Any WidgetData = 3;
 }
 
 message DeleteResponse{}
