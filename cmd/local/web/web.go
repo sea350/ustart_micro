@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/sea350/ustart_mono/web"
+	"github.com/sea350/ustart_mono/webserver"
 )
 
 var (

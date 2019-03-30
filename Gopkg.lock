@@ -263,7 +263,7 @@
     "github.com/golang/protobuf/proto",
     "github.com/olivere/elastic",
     "github.com/sea350/ustart_mono/backend",
-    "github.com/sea350/ustart_mono/web",
+    "github.com/sea350/ustart_mono/webserver",
     "golang.org/x/crypto/bcrypt",
     "golang.org/x/net/context",
     "google.golang.org/grpc",
