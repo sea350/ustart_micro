@@ -1,0 +1,56 @@
+syntax="proto3";
+
+package widgets.service;
+
+import "models.proto";
+import "google/protobuf/any.proto";
+
+option go_package= "widgetspb";
+
+service Widg {
+    //Store/Delete 1 widget and Retrieve one/all widgets within context
+    rpc StoreWidget(StoreRequest) returns (StoreResponse);
+    rpc DeleteWidget(DeleteRequest) returns (DeleteResponse);
+    rpc LookupWidget(LookupRequest) returns (LookupResponse);
+    rpc LookupAllWidget(LookupAllRequest) returns (LookupAllResponse);
+  
+
+    
+}
+  
+message Empty{}
+
+message StoreRequest{
+  string UID = 1;
+  google.protbuf.Any WidgetData = 2;
+}
+
+message StoreResponse{
+  string WidgetID = 1;
+}
+
+message DeleteRequest{
+  string UID = 1;
+  string Password = 2;
+  google.protbuf.Any WidgetData = 3;
+}
+
+message DeleteResponse{}
+
+message LookupRequest{
+  string UID = 1;
+  string WidgetID = 2;
+}
+
+message LookupResponse{
+  google.protobuf.Any WidgetData = 1;
+}
+
+message LookupAllRequest{
+  string UID = 1;
+}
+
+message LookupAllResponse{
+  repeated google.protobuf.Any WidgetData = 1;
+}
+
