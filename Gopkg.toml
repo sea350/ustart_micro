@@ -35,7 +35,7 @@
 
 [[constraint]]
   branch = "refactor"
-  name = "github.com/sea350/ustart_go"
+  name = "github.com/sea350/ustart_mono"
 
 [[constraint]]
   branch = "master"

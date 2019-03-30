@@ -91,7 +91,7 @@
 [[projects]]
   branch = "refactor"
   digest = "1:d0da4a2e3d71273f57d59ea4a85563a30714fa4757e38b9b03cb860f04093f51"
-  name = "github.com/sea350/ustart_go"
+  name = "github.com/sea350/ustart_mono"
   packages = [
     "backend",
     "backend/get/chat",
@@ -262,8 +262,8 @@
   input-imports = [
     "github.com/golang/protobuf/proto",
     "github.com/olivere/elastic",
-    "github.com/sea350/ustart_go/backend",
-    "github.com/sea350/ustart_go/web",
+    "github.com/sea350/ustart_mono/backend",
+    "github.com/sea350/ustart_mono/web",
     "golang.org/x/crypto/bcrypt",
     "golang.org/x/net/context",
     "google.golang.org/grpc",
