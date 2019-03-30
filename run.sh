@@ -18,8 +18,8 @@ echo $?
 
 echo "Backend service called.  Follow logs with \`tail -f backend_log.txt\`"
 
-./cmd/web/web &>webserver_log.txt &disown
-echo "Webserver service called.  Follow logs with \`tail -f webserver_log.txt\`"
+# ./cmd/web/web &>webserver_log.txt &disown
+# echo "Webserver service called.  Follow logs with \`tail -f webserver_log.txt\`"
 
 echo "Services spawned.  Exiting..."
 
