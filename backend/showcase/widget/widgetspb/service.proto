@@ -13,8 +13,6 @@ service Widg {
     rpc DeleteWidget(DeleteRequest) returns (DeleteResponse);
     rpc LookupWidget(LookupRequest) returns (LookupResponse);
     rpc LookupAllWidget(LookupAllRequest) returns (LookupAllResponse);
-  
-
     
 }
   
