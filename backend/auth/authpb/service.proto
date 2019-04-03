@@ -9,7 +9,7 @@ option go_package= "authpb";
 service Auth {
   rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse);
   rpc Register(RegisterRequest) returns (RegisterResponse);
-  rpc Delete(DeleteRequest) returns (DeleteResponse);
+//  rpc Delete(DeleteRequest) returns (DeleteResponse);
   rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
   rpc Lookup(LookupRequest) returns (LookupResponse);
   rpc Verify(VerifyRequest) returns (VerifyResponse);

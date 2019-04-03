@@ -1,3 +1,4 @@
 *.pb.go
 backend/api/rest/auth/cmd/*.json
 vendor
+backend/api/grpc/auth/cmd/config.json

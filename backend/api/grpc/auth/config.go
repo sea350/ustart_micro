@@ -7,5 +7,5 @@ import (
 // Config for auth api
 type Config struct {
 	AuthCfg *auth.Config
-	// other things
+	Port    int //Recomended 5101
 }
