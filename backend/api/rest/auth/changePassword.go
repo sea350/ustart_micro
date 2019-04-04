@@ -29,7 +29,11 @@ func (rapi *RESTAPI) ChangePassword(w http.ResponseWriter, req *http.Request) {
 	ret := make(map[string]interface{})
 
 	resp, err := rapi.auth.ChangePassword(regCtx, chPassReq)
-	ret["response"] = resp
+	if resp != nil {
+		ret["response"] = resp
+	} else {
+		ret["response"] = ""
+	}
 	if err != nil {
 		ret["error"] = err.Error()
 	} else {

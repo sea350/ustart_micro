@@ -22,7 +22,7 @@ func (auth *Auth) Reverify(ctx context.Context, req *authpb.ReverifyRequest) (*a
 
 	err := auth.strg.SetToken(ctx, req.Email, token, time.Now().Add(expireIn))
 	if err != nil {
-		return &authpb.ReverifyResponse{}, err
+		return nil, err
 	}
 
 	return &authpb.ReverifyResponse{Token: token}, nil

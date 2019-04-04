@@ -64,7 +64,10 @@ func (auth *Auth) Register(ctx context.Context, req *authpb.RegisterRequest) (*a
 	}
 
 	err = auth.strg.Register(ctx, uuid, req.Email, string(hashedPass), token, "user", time.Now().Add(expireIn))
+	if err != nil {
+		return nil, err
+	}
 
-	return &authpb.RegisterResponse{UID: uuid, Token: token}, err
+	return &authpb.RegisterResponse{UID: uuid, Token: token}, nil
 
 }

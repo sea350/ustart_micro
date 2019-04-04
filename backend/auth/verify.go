@@ -11,7 +11,7 @@ import (
 func (auth *Auth) Verify(ctx context.Context, req *authpb.VerifyRequest) (*authpb.VerifyResponse, error) {
 	token, expiration, err := auth.strg.GetToken(ctx, req.Email)
 	if err != nil {
-		return &authpb.VerifyResponse{}, err
+		return nil, err
 	}
 
 	if token == req.Token && time.Now().Before(expiration) {

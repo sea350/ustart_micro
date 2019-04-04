@@ -12,21 +12,21 @@ func (auth *Auth) Authenticate(ctx context.Context, req *authpb.AuthenticateRequ
 
 	pass, err := auth.strg.GetPassword(ctx, req.Email)
 	if err != nil {
-		return &authpb.AuthenticateResponse{}, err
+		return nil, err
 	}
 
 	//validate the password
 	err = bcrypt.CompareHashAndPassword([]byte(pass), []byte(req.Challenge))
 	if err == bcrypt.ErrMismatchedHashAndPassword {
-		return &authpb.AuthenticateResponse{}, ErrIncorrectPassword
+		return nil, ErrIncorrectPassword
 	}
 	if err != nil {
-		return &authpb.AuthenticateResponse{}, err
+		return nil, err
 	}
 
 	id, err := auth.strg.Lookup(ctx, req.Email)
 	if err != nil {
-		return &authpb.AuthenticateResponse{}, err
+		return nil, err
 	}
 
 	return &authpb.AuthenticateResponse{UUID: id}, nil
