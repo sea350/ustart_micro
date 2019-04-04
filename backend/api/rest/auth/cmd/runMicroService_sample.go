@@ -8,7 +8,7 @@ import (
 	"strconv"
 
 	_ "github.com/lib/pq"
-	"github.com/sea350/ustart_mono/backend/api/rest/auth"
+	"github.com/sea350/ustart_micro/backend/api/rest/auth"
 )
 
 func main() {

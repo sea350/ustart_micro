@@ -1,6 +1,6 @@
 package auth
 
-import "github.com/sea350/ustart_mono/backend/auth/storage"
+import "github.com/sea350/ustart_micro/backend/auth/storage"
 
 // Config determines the runtime behavior of the redis-backed auth server
 type Config struct {

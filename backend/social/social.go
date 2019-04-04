@@ -1,7 +1,7 @@
 package social
 
 import (
-	"github.com/sea350/ustart_mono/backend/social/storage"
+	"github.com/sea350/ustart_micro/backend/social/storage"
 )
 
 const ()

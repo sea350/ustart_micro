@@ -8,9 +8,9 @@ import (
 	"strconv"
 
 	_ "github.com/lib/pq"
-	authapi "github.com/sea350/ustart_mono/backend/api/grpc/auth"
-	"github.com/sea350/ustart_mono/backend/auth"
-	"github.com/sea350/ustart_mono/backend/auth/authpb"
+	authapi "github.com/sea350/ustart_micro/backend/api/grpc/auth"
+	"github.com/sea350/ustart_micro/backend/auth"
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

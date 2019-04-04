@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"github.com/sea350/ustart_mono/backend/auth"
+	"github.com/sea350/ustart_micro/backend/auth"
 )
 
 // Config for auth api

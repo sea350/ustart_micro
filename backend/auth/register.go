@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/sea350/ustart_mono/backend/auth/authpb"
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
 )
 
 // Register is a generic register function that registers a user in a database

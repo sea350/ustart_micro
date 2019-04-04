@@ -2,7 +2,7 @@ package storage
 
 import (
 	"github.com/google/uuid"
-	"github.com/sea350/ustart_mono/backend/auth/authpb"
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
 )
 
 // Dummy is a dummy implementation of Register, managed in-memory.

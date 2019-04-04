@@ -3,7 +3,7 @@ package auth
 import (
 	"context"
 
-	"github.com/sea350/ustart_mono/backend/auth/authpb"
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
 )
 
 //Lookup checks elastic search if a document exists with the criteria of the req

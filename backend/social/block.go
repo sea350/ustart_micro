@@ -3,7 +3,7 @@ package social
 import (
 	"context"
 	"time"
-	"github.com/sea350/ustart_mono/backend/social/socialpb"
+	"github.com/sea350/ustart_micro/backend/social/socialpb"
 	//"fmt"
 
 )

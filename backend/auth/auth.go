@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"github.com/sea350/ustart_mono/backend/auth/storage"
+	"github.com/sea350/ustart_micro/backend/auth/storage"
 )
 
 const ()

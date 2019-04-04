@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/sea350/ustart_mono/backend/auth/authpb"
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
 )
 
 // ChangePassword wraps backend/auth/changePassword.go

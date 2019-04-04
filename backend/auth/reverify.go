@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/sea350/ustart_mono/backend/auth/authpb"
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
 )
 
 //Reverify resets a user's token and expiration date

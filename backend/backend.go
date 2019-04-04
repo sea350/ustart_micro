@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	authapi "github.com/sea350/ustart_mono/backend/api/rest/auth"
-	auth "github.com/sea350/ustart_mono/backend/auth"
+	authapi "github.com/sea350/ustart_micro/backend/api/rest/auth"
+	auth "github.com/sea350/ustart_micro/backend/auth"
 )
 
 // Server is a monolithic service providing access to all of UStart's data
