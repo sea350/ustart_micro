@@ -1,6 +1,0 @@
-syntax="proto3";
-
-message User {
-  string Name = 1;
-  string Birthday = 2;
-}

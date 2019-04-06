@@ -11,40 +11,56 @@ service Profile {
   rpc Pull(PullRequest) returns (PullResponse);
   rpc Lite(LiteRequest) returns (LiteResponse);
   rpc Lookup(LookupRequest) returns (LookupResponse);
+  rpc Search(SearchRequest) returns (SearchResponse);
 }
 
 message Empty{}
 
 message RegisterRequest{
-  string Email = 1;
-  string Password = 2;
+  string UUID = 1;
+  string Username = 2;
+  string FirstName = 3;
+  string LastName = 4;
+  string Avatar = 5;
+  string Banner = 6;
 }
 
-message RegisterResponse{
-  string UID = 1;
-  string Token = 2;
-}
+message RegisterResponse{}
 
 message PullRequest{
-    string Email = 1;
+  string UUID = 1;
 }
 
 message PullResponse{
-    bool Exists = 1;
+  Profile UserProfile = 1;
 }
 
 message LiteRequest{
-    string Email = 1;
+  string UUID = 1;
 }
 
 message LiteResponse{
-    bool Exists = 1;
+  string UUID = 1;
+  string Username = 2;
+  string FirstName = 3;
+  string LastName = 4;
+  string Avatar = 5;
 }
 
 message LookupRequest{
-    string Email = 1;
+  string Username = 1;
 }
   
 message LookupResponse{
-    bool Exists = 1;
+  bool Exists = 1;
+}
+
+message SearchRequest{
+  string Query = 1;
+  string Filters = 2;
+  //etc...
+}
+  
+message SearchResponse{
+  repeated LiteResponse Results = 1;
 }

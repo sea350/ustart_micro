@@ -24,15 +24,16 @@ message Profile {
 }
 
 message AcademicRecord{
-    string School = 1;
-    repeated string Majors = 2;
-    repeated string Minors = 3;
-    string Graduation = 4;
-    string EducationLevel = 5;
+  string School = 1;
+  repeated string Majors = 2;
+  repeated string Minors = 3;
+  string Graduation = 4;
+  string EducationLevel = 5;
 }
 
+
 message ProjectDisplay{
-    string ProjectID = 1;
-    bool Visible = 2;
+  string ProjectID = 1;
+  bool Visible = 2;
 }
 

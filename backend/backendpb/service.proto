@@ -1,0 +1,23 @@
+syntax="proto3";
+
+package auth.service;
+
+import "backend.proto";
+
+option go_package= "backendpb";
+
+service Backend {
+  rpc Signup(SignupRequest) returns (SignupResponse);
+
+}
+
+message Empty{}
+
+message SignupRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+message SignupResponse {
+  string UUID = 1;
+}

@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+package backend.models;
+
+option go_package= "backendpb";
