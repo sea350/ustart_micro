@@ -5,5 +5,15 @@ package widget.models;
 option go_package= "widgetspb";
 
 message Widget{
-    //Need verification from frontend
+    string WidgetID = 1;
+    string Index = 2;
+    string Body = 3; //Body Json (stored as a string, unmarshal later)
+    repeated Reference References= 4;
+    string Time = 5;//Time (type string) --> time posted 
+    
+}
+
+message Reference{
+    string ReferenceID = 1;
+    string Classification = 2;
 }
