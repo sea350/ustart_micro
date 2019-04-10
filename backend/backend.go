@@ -5,13 +5,12 @@ import (
 	"net/http"
 
 	authapi "github.com/sea350/ustart_micro/backend/api/rest/auth"
-	auth "github.com/sea350/ustart_micro/backend/auth"
 )
 
 // Server is a monolithic service providing access to all of UStart's data
 type Server struct {
 	port    string
-	authAPI *authapi.ElasticAuthRESTAPI
+	authAPI *authapi.RESTAPI
 }
 
 // New returns a new backend server, given the config object
@@ -19,7 +18,7 @@ func New(cfg *Config) (*Server, error) {
 	// creates all api servers
 
 	authAPI, err := authapi.New(&authapi.Config{
-		EAuthCfg: auth.NewConfig(),
+		EAuthCfg: authapi.NewConfig(),
 	})
 	if err != nil {
 		return nil, err
