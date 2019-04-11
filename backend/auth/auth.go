@@ -6,13 +6,13 @@ import (
 
 const ()
 
-// Auth is an implementation of the auth service defined in service.proto
+//Auth is an implementation of the auth service defined in service.proto
 type Auth struct {
 	strg            storage.Storage
 	tokenExpiration int
 }
 
-// New returns a new Eclient auth service
+// New returns a new SQL auth service
 func New(cfg *Config) (*Auth, error) {
 	// if cfg.useDummy
 	strg, err := storage.NewSQL(cfg.StorageConfig)

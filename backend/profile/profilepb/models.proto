@@ -18,7 +18,7 @@ message Profile {
   repeated ProjectDisplay Projects = 11;
   bool Visible = 12;
   bool Available = 13;
-  repeated string WidgetIDs = 14;
+  //repeated string WidgetIDs = 14;
   string DOB = 15;
   string AccountCreationDate = 16;
 }

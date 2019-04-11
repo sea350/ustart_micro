@@ -21,8 +21,6 @@ message RegisterRequest{
   string Username = 2;
   string FirstName = 3;
   string LastName = 4;
-  string Avatar = 5;
-  string Banner = 6;
 }
 
 message RegisterResponse{}
@@ -32,7 +30,7 @@ message PullRequest{
 }
 
 message PullResponse{
-  Profile UserProfile = 1;
+  profile.models.Profile UserProfile = 1;
 }
 
 message LiteRequest{
