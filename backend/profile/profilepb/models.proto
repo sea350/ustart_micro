@@ -8,7 +8,7 @@ message Profile {
   string UUID = 1;
   string Username = 2;
   string FirstName = 3;
-  string Lastname = 4;
+  string LastName = 4;
   string Description = 5;
   string University = 6;
   repeated AcademicRecord Degrees = 7;

@@ -26,7 +26,7 @@ message RegisterRequest{
 message RegisterResponse{}
 
 message PullRequest{
-  string UUID = 1;
+  string Username = 1;
 }
 
 message PullResponse{
