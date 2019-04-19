@@ -6,7 +6,7 @@ import (
 
 //Profile is an implementation of the profile service as defined in service.proto
 type Profile struct {
-	strg          *storage.Storage
+	strg          storage.Storage
 	defaultAvatar string
 	defaultBanner string
 }
@@ -17,7 +17,7 @@ func New(cfg *Config) (*Profile, error) {
 	storg, err := storage.NewES(cfg.StorageConfig)
 
 	prof := &Profile{
-		strg: &storg,
+		strg: storg,
 	}
 	return prof, err
 }

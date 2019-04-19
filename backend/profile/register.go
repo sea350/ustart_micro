@@ -15,7 +15,15 @@ func (profile *Profile) Register(ctx context.Context, req *profilepb.RegisterReq
 	}
 
 	if id != "" {
-		return nil, ErrEmailInUse
+		return nil, ErrProfileExists
+	}
+
+	_, err = profile.strg.LookupUsername(ctx, req.Username)
+	if err != nil && err != profile.strg.ErrUserDoesNotExist() {
+		return nil, err
+	}
+	if err == nil {
+		return nil, ErrUsernameInUse
 	}
 
 	err = profile.strg.Register(ctx, req.UUID, req.Username, req.FirstName, req.LastName, profile.defaultAvatar, profile.defaultBanner, "THIS IS A PLACEHOLDER", false, true)
@@ -23,6 +31,6 @@ func (profile *Profile) Register(ctx context.Context, req *profilepb.RegisterReq
 		return nil, err
 	}
 
-	return &profilepb.RegisterResponse{UID: uuid, Token: token}, nil
+	return &profilepb.RegisterResponse{}, nil
 
 }
