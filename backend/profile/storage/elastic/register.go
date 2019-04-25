@@ -38,7 +38,7 @@ func (estor *ElasticStore) Register(ctx context.Context, uuid string, username s
 			UUID:      uuid,
 			Username:  username,
 			FirstName: firstname,
-			Lastname:  lastname,
+			LastName:  lastname,
 			Avatar:    avatar,
 			Banner:    banner,
 			DOB:       dob,

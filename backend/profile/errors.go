@@ -11,4 +11,7 @@ var (
 
 	//ErrProfileExists This user already has a profile
 	ErrProfileExists = errors.New("This user already has a profile")
+
+	//ErrProblemLoadingProfile This user already has a profile
+	ErrProblemLoadingProfile = errors.New("There was a problem loading one or more profiles in this list")
 )

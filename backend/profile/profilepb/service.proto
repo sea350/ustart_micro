@@ -56,6 +56,7 @@ message LookupResponse{
 message SearchRequest{
   string Query = 1;
   string Filters = 2;
+  string Scroll = 3;
   //etc...
 }
   

@@ -9,7 +9,7 @@ import (
 // Register is a generic register function that registers a user in a database
 func (profile *Profile) Register(ctx context.Context, req *profilepb.RegisterRequest) (*profilepb.RegisterResponse, error) {
 
-	prof, err := profile.strg.Lookup(ctx, req.UUID)
+	_, err := profile.strg.Lookup(ctx, req.UUID)
 	if err != nil && err != profile.strg.ErrUserDoesNotExist() {
 		return nil, err
 	}
