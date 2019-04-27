@@ -20,12 +20,12 @@ func (estor *ElasticStore) Lookup(ctx context.Context, email string) (string, er
 	}
 
 	// if there are no hits, then no one exists by that email
-	if res.Hits.TotalHits < 1 {
+	if res.Hits.TotalHits.Value < 1 {
 		return "", nil
 	}
 
 	// if theres more than a single result then a problem has occurred
-	if res.Hits.TotalHits > 1 {
+	if res.Hits.TotalHits.Value > 1 {
 		return "", ErrTooManyResults
 	}
 
