@@ -17,6 +17,21 @@ func main() {
 
 	var config profile.Config
 
+	// config = profile.Config{
+	// 	Port: 5002,
+	// 	ProfCfg: &prof.Config{
+	// 		StorageConfig: &storage.Config{
+	// 			ElasticConfig: &elasticstore.Config{
+	// 				ElasticAddr: "localhost:9200",
+	// 				EType:       "test-profile_data",
+	// 				EIndex:      "PROFILE",
+	// 			},
+	// 		},
+	// 		DefaultAvatar: "INSERT URL HERE",
+	// 		DefaultBanner: "INSERT URL HERE",
+	// 	},
+	// }
+
 	//Importing configuration from json
 	file, err := os.Open("config.json")
 	if err != nil {

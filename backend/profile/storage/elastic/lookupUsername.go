@@ -24,12 +24,12 @@ func (estor *ElasticStore) LookupUsername(ctx context.Context, username string) 
 	}
 
 	// if there are no hits, then no one exists by that username
-	if res.Hits.TotalHits.Value < 1 {
+	if res.Hits.TotalHits < 1 {
 		return profile, ErrUserDoesNotExist
 	}
 
 	// if theres more than a single result then a problem has occurred
-	if res.Hits.TotalHits.Value > 1 {
+	if res.Hits.TotalHits > 1 {
 		return profile, ErrTooManyResults
 	}
 

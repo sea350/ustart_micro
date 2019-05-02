@@ -1,6 +1,5 @@
 *.pb.go
-backend/api/rest/auth/cmd/*.json
+backend/api/*/*/cmd/*.json
 vendor
-backend/api/grpc/auth/cmd/config.json
 coverage.txt
 profile.out

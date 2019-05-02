@@ -23,12 +23,12 @@ func (estor *ElasticStore) GetPassword(ctx context.Context, email string) (strin
 	}
 
 	// if there are no hits, then no one exists by that email
-	if res.Hits.TotalHits.Value < 1 {
+	if res.Hits.TotalHits < 1 {
 		return "", ErrUserDoesNotExist
 	}
 
 	// there should never be more than one result. If there is, there is an issue
-	if res.Hits.TotalHits.Value > 1 {
+	if res.Hits.TotalHits > 1 {
 		return "", ErrTooManyResults
 	}
 
