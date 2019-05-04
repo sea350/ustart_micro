@@ -13,25 +13,7 @@ func (estor *ElasticStore) Register(ctx context.Context, uuid string, username s
 	newUserLock.Lock()
 	defer newUserLock.Unlock()
 
-	// before instering into database make sure the index exists
-	exists, err := estor.client.IndexExists(estor.eIndex).Do(ctx)
-	if err != nil {
-		panic(err)
-	}
-
-	// If the index doesn't exist, create it. there shouldnt be any errors but if there are they are critical
-	if !exists {
-		createIndex, err := estor.client.CreateIndex(estor.eIndex).BodyString("").Do(ctx) //DONT FORGET TO ADD MAPPTING LATER
-		if err != nil {
-			panic(err)
-		}
-		// TODO fix this.
-		if !createIndex.Acknowledged {
-			panic(err)
-		}
-	}
-
-	_, err = estor.client.Index().
+	_, err := estor.client.Index().
 		Index(estor.eIndex).
 		Type(estor.eType).
 		BodyJson(profilepb.Profile{
