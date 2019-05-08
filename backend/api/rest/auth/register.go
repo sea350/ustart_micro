@@ -19,9 +19,9 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 	authReq := &authpb.RegisterRequest{}
 
 	if strings.Contains(req.Header.Get("Content-type"), "application/json") {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusCreated)
-		json.NewEncoder(w).Encode(authReq)
+		// req.Header.Set("Content-Type", "application/json")
+		// w.WriteHeader(http.StatusCreated)
+		json.NewDecoder(req.Body).Decode(authReq)
 	} else {
 		req.ParseForm()
 		authReq.Email = req.Form.Get("email")
@@ -48,4 +48,5 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 	}
 
 	fmt.Fprintln(w, string(data))
+	json.NewEncoder(w).Encode(string(data))
 }
