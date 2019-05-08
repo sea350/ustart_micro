@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/sea350/ustart_micro/backend/auth/authpb"
@@ -15,13 +16,16 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
-	req.ParseForm()
-	email := req.Form.Get("email")
-	pass := req.Form.Get("password")
+	authReq := &authpb.RegisterRequest{}
 
-	authReq := &authpb.RegisterRequest{
-		Email:    email,
-		Password: pass,
+	if strings.Contains(req.Header.Get("Content-type"), "application/json") {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(authReq)
+	} else {
+		req.ParseForm()
+		authReq.Email = req.Form.Get("email")
+		authReq.Password = req.Form.Get("password")
 	}
 
 	ret := make(map[string]interface{})
