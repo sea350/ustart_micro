@@ -16,11 +16,14 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
+	if !setCORS(&w, req) {
+		return
+	}
+
 	authReq := &authpb.RegisterRequest{}
 
 	if strings.Contains(req.Header.Get("Content-type"), "application/json") {
-		// req.Header.Set("Content-Type", "application/json")
-		// w.WriteHeader(http.StatusCreated)
+		req.Header.Set("Content-Type", "application/json")
 		json.NewDecoder(req.Body).Decode(authReq)
 	} else {
 		req.ParseForm()
@@ -44,9 +47,8 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 
 	data, err := json.Marshal(ret)
 	if err != nil {
-		logger.Panic(err)
+		logger.Println("Problem martialing return data", err)
 	}
 
 	fmt.Fprintln(w, string(data))
-	json.NewEncoder(w).Encode(string(data))
 }
