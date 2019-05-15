@@ -2,7 +2,9 @@ package backend
 
 // Config is used to determine the runtime behavior of backend.Server
 type Config struct {
-	Port string
+	Port              string
+	AuthAPIAdress     string
+	ProfileAPIAdresss string
 }
 
 // NewConfig returns a new config object with default params

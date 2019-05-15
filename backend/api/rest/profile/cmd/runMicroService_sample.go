@@ -9,6 +9,9 @@ import (
 
 	_ "github.com/lib/pq"
 	"github.com/sea350/ustart_micro/backend/api/rest/profile"
+	//prof "github.com/sea350/ustart_micro/backend/profile"
+	//"github.com/sea350/ustart_micro/backend/profile/storage"
+	//elasticstore "github.com/sea350/ustart_micro/backend/profile/storage/elastic"
 )
 
 func main() {
@@ -31,14 +34,16 @@ func main() {
 	// 		DefaultBanner: "INSERT URL HERE",
 	// 	},
 	// }
+	// bite, _ := json.Marshal(config)
+	// fmt.Println(string(bite))
 
 	//Importing configuration from json
 	file, err := os.Open("config.json")
 	if err != nil {
 		panic(err)
 	}
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&config)
+
+	err = json.NewDecoder(file).Decode(&config)
 	if err != nil {
 		panic(err)
 	}

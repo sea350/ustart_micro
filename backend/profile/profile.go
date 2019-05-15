@@ -14,10 +14,14 @@ type Profile struct {
 // New returns a new Eclient profile service
 func New(cfg *Config) (*Profile, error) {
 	// if cfg.useDummy
+
 	storg, err := storage.NewES(cfg.StorageConfig)
 
 	prof := &Profile{
-		strg: storg,
+		strg:          storg,
+		defaultAvatar: cfg.DefaultAvatar,
+		defaultBanner: cfg.DefaultBanner,
 	}
+
 	return prof, err
 }
