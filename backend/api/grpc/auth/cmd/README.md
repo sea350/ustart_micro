@@ -8,22 +8,22 @@ You can verbatim copy paste this object into your `config.json` but remember to 
 Note that the port doesn't have to be 5101 but since this is the root sub service it's recomended to start at 5101 and count up.
 
 ```json
-{"AuthCfg":
-    {"StorageConfig":{
-        "ElasticConfig":null,
-        "SQLConfig":{
-            "DriverName":"",
-            "Host":"",
-            "Port":"",
-            "DBName":"",
-            "Username":"",
-            "Password":"",
-            "RegistryTable":"",
-            "LoginTrackingTable":""
+{
+    "AuthCfg":{
+        "StorageConfig":{
+            "ElasticConfig":null,
+            "SQLConfig":{
+                "DriverName":"postgres",
+                "Host":"",
+                "Port":"5432",
+                "DBName":"",
+                "Username":"",
+                "Password":"",
+                "RegistryTable":"registry",
+                "LoginTrackingTable":"login"
             }
         }
     },
     "Port":5101
 }
-
 ```

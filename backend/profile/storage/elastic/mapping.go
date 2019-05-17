@@ -1,23 +1,26 @@
 package elasticstore
 
-var mapping = `
-{
+import "fmt"
+
+func mapping(indexName string) string {
+
+	return fmt.Sprintf(`{
 	"settings": {
 		"analysis": {
-		   "analyzer": {
-			  "my_analyzer": {
-				 "type": "custom",
-				 "filter": [
-					"lowercase"
-				 ],
-				 "tokenizer": "whitespace"
-			  }
-		   }
+			"analyzer": {
+				"my_analyzer": {
+					"type": "custom",
+					"filter": [
+						"lowercase"
+					],
+					"tokenizer": "whitespace"
+				}
+			}
 		}
-	 },
+	},
 
 	"mappings":{
-			"USER":{
+			"%s":{
 				"properties":{
 					"Username":{
 						"type":"text",
@@ -116,4 +119,5 @@ var mapping = `
 		}
 	}
 }
-`
+`, indexName)
+}

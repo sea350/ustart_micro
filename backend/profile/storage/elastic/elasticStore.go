@@ -43,7 +43,7 @@ func New(cfg *Config) (*ElasticStore, error) {
 
 	// if not create them
 	if !exists {
-		createIndex, err := ecl.client.CreateIndex(ecl.eIndex).BodyString(mapping).Do(context.Background()) //DONT FORGET TO ADD MAPPTING LATER
+		createIndex, err := ecl.client.CreateIndex(ecl.eIndex).BodyString(mapping(cfg.EIndex)).Do(context.Background()) //DONT FORGET TO ADD MAPPTING LATER
 		if err != nil {
 			panic(err)
 		}
