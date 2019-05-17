@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/sea350/ustart_micro/backend/auth/authpb"
@@ -15,13 +16,19 @@ func (rapi *RESTAPI) Authenticate(w http.ResponseWriter, req *http.Request) {
 	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 
-	req.ParseForm()
-	email := req.Form.Get("email")
-	pass := req.Form.Get("password")
+	if !setCORS(&w, req) {
+		return
+	}
 
-	authReq := &authpb.AuthenticateRequest{
-		Email:     email,
-		Challenge: pass,
+	authReq := &authpb.AuthenticateRequest{}
+
+	if strings.Contains(req.Header.Get("Content-type"), "application/json") {
+		req.Header.Set("Content-Type", "application/json")
+		json.NewDecoder(req.Body).Decode(authReq)
+	} else {
+		req.ParseForm()
+		authReq.Email = req.Form.Get("email")
+		authReq.Challenge = req.Form.Get("password")
 	}
 
 	ret := make(map[string]interface{})
@@ -40,7 +47,7 @@ func (rapi *RESTAPI) Authenticate(w http.ResponseWriter, req *http.Request) {
 
 	data, err := json.Marshal(ret)
 	if err != nil {
-		logger.Panic(err)
+		logger.Println("Problem martialing return data", err)
 	}
 
 	fmt.Fprintln(w, string(data))

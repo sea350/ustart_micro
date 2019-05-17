@@ -4,29 +4,41 @@ import (
 	"log"
 	"net/http"
 
-	authapi "github.com/sea350/ustart_micro/backend/api/rest/auth"
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
+	"github.com/sea350/ustart_micro/backend/profile/profilepb"
+	"google.golang.org/grpc"
 )
 
-// Server is a monolithic service providing access to all of UStart's data
+// Server is a centrialized service providing access to all of UStart's microservices
 type Server struct {
-	port    string
-	authAPI *authapi.RESTAPI
+	port          string
+	authClient    *authpb.AuthClient
+	profileClient *profilepb.ProfileClient
 }
 
 // New returns a new backend server, given the config object
 func New(cfg *Config) (*Server, error) {
-	// creates all api servers
+	server := &Server{port: cfg.Port}
 
-	authAPI, err := authapi.New(&authapi.Config{
-		EAuthCfg: authapi.NewConfig(),
-	})
+	// creates all api clients
+	//first auth
+	authConn, err := grpc.Dial(cfg.AuthAPIAdress, grpc.WithInsecure())
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
+	authClient := authpb.NewAuthClient(authConn)
+	server.authClient = &authClient
 
-	return &Server{
-		authAPI: authAPI,
-	}, err
+	//then profile
+	profileConn, err := grpc.Dial(cfg.ProfileAPIAdresss, grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+	profileClient := profilepb.NewProfileClient(profileConn)
+	server.profileClient = &profileClient
+
+	return server, nil
+
 }
 
 // Run starts the backend http server
@@ -34,7 +46,7 @@ func (srv *Server) Run() error {
 	log.SetPrefix("Backend Server:")
 	log.Println("Booting...")
 
-	http.HandleFunc("/auth/register", srv.authAPI.Register)
+	http.HandleFunc("/register", nil)
 
 	log.Printf("Listening on %s\n", srv.port)
 	return http.ListenAndServe(":"+srv.port, nil)
