@@ -67,53 +67,56 @@ func mapping(indexName string) string {
 						}
 					}
 				},
-				"AcademicRecord": [
-					"School":{
-						"type":"text",
-						"analyzer":"my_analyzer",
-						"fields":{
-							"raw":{
-								"type":"keyword"
+				"AcademicRecord": {
+					"type" "nested", 
+					"properties":{
+						"School":{
+							"type":"text",
+							"analyzer":"my_analyzer",
+							"fields":{
+								"raw":{
+									"type":"keyword"
+								}
 							}
-						}
-					},
-					"Majors":{
-						"type":"text",
-						"analyzer":"my_analyzer",
-						"fields":{
-							"raw":{
-								"type":"keyword"
+						},
+						"Majors":{
+							"type":"text",
+							"analyzer":"my_analyzer",
+							"fields":{
+								"raw":{
+									"type":"keyword"
+								}
 							}
-						}
-					},
-					"Minors":{
-						"type":"text",
-						"analyzer":"my_analyzer",
-						"fields":{
-							"raw":{
-								"type":"keyword"
+						},
+						"Minors":{
+							"type":"text",
+							"analyzer":"my_analyzer",
+							"fields":{
+								"raw":{
+									"type":"keyword"
+								}
 							}
-						}
-					},
-					"Graduation":{
-						"type":"text",
-						"analyzer":"my_analyzer",
-						"fields":{
-							"raw":{
-								"type":"keyword"
+						},
+						"Graduation":{
+							"type":"text",
+							"analyzer":"my_analyzer",
+							"fields":{
+								"raw":{
+									"type":"keyword"
+								}
 							}
-						}
-					},
-					"EducationLevel":{
-						"type":"text",
-						"analyzer":"my_analyzer",
-						"fields":{
-							"raw":{
-								"type":"keyword"
+						},
+						"EducationLevel":{
+							"type":"text",
+							"analyzer":"my_analyzer",
+							"fields":{
+								"raw":{
+									"type":"keyword"
+								}
 							}
 						}
 					}
-				]
+				}
 			}
 		}
 	}
