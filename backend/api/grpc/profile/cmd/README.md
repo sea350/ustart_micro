@@ -8,12 +8,13 @@ You can verbatim copy paste this object into your `config.json` but remember to 
 Note that the port doesn't have to be 5102 but since this is the root sub service it's recomended to start at 5102 and count up.
 
 ```json
-{"ProfCfg":{
-    "StorageConfig":{
-        "ElasticConfig":{
-            "ElasticAddr":"",
-            "EIndex":"profile",
-            "EType":"test-profile_data"
+{
+    "ProfileCfg":{
+        "StorageConfig":{
+            "ElasticConfig":{
+                "ElasticAddr":"",
+                "EIndex":"profile",
+                "EType":"test-profile_data"
             }
         },
         "DefaultAvatar":"INSERT URL HERE",

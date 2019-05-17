@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net"
 	"os"
@@ -30,10 +29,6 @@ func main() {
 	err = json.NewDecoder(file).Decode(&config)
 	if err != nil {
 		panic(err)
-	}
-	fmt.Println(config)
-	if config.ProfileCfg == nil {
-		return
 	}
 
 	//Generating api object
