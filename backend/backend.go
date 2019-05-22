@@ -46,7 +46,7 @@ func (srv *Server) Run() error {
 	log.SetPrefix("Backend Server:")
 	log.Println("Booting...")
 
-	http.HandleFunc("/register", nil)
+	http.HandleFunc("/", nil)
 
 	log.Printf("Listening on %s\n", srv.port)
 	return http.ListenAndServe(":"+srv.port, nil)
