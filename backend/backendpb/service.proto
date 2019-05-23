@@ -2,7 +2,7 @@ syntax="proto3";
 
 package auth.service;
 
-import "backend.proto";
+//import "backend.proto";
 
 option go_package= "backendpb";
 
