@@ -1,0 +1,14 @@
+{
+	"ProfileCfg":{
+		"StorageConfig":{
+			"ElasticConfig":{
+				"ElasticAddr":"http://127.0.0.1:9200",
+				"EIndex":"profile",
+				"EType":"test-profile_data"
+			}
+		},
+		"DefaultAvatar":"INSERT URL HERE",
+		"DefaultBanner":"INSERT URL HERE"
+	},
+	"Port":5102
+}

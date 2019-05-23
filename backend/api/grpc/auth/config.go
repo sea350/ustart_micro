@@ -1,4 +1,4 @@
-package auth
+package authapi
 
 import (
 	"github.com/sea350/ustart_micro/backend/auth"
