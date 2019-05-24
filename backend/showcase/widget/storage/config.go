@@ -1,8 +1,8 @@
 package storage
 
 import (
-	elasticstore "github.com/sea350/ustart_mono/backend/auth/storage/elastic"
-	sqlstore "github.com/sea350/ustart_mono/backend/auth/storage/sql"
+	elasticstore "github.com/sea350/ustart_micro/backend/auth/storage/elastic"
+	sqlstore "github.com/sea350/ustart_micro/backend/auth/storage/sql"
 )
 
 // Config determines the runtime behavior of the an either SQL or ElasticSearch backed auth server

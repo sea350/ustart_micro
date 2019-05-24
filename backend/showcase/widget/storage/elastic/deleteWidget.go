@@ -2,9 +2,11 @@ package elastic
 
 import (
 	"context"
-	//"github.com/sea350/ustart_mono/backend/widget/wigetspb" --> Doesn't want to implement???
+	//"github.com/sea350/ustart_micro/backend/widget/wigetspb" --> Doesn't want to implement???
 )
 
-DeleteWidget(context.Context, wdigetID string) error{
+//DeleteWidget ...
+func DeleteWidget(ctx context.Context, wdigetID string) error {
 	//Unsure how to implement, ask next week
+	return nil
 }

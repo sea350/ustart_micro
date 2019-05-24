@@ -2,11 +2,11 @@ package elastic
 
 import (
 	"context"
-	//"github.com/sea350/ustart_mono/backend/widget/wigetspb"
+	//"github.com/sea350/ustart_micro/backend/widget/wigetspb"
 )
 
-//Register creates a new ES document for storing a new widget
-func (estor *ElasticStore) StoreWidget(ctx context.Context, widgetID string) error {
+//StoreWidget creates a new ES document for storing a new widget
+func (estor *Store) StoreWidget(ctx context.Context, widgetID string) error {
 
 	//Lock just to make sure no two people can sign up with the same email at the same time
 	newWidgetLock.Lock()
@@ -28,6 +28,7 @@ func (estor *ElasticStore) StoreWidget(ctx context.Context, widgetID string) err
 		}
 	}
 
+	return nil
 	/*
 		_, err = estor.client.Index().
 			Index(estor.eIndex).

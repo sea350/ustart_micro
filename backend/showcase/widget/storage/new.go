@@ -1,7 +1,7 @@
 package storage
 
 import (
-	elasticstore "github.com/sea350/ustart_mono/backend/auth/storage/elastic"
+	elasticstore "github.com/sea350/ustart_micro/backend/auth/storage/elastic"
 )
 
 // NewES determines the runtime behavior of the ElasticSearch-backed auth server
