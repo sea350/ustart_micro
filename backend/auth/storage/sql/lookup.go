@@ -19,9 +19,9 @@ func (dbConn *SQLStore) Lookup(ctx context.Context, email string) (string, error
 			return "", err
 		}
 		if rows.Next() {
-			return uuid, ErrTooManyResults
+			return uuid, errTooManyResults
 		}
 		return uuid, nil
 	}
-	return "", ErrUserDoesNotExist
+	return "", errUserDoesNotExist
 }

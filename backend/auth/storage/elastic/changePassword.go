@@ -22,12 +22,12 @@ func (estor *ElasticStore) ChangePassword(ctx context.Context, email string, new
 
 	// if there are no hits, then no one exists by that email
 	if res.Hits.TotalHits < 1 {
-		return ErrUserDoesNotExist
+		return errUserDoesNotExist
 	}
 
 	// there should never be more than one result. If there is, there is an issue
 	if res.Hits.TotalHits > 1 {
-		return ErrTooManyResults
+		return errTooManyResults
 	}
 
 	_, err = estor.client.Update().

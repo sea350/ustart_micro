@@ -21,10 +21,10 @@ func (dbConn *SQLStore) GetToken(ctx context.Context, email string) (string, tim
 			return "", time.Time{}, err
 		}
 		if rows.Next() {
-			return "", time.Time{}, ErrTooManyResults
+			return "", time.Time{}, errTooManyResults
 		}
 		t, err := time.Parse(dbConn.TimeFormat, stringDate)
 		return token, t, err
 	}
-	return "", time.Time{}, ErrUserDoesNotExist
+	return "", time.Time{}, errUserDoesNotExist
 }

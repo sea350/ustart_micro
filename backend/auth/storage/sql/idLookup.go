@@ -18,9 +18,9 @@ func (dbConn *SQLStore) IDLookup(ctx context.Context, uuid string) (bool, error)
 			return false, err
 		}
 		if rows.Next() {
-			return true, ErrTooManyResults
+			return true, errTooManyResults
 		}
 		return true, nil
 	}
-	return false, ErrUserDoesNotExist
+	return false, errUserDoesNotExist
 }

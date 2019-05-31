@@ -26,7 +26,7 @@ func (estor *ElasticStore) Lookup(ctx context.Context, email string) (string, er
 
 	// if theres more than a single result then a problem has occurred
 	if res.Hits.TotalHits > 1 {
-		return "", ErrTooManyResults
+		return "", errTooManyResults
 	}
 
 	for _, elem := range res.Hits.Hits {

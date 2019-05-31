@@ -3,27 +3,27 @@ package elasticstore
 import "errors"
 
 var (
-	// ErrUserDoesNotExist user doesnt exist
-	ErrUserDoesNotExist = errors.New("User does not exist")
+	// errUserDoesNotExist user doesnt exist
+	errUserDoesNotExist = errors.New("User does not exist")
 
-	// ErrTooManyResults if more than one result per email shows
-	ErrTooManyResults = errors.New("Too many results, a crititcal error has occurred")
+	// errTooManyResults if more than one result per email shows
+	errTooManyResults = errors.New("Too many results, a crititcal error has occurred")
 
-	// ErrEmailInUse happens when a signup using an existing email occurs
-	ErrEmailInUse = errors.New("Email in use")
+	// errEmailInUse happens when a signup using an existing email occurs
+	errEmailInUse = errors.New("Email in use")
 )
 
 //ErrUserDoesNotExist returns a standardized error
 func (estor *ElasticStore) ErrUserDoesNotExist() error {
-	return ErrUserDoesNotExist
+	return errUserDoesNotExist
 }
 
 //ErrTooManyResults returns a standardized error
 func (estor *ElasticStore) ErrTooManyResults() error {
-	return ErrTooManyResults
+	return errTooManyResults
 }
 
 //ErrEmailInUse returns a standardized error
 func (estor *ElasticStore) ErrEmailInUse() error {
-	return ErrEmailInUse
+	return errEmailInUse
 }

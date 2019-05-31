@@ -20,9 +20,9 @@ func (dbConn *SQLStore) GetPassword(ctx context.Context, email string) (string, 
 			return "", err
 		}
 		if rows.Next() { //if there is a second row after the first an error has occured
-			return "", ErrTooManyResults
+			return "", errTooManyResults
 		}
 		return password, nil //everything went well
 	}
-	return "", ErrUserDoesNotExist
+	return "", errUserDoesNotExist
 }

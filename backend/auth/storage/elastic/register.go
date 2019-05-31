@@ -20,7 +20,7 @@ func (estor *ElasticStore) Register(ctx context.Context, uuid string, email stri
 		return err
 	}
 	if id != "" {
-		return ErrEmailInUse
+		return errEmailInUse
 	}
 
 	// before instering into database make sure the index exists
