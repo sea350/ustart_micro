@@ -7,7 +7,7 @@ import "models.proto";
 option go_package= "socialpb";
 
 service Social {
-  rpc Follow(FollowRequest) returns (FollowReponse);
+  rpc Follow(FollowRequest) returns (FollowResponse);
   rpc Unfollow(UnfollowRequest) returns (UnfollowResponse);
   rpc Block(BlockRequest) returns (BlockResponse);
   rpc Unblock(UnblockRequest) returns (UnblockResponse);
@@ -28,7 +28,7 @@ message FollowRequest {
   string FollowedType = 5;
 }
 
-message FollowReponse {}
+message FollowResponse {}
 
 message UnfollowRequest{
     string FollowerUUID = 1;

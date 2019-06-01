@@ -9,11 +9,37 @@ import (
 	"strings"
 	"time"
 
+	"github.com/sea350/ustart_micro/backend/profile/profilepb"
+
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
 	"github.com/sea350/ustart_micro/backend/backendpb"
 )
 
 //Signup registers a new user
 func (s *Server) Signup(ctx context.Context, req *backendpb.SignupRequest) (*backendpb.SignupResponse, error) {
+
+	resAuth, err := (*s.authClient).Register(ctx, &authpb.RegisterRequest{
+		Email:    req.Email,
+		Password: req.Password,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if resAuth == nil {
+		log.Print("this shouldnt happen")
+		return nil, err
+	}
+
+	_, err = (*s.profileClient).Register(ctx, &profilepb.RegisterRequest{
+		UUID: resAuth.UID,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	//TODO:
+	//send token to emailer
+	//register with any other subservices
 
 	return &backendpb.SignupResponse{}, nil
 }
