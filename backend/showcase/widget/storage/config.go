@@ -1,15 +1,15 @@
 package storage
 
 import (
-	elasticstore "github.com/sea350/ustart_micro/backend/auth/storage/elastic"
-	sqlstore "github.com/sea350/ustart_micro/backend/auth/storage/sql"
+	elasticstore "github.com/sea350/ustart_micro/backend/showcase/widget/storage/elastic"
+	//sqlstore "github.com/sea350/ustart_micro/backend/showcase/widget/storage/sql"
 )
 
-// Config determines the runtime behavior of the an either SQL or ElasticSearch backed auth server
+// Config determines the runtime behavior of the an either SQL or ElasticSearch backed showcase/widget server
 type Config struct {
 	useDummy      bool
 	ElasticConfig *elasticstore.Config
-	SQLConfig     *sqlstore.Config
+	//SQLConfig     *sqlstore.Config
 }
 
 // ESNewConfig returns a default config object
