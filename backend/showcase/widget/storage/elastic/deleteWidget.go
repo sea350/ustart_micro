@@ -6,7 +6,7 @@ import (
 )
 
 //DeleteWidget ...
-func DeleteWidget(ctx context.Context, wdigetID string) error {
+func (estor *Store) DeleteWidget(ctx context.Context, wdigetID string) error {
 	//Unsure how to implement, ask next week
 	return nil
 }
