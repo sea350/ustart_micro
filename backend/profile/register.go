@@ -25,7 +25,7 @@ func (profile *Profile) Register(ctx context.Context, req *profilepb.RegisterReq
 		return nil, ErrUsernameInUse
 	}
 
-	err = profile.strg.Register(ctx, req.UUID, req.Username, req.FirstName, req.LastName, profile.defaultAvatar, profile.defaultBanner, "THIS IS A PLACEHOLDER", false, true)
+	err = profile.strg.Register(ctx, req.UUID, req.Username, req.FirstName, req.LastName, profile.defaultAvatar, profile.defaultBanner, req.DOB, req.School, false, true)
 	if err != nil {
 		return nil, err
 	}

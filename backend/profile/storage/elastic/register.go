@@ -7,7 +7,7 @@ import (
 )
 
 //Register creates a new ES document for a new registering profile
-func (estor *ElasticStore) Register(ctx context.Context, uuid string, username string, firstname string, lastname string, avatar string, banner string, dob string, visible bool, available bool) error {
+func (estor *ElasticStore) Register(ctx context.Context, uuid string, username string, firstname string, lastname string, avatar string, banner string, dob string, school string, visible bool, available bool) error {
 
 	//Lock just to make sure no two people can sign up with the same username at the same time
 	newUserLock.Lock()
@@ -26,6 +26,7 @@ func (estor *ElasticStore) Register(ctx context.Context, uuid string, username s
 			DOB:       dob,
 			Available: available,
 			Visible:   visible,
+			Degrees:   []*profilepb.AcademicRecord{&profilepb.AcademicRecord{School: school}},
 		}).
 		Id(uuid).
 		Do(ctx)

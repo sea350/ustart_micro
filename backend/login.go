@@ -4,18 +4,33 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 	"time"
 
+	"github.com/sea350/ustart_micro/backend/auth/authpb"
 	"github.com/sea350/ustart_micro/backend/backendpb"
 )
 
 //Login registers a new user
 func (s *Server) Login(ctx context.Context, req *backendpb.LoginRequest) (*backendpb.LoginResponse, error) {
+
+	//Authenticate credentials
+	resAuth, err := (*s.authClient).Authenticate(ctx, &authpb.AuthenticateRequest{
+		Email:     req.Identifier,
+		Challenge: req.Challenge,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if resAuth == nil {
+		logger.Println("this shouldnt happen")
+		return nil, err
+	}
+	//Credentials verified
+
 	//TODO:
-	//all of it
+	//Set up session
 
 	return &backendpb.LoginResponse{}, nil
 }
@@ -53,13 +68,14 @@ func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	if err != nil {
 		ret["error"] = err.Error()
+		logger.Println("Login identifier: "+req.Identifier+" | err: ", err)
 	} else {
 		ret["error"] = ""
 	}
 
 	data, err := json.Marshal(ret)
 	if err != nil {
-		log.Println("Problem martialing return data", err)
+		logger.Println("Problem martialing return data", err)
 	}
 
 	fmt.Fprintln(w, string(data))

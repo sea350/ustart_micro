@@ -1,6 +1,9 @@
 package backend
 
-import "net/http"
+import (
+	"net/http"
+	"regexp"
+)
 
 //setCORS sets CORS policy and checks for proper request method
 func setCORS(w *http.ResponseWriter, req *http.Request) bool {
@@ -12,5 +15,13 @@ func setCORS(w *http.ResponseWriter, req *http.Request) bool {
 		return false
 	}
 
+	return true
+}
+
+func validUsername(username string) bool {
+	rxUname := regexp.MustCompile(`/^[a-zA-Z0-9][\w]*\.?[\w]*[a-zA-Z0-9]+$/`)
+	if !rxUname.MatchString(username) {
+		return false
+	}
 	return true
 }

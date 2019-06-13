@@ -21,6 +21,8 @@ message RegisterRequest{
   string Username = 2;
   string FirstName = 3;
   string LastName = 4;
+  string School = 5;
+  string DOB = 6;
 }
 
 message RegisterResponse{}

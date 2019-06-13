@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -26,7 +25,7 @@ func (s *Server) Signup(ctx context.Context, req *backendpb.SignupRequest) (*bac
 		return nil, err
 	}
 	if resAuth == nil {
-		log.Print("this shouldnt happen")
+		logger.Println("this shouldnt happen")
 		return nil, err
 	}
 
@@ -71,6 +70,9 @@ func (s *Server) SignupHTTP(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 		req.Email = r.Form.Get("email")
 		req.Password = r.Form.Get("password")
+		req.Username = r.Form.Get("username")
+		req.FirstName = r.Form.Get("firstname")
+		req.LastName = r.Form.Get("lastname")
 	}
 
 	ret := make(map[string]interface{})
@@ -83,13 +85,14 @@ func (s *Server) SignupHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	if err != nil {
 		ret["error"] = err.Error()
+		logger.Println("Email: "+req.Email+" | err: ", err)
 	} else {
 		ret["error"] = ""
 	}
 
 	data, err := json.Marshal(ret)
 	if err != nil {
-		log.Println("Problem martialing return data", err)
+		logger.Println("Problem martialing return data", err)
 	}
 
 	fmt.Fprintln(w, string(data))
