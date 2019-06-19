@@ -10,7 +10,7 @@ message Profile {
   string FirstName = 3;
   string LastName = 4;
   string Description = 5;
-  string University = 6;
+  string Organization = 6;
   repeated AcademicRecord Degrees = 7;
   repeated string Tags = 8;
   string Avatar = 9;

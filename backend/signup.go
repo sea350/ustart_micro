@@ -30,13 +30,14 @@ func (s *Server) Signup(ctx context.Context, req *backendpb.SignupRequest) (*bac
 	}
 
 	//TODO:
-	//Education history
+	//Education history may need to be expanded on
 
 	_, err = (*s.profileClient).Register(ctx, &profilepb.RegisterRequest{
 		UUID:      resAuth.UID,
 		Username:  req.Username,
 		FirstName: req.FirstName,
 		LastName:  req.LastName,
+		School:    req.CurrentSchool,
 	})
 	if err != nil {
 		return nil, err

@@ -2,13 +2,14 @@ syntax="proto3";
 
 package backend.service;
 
-//import "backend.proto";
+import "models.proto";
 
 option go_package= "backendpb";
 
 service Backend {
   rpc Signup(SignupRequest) returns (SignupResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
+  rpc PublicProfile(ProfileRequest) returns (ProfileResponse);
 }
 
 message Empty{}
@@ -33,4 +34,13 @@ message LoginRequest{
 
 message LoginResponse{
   string Name = 1;
+}
+
+message ProfileRequest{
+  string Username = 1;
+  string Viewer = 2;
+}
+
+message ProfileResponse{
+  backend.models.Profile UserData = 1;
 }
