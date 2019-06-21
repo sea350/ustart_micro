@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/sea350/ustart_micro/backend/profile/profilepb"
 
@@ -55,9 +54,6 @@ func (s *Server) Signup(ctx context.Context, req *backendpb.SignupRequest) (*bac
 // SignupHTTP is an http wrapper for the signup function
 func (s *Server) SignupHTTP(w http.ResponseWriter, r *http.Request) {
 
-	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancel()
-
 	if !setCORS(&w, r) {
 		return
 	}
@@ -78,7 +74,7 @@ func (s *Server) SignupHTTP(w http.ResponseWriter, r *http.Request) {
 
 	ret := make(map[string]interface{})
 
-	resp, err := s.Signup(regCtx, req)
+	resp, err := s.Signup(r.Context(), req)
 	if resp != nil {
 		ret["response"] = resp
 	} else {

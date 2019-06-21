@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/sea350/ustart_micro/backend/backendpb"
 	"github.com/sea350/ustart_micro/backend/profile/profilepb"
@@ -37,9 +36,6 @@ func (s *Server) PublicProfile(ctx context.Context, req *backendpb.ProfileReques
 //PublicProfileHTTP is an http wrapper for the signup function
 func (s *Server) PublicProfileHTTP(w http.ResponseWriter, r *http.Request) {
 
-	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancel()
-
 	if !setCORS(&w, r) {
 		return
 	}
@@ -56,7 +52,7 @@ func (s *Server) PublicProfileHTTP(w http.ResponseWriter, r *http.Request) {
 
 	ret := make(map[string]interface{})
 
-	resp, err := s.PublicProfile(regCtx, req)
+	resp, err := s.PublicProfile(r.Context(), req)
 	if resp != nil {
 		ret["response"] = resp
 	} else {

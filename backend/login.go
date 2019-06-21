@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/sea350/ustart_micro/backend/auth/authpb"
 	"github.com/sea350/ustart_micro/backend/backendpb"
@@ -40,9 +39,6 @@ func (s *Server) Login(ctx context.Context, req *backendpb.LoginRequest) (*backe
 //LoginHTTP is an http wrapper for the signup function
 func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 
-	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-	defer cancel()
-
 	if !setCORS(&w, r) {
 		return
 	}
@@ -60,7 +56,7 @@ func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 
 	ret := make(map[string]interface{})
 
-	resp, err := s.Login(regCtx, req)
+	resp, err := s.Login(r.Context(), req)
 	if resp != nil {
 		ret["response"] = resp
 	} else {
