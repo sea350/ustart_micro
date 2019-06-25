@@ -8,8 +8,8 @@ option go_package= "sessionpb";
 
 service Session {
   rpc Start (StartRequest) returns (StartResponse);
-  //rpc Validate (ValidateRequest) returns (ValidateResponse);
-  //rpc End (EndRequest) returns (EndResponse);
+  rpc Validate (ValidateRequest) returns (ValidateResponse);
+  rpc End (EndRequest) returns (EndResponse);
 }
 
 message StartRequest{
@@ -22,5 +22,24 @@ message StartResponse{
   string SessionID = 1;
   string ExpirationDate = 2;
   string Token = 3;
+}
+
+message ValidateRequest{
+  string SessionID = 1;
+  string Token = 2;
+}
+
+message ValidateResponse{
+  string UUID = 1;
+  string ExpirationDate = 2;
+}
+
+message EndRequest{
+  string SessionID = 1;
+  string Token = 2;
+}
+
+message EndResponse{
+  bool Success = 1;
 }
 
