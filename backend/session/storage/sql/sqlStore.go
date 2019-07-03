@@ -9,7 +9,7 @@ import (
 	"github.com/lib/pq"
 )
 
-// SQLStore implements the storage interface for the Auth module
+// SQLStore implements the storage interface for the Session module
 type SQLStore struct {
 	db               *sql.DB
 	SessionTableName string
