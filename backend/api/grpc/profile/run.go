@@ -9,7 +9,7 @@ import (
 )
 
 //Run runs the api server
-func (pAPI *GPRCAPI) Run() {
+func (pAPI *GRPCAPI) Run() {
 	listener, err := net.Listen("tcp", ":"+pAPI.port)
 	if err != nil {
 		panic(err)
