@@ -1,4 +1,4 @@
-package store
+package elasticstore
 
 import (
 	"context"
@@ -6,8 +6,8 @@ import (
 	"github.com/olivere/elastic"
 )
 
-//ChangePermissionProfileMember Permission profile - Allows user to manage project's members
-func (estor *ElasticStore) ChangePermissionProfileMember(ctx context.Context, projectID string, profileName string, canManageMember bool) error {
+//ChangePermissionProfileCategory Permission profile - Allows user to change project category
+func (estor *ElasticStore) ChangePermissionProfileCategory(ctx context.Context, projectID string, profileName string, canChangeCategory bool) error {
 	//Pull target project/permission profile from ES
 	query := elastic.NewBoolQuery()
 	query = query.Must(elastic.NewTermQuery("UUID", profileName))
@@ -36,7 +36,7 @@ func (estor *ElasticStore) ChangePermissionProfileMember(ctx context.Context, pr
 	_, err = estor.client.Update().
 		Index(estor.eIndex).
 		Id(results.Hits.Hits[0].Id).
-		Doc(map[string]interface{}{"CanManageMember": canManageMember}).
+		Doc(map[string]interface{}{"CanChangeCategory": canChangeCategory}).
 		Do(ctx)
 
 	return err

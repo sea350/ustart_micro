@@ -11,14 +11,15 @@ message Project {
     string CreationDate = 4;
     string Category = 5;
     string Description = 6;
-    Location Location = 7;
-    repeated string Tags = 8;
-    string Avatar = 9;
-    string Banner = 10;
-    string CustomURL = 11;
-    repeated Member ListFollowers = 12;
-    repeated string SkillsNeeded = 13;
-    repeated string Links = 14;
+    string School = 7;
+    Location Location = 8;
+    repeated string Tags = 9;
+    string Avatar = 10;
+    string Banner = 11;
+    string CustomURL = 12;
+    repeated Member ListFollowers = 13;
+    repeated string SkillsNeeded = 14;
+    repeated string Links = 15;
 }
 
 message Member {

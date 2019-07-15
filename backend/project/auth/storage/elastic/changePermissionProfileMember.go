@@ -1,4 +1,4 @@
-package store
+package elasticstore
 
 import (
 	"context"
@@ -6,8 +6,8 @@ import (
 	"github.com/olivere/elastic"
 )
 
-//ChangePermissionProfileImage Permission profile - Allows user to change project image
-func (estor *ElasticStore) ChangePermissionProfileImage(ctx context.Context, projectID string, profileName string, canChangeImage bool) error {
+//ChangePermissionProfileMember Permission profile - Allows user to manage project's members
+func (estor *ElasticStore) ChangePermissionProfileMember(ctx context.Context, projectID string, profileName string, canManageMember bool) error {
 	//Pull target project/permission profile from ES
 	query := elastic.NewBoolQuery()
 	query = query.Must(elastic.NewTermQuery("UUID", profileName))
@@ -36,7 +36,7 @@ func (estor *ElasticStore) ChangePermissionProfileImage(ctx context.Context, pro
 	_, err = estor.client.Update().
 		Index(estor.eIndex).
 		Id(results.Hits.Hits[0].Id).
-		Doc(map[string]interface{}{"CanChangeImage": canChangeImage}).
+		Doc(map[string]interface{}{"CanManageMember": canManageMember}).
 		Do(ctx)
 
 	return err

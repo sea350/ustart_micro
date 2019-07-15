@@ -1,4 +1,4 @@
-package store
+package elasticstore
 
 import (
 	"context"
@@ -6,8 +6,8 @@ import (
 	"github.com/olivere/elastic"
 )
 
-//ChangePermissionProfileDescription Permission profile - Allows user to change project description
-func (estor *ElasticStore) ChangePermissionProfileDescription(ctx context.Context, projectID string, profileName string, canChangeDescription bool) error {
+//ChangePermissionProfileURL Permission profile - Allows user to change project URL
+func (estor *ElasticStore) ChangePermissionProfileURL(ctx context.Context, projectID string, profileName string, canChangeURL bool) error {
 	//Pull target project/permission profile from ES
 	query := elastic.NewBoolQuery()
 	query = query.Must(elastic.NewTermQuery("UUID", profileName))
@@ -36,7 +36,7 @@ func (estor *ElasticStore) ChangePermissionProfileDescription(ctx context.Contex
 	_, err = estor.client.Update().
 		Index(estor.eIndex).
 		Id(results.Hits.Hits[0].Id).
-		Doc(map[string]interface{}{"CanChangeDescription": canChangeDescription}).
+		Doc(map[string]interface{}{"CanChangeURL": canChangeURL}).
 		Do(ctx)
 
 	return err

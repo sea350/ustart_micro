@@ -1,4 +1,4 @@
-package store
+package elasticstore
 
 import (
 	"context"
@@ -6,8 +6,8 @@ import (
 	"github.com/olivere/elastic"
 )
 
-//ChangePermissionProfileName Permission profile - Allows user to change project name
-func (estor *ElasticStore) ChangePermissionProfileName(ctx context.Context, projectID string, profileName string, canChangeName bool) error {
+//ChangePermissionProfileLocation Permission profile - Allows user to change project location
+func (estor *ElasticStore) ChangePermissionProfileLocation(ctx context.Context, projectID string, profileName string, canChangeLocation bool) error {
 	//Pull target project/permission profile from ES
 	query := elastic.NewBoolQuery()
 	query = query.Must(elastic.NewTermQuery("UUID", profileName))
@@ -36,7 +36,7 @@ func (estor *ElasticStore) ChangePermissionProfileName(ctx context.Context, proj
 	_, err = estor.client.Update().
 		Index(estor.eIndex).
 		Id(results.Hits.Hits[0].Id).
-		Doc(map[string]interface{}{"CanChangeName": canChangeName}).
+		Doc(map[string]interface{}{"CanChangeLocation": canChangeLocation}).
 		Do(ctx)
 
 	return err

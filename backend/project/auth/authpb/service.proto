@@ -1,4 +1,4 @@
-syntax="proto3";
+0syntax="proto3";
 
 package project.service;
 
@@ -8,6 +8,8 @@ import "permissions.proto";
 option go_package = "authpb"; 
 
 service Auth {
+
+ 
     //Request to change privilege profile (promote/demote)
     rpc AddPermissionProfile (AddPermissionProfileRequest) returns (AddPermissionProfileResponse);
     rpc ChangePermissionProfile (ChangePermissionProfileRequest) returns (ChangePermissionProfileResponse);
@@ -20,6 +22,7 @@ service Auth {
     //Checks to see if requester has permission perform task (Change settings, add tags, etc.)
     rpc CheckPermission (CheckPermissionRequest) returns (CheckPermissionResponse); 
 }
+
 message AddPermissionProfileRequest{
     string UUID = 1;            //UserID
     string PID = 2;             //ProjectID
