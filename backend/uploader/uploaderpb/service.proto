@@ -7,6 +7,8 @@ option go_package= "uploaderpb";
 service Uploader {
   rpc UploadProfile(UploadProfileRequest) returns (UploadProfileResponse);
   rpc UploadBanner(UploadBannerRequest) returns (UploadBannerResponse);
+  rpc DeleteProfile(DeleteProfileRequest) returns (DeleteProfileResponse);
+  rpc DeleteBanner(DeleteBannerRequest) returns (DeleteBannerResponse);
 }
 
 message Empty{}
@@ -21,10 +23,23 @@ message UploadProfileResponse{
 }
 
 message UploadBannerRequest{
-    string Blob = 1;
+    string Base64 = 1;
     string UploaderID = 2;
 }
 
 message UploadBannerResponse{
     string URL = 1;
 }
+
+message DeleteProfileRequest{
+    string UploaderID = 1;
+}
+
+message DeleteProfileResponse {}
+
+message DeleteBannerRequest{
+    string UploaderID = 1;
+}
+
+message DeleteBannerResponse {}
+

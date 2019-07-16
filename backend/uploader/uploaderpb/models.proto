@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package uploader.models;
+
+option go_package = "uploaderpb";
+
+message Uploader {
+    string URL = 1;
+    string UploaderID = 2;
+    string Base64 = 3;
+}
