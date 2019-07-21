@@ -1,6 +1,10 @@
 package storage
 
+import (
+	"context"
+)
+
 type Storage interface {
-	Upload()
-	Delete()
+	Upload(context.Context, string, string) error
+	Delete(context.Context, string, string) error
 }
