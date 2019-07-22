@@ -9,7 +9,7 @@ func (dbConn *SQLStore) Init(ctx context.Context) error {
 
 	URL text NOT NULL,
 	UploaderID text NOT NULL,
-	base64 text NOT NULL,
+	Base64 text NOT NULL,
 	);
 `)
 }
