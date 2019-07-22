@@ -1,6 +1,9 @@
 package storage
 
+//Storage holds the necessary functions
 type Storage interface {
-	Upload()
-	Delete()
+	UploadBanner()
+	DeleteBanner()
+	UploadProfile()
+	DeleteProfile()
 }
