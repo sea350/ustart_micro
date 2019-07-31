@@ -20,8 +20,8 @@ type SQLStore struct {
 func New(cfg *Config) (*SQLStore, error) {
 	_ = pq.Efatal
 	connString := fmt.Sprintf(
-		"user=%s, password=%s, dbname=%s, host=%s, port=%s, sslmode=disable",
-		cfg.Username, cfg.Password, cfg.DBName, cfg.DriverName, cfg.Port)
+		"driverName=%s, port=%s, host=%s, url=%s, uploaderID=%s, base64=%s, uploaderTableName=%s, sslmode=disable",
+		cfg.DriverName, cfg.Port, cfg.Host, cfg.URL, cfg.UploaderID, cfg.Base64, cfg.UploaderTableName)
 
 	client, err := sql.Open(cfg.DriverName, connString)
 
