@@ -14,12 +14,12 @@ type Auth struct {
 
 // New returns a new SQL auth service
 func New(cfg *Config) (*Auth, error) {
-	// if cfg.useDummy
 	strg, err := storage.NewSQL(cfg.StorageConfig)
 
 	auth := &Auth{
 		strg:            strg,
 		tokenExpiration: cfg.TokenExpirationHrs,
 	}
+
 	return auth, err
 }

@@ -7,7 +7,6 @@ import (
 
 // ChangePassword changes a user's password
 func (dbConn *SQLStore) ChangePassword(ctx context.Context, email string, newPassword string) error {
-	// pull data attached to the email
 
 	queryString := fmt.Sprintf(
 		`UPDATE %s SET password= '%s' WHERE email = '%s';`,
