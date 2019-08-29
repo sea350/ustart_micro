@@ -25,5 +25,17 @@ func (sesh *Session) Start(uuid string, username string, ipAddress string, remem
 	//TODO:
 	//Update database
 
-	return "", nil
+	sessID, _, err := sesh.strg.FindSession(r.Context(), uuid, ipAddress)
+	if err == sesh.strg.ErrSessionDoesNotExist() {
+		sessID, err = sesh.strg.NewSession(r.Context(), uuid, username, ipAddress, time.Now().Format(sesh.timeFormat), cookie.Expires.Format(sesh.timeFormat))
+		if err != nil {
+			return "", err
+		}
+	} else if err != nil {
+		return "", err
+	} else {
+		err = sesh.strg.SetActive(r.Context(), sessID, time.Now().Format(sesh.timeFormat), cookie.Expires.Format(sesh.timeFormat))
+	}
+
+	return sessID, err
 }
