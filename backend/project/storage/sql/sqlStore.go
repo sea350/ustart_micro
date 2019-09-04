@@ -11,10 +11,10 @@ import (
 
 // SQLStore implements the storage interface for the Auth module
 type SQLStore struct {
-	db   *sql.DB
-	UUID string
-	PID  string
-	Role string
+	db              *sql.DB
+	RegistryTN      string
+	LoginTrackingTN string
+	TimeFormat      string
 }
 
 // New returns a new SQLStore service
