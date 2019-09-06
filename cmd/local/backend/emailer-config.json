@@ -1,0 +1,18 @@
+{
+    "EmailerCfg": {
+        "StorageConfig": {
+            "ElasticConfig": null,
+            "SQLConfig": {
+                "DriverName": "postgres",
+                "Host": "",
+                "Port": "5432",
+                "DBName": "",
+                "Username": "",
+                "Password": "",
+                "RegistryTable": "registry",
+                "LoginTrackingTable": "login"
+            }
+        }
+    },
+    "Port": 5103
+}
