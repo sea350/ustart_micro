@@ -11,10 +11,10 @@ import (
 
 // SQLStore implements the storage interface for the Auth module
 type SQLStore struct {
-	db              *sql.DB
-	RegistryTN      string
-	LoginTrackingTN string
-	TimeFormat      string
+	db         *sql.DB
+	memberTN   string //Table name for project members
+	roleTN     string //Table name for project Roles
+	TimeFormat string
 }
 
 // New returns a new SQLStore service
@@ -30,10 +30,10 @@ func New(cfg *Config) (*SQLStore, error) {
 	}
 
 	dbConn := &SQLStore{
-		db:              client,
-		RegistryTN:      cfg.RegistryTable,
-		LoginTrackingTN: cfg.LoginTrackingTable,
-		TimeFormat:      time.RFC3339,
+		db:         client,
+		memberTN:   cfg.MemberTableName,
+		roleTN:     cfg.RoleTableName,
+		TimeFormat: time.RFC3339,
 	}
 
 	pingCtx, cancel := context.WithTimeout(context.Background(), time.Second*2)
