@@ -17,17 +17,17 @@ func (rapi *RESTAPI) Register(w http.ResponseWriter, req *http.Request) {
 
 	req.ParseForm()
 	pid := req.Form.Get("pid")
-	url := req.Form.Get("projectURL")
+	url := req.Form.Get("customURL")
 	pname := req.Form.Get("projectName")
 	desc := req.Form.Get("description")
-	school:= req.Form.Get("school")
+	school := req.Form.Get("school")
 
 	projReq := &projectpb.RegisterRequest{
 		PID:         pid,
-		ProjectURL:  url,
+		CustomURL:   url,
 		Name:        pname,
 		Description: desc,
-		School: school
+		School:      school,
 	}
 
 	ret := make(map[string]interface{})

@@ -24,7 +24,7 @@ message Empty{}
 
 message RegisterRequest{
   string PID = 1;
-  string ProjectURL = 2;
+  string CustomURL = 2;
   string Name = 3;
   string Description = 4;
   string School = 5;
@@ -33,7 +33,7 @@ message RegisterRequest{
 message RegisterResponse{}
 
 message PullRequest{
-  string ProjectURL = 1;
+  string CustomURL = 1;
 }
 
 message PullResponse{
@@ -41,19 +41,19 @@ message PullResponse{
 }
 
 message LiteRequest{
-  string ProjectURL = 1;
+  string CustomURL = 1;
 }
 
 message LiteResponse{
   string PID = 1;
-  string ProjectURL = 2;
+  string CustomURL = 2;
   string Name = 3;
   string Description = 4;
   string Avatar = 5;
 }
 
 message LookupRequest{
-  string ProjectURL = 1;
+  string CustomURL = 1;
 }
   
 message LookupResponse{

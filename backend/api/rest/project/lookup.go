@@ -1,4 +1,4 @@
-package profile
+package project
 
 import (
 	"context"
@@ -14,7 +14,7 @@ func (rapi *RESTAPI) Lookup(w http.ResponseWriter, req *http.Request) {
 	defer cancel()
 
 	req.ParseForm()
-	url := req.Form.Get("projectURL")
+	url := req.Form.Get("customURL")
 
 	lookReq := &profilepb.LookupRequest{
 		Username: username,

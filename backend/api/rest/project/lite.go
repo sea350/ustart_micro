@@ -16,10 +16,10 @@ func (rapi *RESTAPI) Lite(w http.ResponseWriter, req *http.Request) {
 	defer cancel()
 
 	req.ParseForm()
-	uuid := req.Form.Get("uuid")
+	pid := req.Form.Get("pid")
 
 	lookReq := &projectpb.LiteRequest{
-		UUID: uuid,
+		PID: pid,
 	}
 
 	ret := make(map[string]interface{})

@@ -14,10 +14,10 @@ func (rapi *RESTAPI) Pull(w http.ResponseWriter, req *http.Request) {
 	defer cancel()
 
 	req.ParseForm()
-	url := req.Form.Get("projectURL")
+	url := req.Form.Get("customURL")
 
 	lookReq := &profilepb.PullRequest{
-		ProjectURL: url,
+		CustomURL: url,
 	}
 
 	ret := make(map[string]interface{})
