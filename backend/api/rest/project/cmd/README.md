@@ -13,7 +13,7 @@ Note that the port doesn't have to be 5102 but since this is the root sub servic
         "StorageConfig":{
             "ElasticConfig":{
                 "ElasticAddr":"",
-                "EIndex":"profile",
+                "EIndex":"project",
                 "EType":"test-project_data"
             }
         },
