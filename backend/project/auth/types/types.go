@@ -15,7 +15,7 @@ type Role struct {
 	ManageMembers bool
 	ChangeIcon    bool
 	ChangeBanner  bool
-	ManagePosts   bool
+	ManageEntries bool
 	ManageLinks   bool
 	ManageTags    bool
 }

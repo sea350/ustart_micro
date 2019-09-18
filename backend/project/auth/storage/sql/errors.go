@@ -3,8 +3,8 @@ package sqlstore
 import "errors"
 
 var (
-	// errUserDoesNotExist user doesnt exist
-	errUserDoesNotExist = errors.New("User does not exist")
+	// errNoResultsFound user doesnt exist
+	errNoResultsFound = errors.New("No results found")
 
 	// errTooManyResults if more than one result per email shows
 	errTooManyResults = errors.New("Too many results, a crititcal error has occurred")
@@ -13,9 +13,9 @@ var (
 	errEmailInUse = errors.New("Email in use")
 )
 
-//ErrUserDoesNotExist returns a standardized error
-func (dbConn *SQLStore) ErrUserDoesNotExist() error {
-	return errUserDoesNotExist
+//ErrNoResultsFound returns a standardized error
+func (dbConn *SQLStore) ErrNoResultsFound() error {
+	return errNoResultsFound
 }
 
 //ErrTooManyResults returns a standardized error
