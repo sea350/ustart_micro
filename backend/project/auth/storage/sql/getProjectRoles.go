@@ -7,8 +7,8 @@ import (
 	"github.com/sea350/ustart_micro/backend/project/auth/types"
 )
 
-// GetRoles retreivs all roles from a certain project
-func (dbConn *SQLStore) GetRoles(ctx context.Context, projectID string) ([]types.Role, error) {
+// GetProjectRoles retreivs all roles from a certain project
+func (dbConn *SQLStore) GetProjectRoles(ctx context.Context, projectID string) ([]types.Role, error) {
 
 	queryString := fmt.Sprintf(
 		`SELECT role_name, manage_members, change_icon, change_banner, manage_entries, manage_links, manage_tags
