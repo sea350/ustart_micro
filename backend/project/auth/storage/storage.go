@@ -11,12 +11,12 @@ type Storage interface {
 	AddMember(context.Context, string, string, string, string) error                   //pass uuid, projectid, role, joindate | get error
 	AddRole(context.Context, string, string, bool, bool, bool, bool, bool, bool) error //pass role, projectid, permissions: member, icon, banner, entries, links, tags | get error
 
-	ModifyRoleManageMembers(context.Context, string, bool) error //pass projectid, new value |
-	ModifyRoleChangeIcon(context.Context, string, bool) error
-	ModifyRoleChangeBanner(context.Context, string, bool) error
-	ModifyRoleManageEntries(context.Context, string, bool) error
-	ModifyRoleManageLinks(context.Context, string, bool) error
-	ModifyRoleManageTags(context.Context, string, bool) error
+	ModifyRoleManageMembers(context.Context, string, string, bool) error //pass projectid, role name, new value | get error
+	ModifyRoleChangeIcon(context.Context, string, string, bool) error
+	ModifyRoleChangeBanner(context.Context, string, string, bool) error
+	ModifyRoleManageEntries(context.Context, string, string, bool) error
+	ModifyRoleManageLinks(context.Context, string, string, bool) error
+	ModifyRoleManageTags(context.Context, string, string, bool) error
 	ModifyMemberRole(context.Context, string, string, string) error //pass user id, project id, role name | get error
 
 	RemoveMember(context.Context, string, string) error //pass user id, project id | get error
@@ -26,4 +26,10 @@ type Storage interface {
 	GetMembers(context.Context, string) ([]types.Member, error)         //pass project id | get a list of members, error
 	GetRoleProfile(context.Context, string, string) (types.Role, error) //pass project id, profile name | get role profile, error
 	GetProjectRoles(context.Context, string) ([]types.Role, error)      //pass project id | get list of role profiles, error
+
+	ErrNoResultsFound() error
+	ErrTooManyResults() error
+
+	//TODO:
+	//AggregateUserProjects(context.Context, string)([]string, error)
 }

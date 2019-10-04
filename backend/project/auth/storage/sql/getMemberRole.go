@@ -11,10 +11,10 @@ func (dbConn *SQLStore) GetMemberRole(ctx context.Context, projectID, memberID s
 	queryString := fmt.Sprintf(
 		`SELECT role_name
 		FROM %s
-		WHERE project_id = $1;`,
+		WHERE project_id = $1 AND uuid = $2;`,
 		dbConn.memberTN,
 	)
-	rows, err := dbConn.db.QueryContext(ctx, queryString, projectID)
+	rows, err := dbConn.db.QueryContext(ctx, queryString, projectID, memberID)
 	if err != nil {
 		return "", err
 	}
