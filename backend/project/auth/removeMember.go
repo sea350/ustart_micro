@@ -18,7 +18,7 @@ func (auth *Auth) RemoveMember(ctx context.Context, projectID, removerID, remove
 	if removerID == removedID {
 		//if user is creator, make sure there is more than one creator
 		if removerRole.Name == creator {
-			mems, err := auth.strg.GetMembers(ctx, projectID)
+			mems, err := auth.Strg.GetMembers(ctx, projectID)
 			if err != nil {
 				return err
 			}
@@ -50,7 +50,7 @@ func (auth *Auth) RemoveMember(ctx context.Context, projectID, removerID, remove
 	//if you got here then the permissions check out
 	//remove the member
 
-	err = auth.strg.RemoveMember(ctx, projectID, removedID)
+	err = auth.Strg.RemoveMember(ctx, projectID, removedID)
 
 	return err
 }

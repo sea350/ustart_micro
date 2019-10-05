@@ -9,7 +9,7 @@ import (
 //FindUserRole gets the role profile associated with a user
 func (auth *Auth) FindUserRole(ctx context.Context, projectID, userID string) (types.Role, error) {
 	//find the role name of the user
-	roleName, err := auth.strg.GetMemberRole(ctx, userID, projectID)
+	roleName, err := auth.Strg.GetMemberRole(ctx, userID, projectID)
 	if err != nil {
 		return types.Role{}, err
 	}
@@ -28,7 +28,7 @@ func (auth *Auth) FindUserRole(ctx context.Context, projectID, userID string) (t
 	}
 
 	//pull the role profile associated with the name
-	role, err := auth.strg.GetRoleProfile(ctx, projectID, roleName)
+	role, err := auth.Strg.GetRoleProfile(ctx, projectID, roleName)
 	if err != nil {
 		return types.Role{}, err
 	}

@@ -10,7 +10,7 @@ const ()
 
 //Auth is an implementation of the auth service defined in service.proto
 type Auth struct {
-	strg       storage.Storage
+	Strg       storage.Storage
 	timeFormat string
 }
 
@@ -20,7 +20,7 @@ func New(cfg *Config) (*Auth, error) {
 	strg, err := storage.NewSQL(cfg.StorageConfig)
 
 	auth := &Auth{
-		strg:       strg,
+		Strg:       strg,
 		timeFormat: time.RFC3339,
 	}
 	return auth, err

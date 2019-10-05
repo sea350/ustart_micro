@@ -17,13 +17,13 @@ func (auth *Auth) AddMember(ctx context.Context, projectID, userID, newMemberID,
 	}
 
 	//then check if role exists
-	_, err = auth.strg.GetRoleProfile(ctx, projectID, roleName)
+	_, err = auth.Strg.GetRoleProfile(ctx, projectID, roleName)
 	if err != nil {
 		return err
 	}
 
 	//Add new member with given role
-	err = auth.strg.AddMember(ctx, newMemberID, projectID, roleName, time.Now().Format(auth.timeFormat))
+	err = auth.Strg.AddMember(ctx, newMemberID, projectID, roleName, time.Now().Format(auth.timeFormat))
 	if err != nil {
 		return err
 	}

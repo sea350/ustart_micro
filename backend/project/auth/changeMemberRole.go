@@ -8,7 +8,7 @@ import (
 func (auth *Auth) ChangeMemberRole(ctx context.Context, projectID, changerID, changedID, newRole string) error {
 
 	//Make sure the role exists
-	_, err := auth.strg.GetRoleProfile(ctx, projectID, newRole)
+	_, err := auth.Strg.GetRoleProfile(ctx, projectID, newRole)
 	if err != nil {
 		return err
 	}
@@ -35,7 +35,7 @@ func (auth *Auth) ChangeMemberRole(ctx context.Context, projectID, changerID, ch
 	//if you got here then the permissions check out
 	//change the member
 
-	err = auth.strg.ModifyMemberRole(ctx, changedID, projectID, newRole)
+	err = auth.Strg.ModifyMemberRole(ctx, changedID, projectID, newRole)
 
 	return err
 }
