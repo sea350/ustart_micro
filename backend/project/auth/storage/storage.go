@@ -34,7 +34,7 @@ type Storage interface {
 	//Member Request functions
 	AddRequest(context.Context, string, string, string) error //pass user id, project id, and request date
 	RemoveRequest(context.Context, string, string) error      //pass user id and project id
-	GetRequest(context.Context, string)                       //pass project id
+	GetRequests(context.Context, string)                      //pass project id
 	AcceptRequest(context.Context, string, string, string)    //pass project id, newMember id, and user id
 
 	//Errors

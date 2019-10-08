@@ -30,6 +30,15 @@ func (dbConn *SQLStore) Init(ctx context.Context) error {
 	);
 `)
 
+	// the table mirrors the authpb
+	_, err := dbConn.db.ExecContext(ctx, `CREATE TABLE IF NOT EXISTS  `+dbConn.requestTN+` (
+	uuid text NOT NULL,
+	project_id text NOT NULL,
+	request_date text,
+	PRIMARY KEY (uuid, project_id)
+	);
+	
+`)
 	return err
 }
 
