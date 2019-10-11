@@ -20,6 +20,7 @@ message Project {
     repeated Member ListFollowers = 13;
     repeated string SkillsNeeded = 14;
     repeated string Links = 15;
+    repeated string JoinRequests = 16;
 }
 
 message Member {

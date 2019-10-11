@@ -14,6 +14,7 @@ type SQLStore struct {
 	db         *sql.DB
 	memberTN   string //Table name for project members
 	roleTN     string //Table name for project Roles
+	requestTN  string //Table name for Join Requests
 	TimeFormat string
 }
 
@@ -33,6 +34,7 @@ func New(cfg *Config) (*SQLStore, error) {
 		db:         client,
 		memberTN:   cfg.MemberTableName,
 		roleTN:     cfg.RoleTableName,
+		requestTN:  cfg.RequestTableName,
 		TimeFormat: time.RFC3339,
 	}
 
