@@ -16,6 +16,9 @@ func (dbConn *SQLStore) GetRequests(ctx context.Context, projectID string) ([]st
 		WHERE project_id = $1;`,
 		dbConn.requestTN,
 	)
+
+	//Manage members check
+	
 	rows, err := dbConn.db.QueryContext(ctx, queryString, projectID)
 	if err != nil {
 		return []string, err
@@ -29,11 +32,11 @@ func (dbConn *SQLStore) GetRequests(ctx context.Context, projectID string) ([]st
 		if err := rows.Scan(&uuid); err != nil {
 			return []string, err
 		}
-		reqs = append(uuid)
+		reqs = append(reqs, uuid)
 	}
-	if len(reqs) == 0 {
-		return []string, errNoResultsFound
-	}
+	// if len(reqs) == 0 {
+	// 	return []string, errNoResultsFound
+	// }
 
 	return reqs, nil //everything went well
 }
