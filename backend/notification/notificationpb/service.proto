@@ -1,0 +1,14 @@
+syntax="proto3";
+
+package notif.service;
+
+import "models.proto";
+
+option go_package= "notifpb";
+
+service Notif {
+  //rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse);
+
+}
+
+message Empty{}
