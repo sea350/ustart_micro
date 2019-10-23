@@ -1,20 +1,18 @@
-0syntax="proto3";
+syntax="proto3";
 
 package project.service;
 
-// import "permissions.proto";
-import "permissions.proto";
+// import "models.proto";
+import "models.proto";
 
-option go_package = "authpb"; 
+option go_package = "projectpb"; 
 
 service Auth {
-
-
-    rpc Register(RegisterRequest) returns (RegisterResponse);
-    rpc Pull(PullRequest) returns (PullResponse);
-    rpc Lite(LiteRequest) returns (LiteResponse);
-    rpc Lookup(LookupRequest) returns (LookupResponse);
-    rpc Search(SearchRequest) returns (SearchResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Pull(PullRequest) returns (PullResponse);
+  rpc Lite(LiteRequest) returns (LiteResponse);
+  rpc Lookup(LookupRequest) returns (LookupResponse);
+  rpc Search(SearchRequest) returns (SearchResponse);
 
 }
 
