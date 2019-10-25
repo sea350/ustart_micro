@@ -11,3 +11,10 @@ func NewSQL(config *Config) (Storage, error) {
 	strg, err := sqlstore.New(config.SQLConfig)
 	return strg, err
 }
+
+// NewAWS determines the runtime behavior of the AWS-backed customer server
+func NewAWS(config *Config) (Storage, error) {
+	//	strg, err := &Config{SQLConfig: sqlstore.NewConfig()}
+		strg, err := awsstore.New(config.AWSConfig)
+		return strg, err
+	}

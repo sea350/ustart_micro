@@ -1,6 +1,9 @@
 package awsstore
 
 import(
+	"bytes"
+	"encoding/base64"
+	"strings"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )

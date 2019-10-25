@@ -6,7 +6,7 @@ import (
 	awsstore "github.com/sea350/ustart_micro/backend/uploader/storage/aws"
 )
 
-// Config determines the runtime behavior of the an either SQL or ElasticSearch backed customer server
+// Config determines the runtime behavior of the an either SQL or AWS backed customer server
 type Config struct {
 	StorageConfig *storage.Storage
 	//SQLConfig     *sqlstore.Config
