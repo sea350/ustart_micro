@@ -6,4 +6,5 @@ type Config struct {
 	S3CredentialID     string
 	S3CredentialSecret string
 	S3CredentialToken  string
+	bucketName = "ustart-bucket"
 }

@@ -1,16 +1,11 @@
-package uploader
+package awsstore
 
-import (
-	"bytes"
-	"encoding/base64"
-	"strings"
-
+import(
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
-//UploadBanner uploads a banner picture while returning the image link
-func (uploader *Uploader) UploadBanner(based64 string, uploaderID string) (string, error) {
+func (dbConn *AWSStore) Upload(ctx context.Context, based64, uploaderID string)(string,error) {
 	var arr []string
 	i := strings.Index(based64, ",")
 	if i < 0 {
@@ -24,15 +19,19 @@ func (uploader *Uploader) UploadBanner(based64 string, uploaderID string) (strin
 	}
 
 	r := bytes.NewReader(dec)
-	result, err := uploader.upl.Upload(&s3manager.UploadInput{
+
+	result, err := dbConn.db.Upload(&s3manager.UploadInput{
 		Bucket:      aws.String(bucketName),
-		Key:         aws.String(uploaderID + "-banner.png"),
+		Key:         aws.String(uploaderID + ".png"),
 		Body:        r,
 		ContentType: aws.String("image/png"),
 	})
+	
 	if err != nil {
 		return ``, err
 	}
 
-	return result.Location, nil
+	return result.Location, err
+	
+
 }

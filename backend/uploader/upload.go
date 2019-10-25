@@ -10,7 +10,7 @@ import (
 )
 
 //UploadProfile uploads a profile picture while returning the image link
-func (uploader *Uploader) UploadProfile(based64 string, uploaderID string) (string, error) {
+func (uploader *Uploader) Upload(based64 string, uploaderID string) (string, error) {
 	var arr []string
 	i := strings.Index(based64, ",")
 	if i < 0 {
@@ -24,15 +24,9 @@ func (uploader *Uploader) UploadProfile(based64 string, uploaderID string) (stri
 	}
 
 	r := bytes.NewReader(dec)
-	result, err := uploader.upl.Upload(&s3manager.UploadInput{
-		Bucket:      aws.String(bucketName),
-		Key:         aws.String(uploaderID + ".png"),
-		Body:        r,
-		ContentType: aws.String("image/png"),
-	})
-	if err != nil {
-		return ``, err
-	}
+	url, err = uploader.storage.upload(uploaderID)
 
-	return result.Location, nil
+	
+
+	return url, nil
 }
