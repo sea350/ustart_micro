@@ -5,39 +5,24 @@ package uploader.service;
 option go_package= "uploaderpb";
 
 service Uploader {
-  rpc Upload(UploadProfileRequest) returns (UploadProfileResponse);
-  rpc Delete(DeleteProfileRequest) returns (DeleteProfileResponse);
+  rpc Upload(UploadRequest) returns (UploadResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
 }
 
 message Empty{}
 
-message UploadProfileRequest{
+message UploadRequest{
     string Base64 = 1;
     string UploaderID = 2;
 }
 
-message UploadProfileResponse{
+message UploadResponse{
     string URL = 1;
 }
 
-message UploadBannerRequest{
-    string Base64 = 1;
-    string UploaderID = 2;
-}
-
-message UploadBannerResponse{
-    string URL = 1;
-}
-
-message DeleteProfileRequest{
+message DeleteRequest{
     string UploaderID = 1;
 }
 
-message DeleteProfileResponse {}
-
-message DeleteBannerRequest{
-    string UploaderID = 1;
-}
-
-message DeleteBannerResponse {}
+message DeleteResponse {}
 
