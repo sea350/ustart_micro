@@ -17,4 +17,4 @@ func NewAWS(config *Config) (Storage, error) {
 	//	strg, err := &Config{SQLConfig: sqlstore.NewConfig()}
 		strg, err := awsstore.New(config.AWSConfig)
 		return strg, err
-	}
+	}.

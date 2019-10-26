@@ -1,49 +1,35 @@
-package sqlstore
+package awsstore
 
 import (
 	"context"
 	"database/sql"
 	"fmt"
 	"time"
-
 	"github.com/lib/pq"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
-// SQLStore implements the storage interface for the customer module
-type SQLStore struct {
-	db     *sql.DB
-	eIndex string
-	eType  string
+
+
+//Uploader is a struct that manages uploads for files and images
+type AWSStore struct {
+	upl *s3manager.Uploader
 }
 
-// New returns a new Eclient elasticstore service
-func New(cfg *Config) (*SQLStore, error) {
-	_ = pq.Efatal
-	connString := fmt.Sprintf(
-		"driverName=%s, port=%s, host=%s, url=%s, uploaderID=%s, base64=%s, uploaderTableName=%s, sslmode=disable",
-		cfg.DriverName, cfg.Port, cfg.Host, cfg.URL, cfg.UploaderID, cfg.Base64, cfg.UploaderTableName)
+//New creates a new Uploader based on the inserted config
+func New(cfg *Config) (*Uploader, error) {
+	// if cfg.useDummy
+	sesh := session.Must(session.NewSession(&aws.Config{Region: aws.String(cfg.Region), Credentials: credentials.NewStaticCredentials(cfg.S3CredentialID, cfg.S3CredentialSecret, cfg.S3CredentialToken)}))
 
-	client, err := sql.Open(cfg.DriverName, connString)
-
-	if err != nil {
-		return nil, err
+	uploader := s3manager.NewUploader(sesh)
+	
+	upload := &Uploader{
+		upl: uploader,
 	}
 
-	dbConn := &SQLStore{
-		db:     *sql.DB,
-		eIndex: string,
-		eType:  cfg.LoginTrackingable,
-	}
+	return upload, nil
 
-	//ping makes sure everything runs efficiently
-	pingCtx, cancel := context.WithTimeout(context.Background(), time.Second*2)
-	defer cancel()
-
-	//Init is used to make things cleaner
-	//generates query on the spot and submits it
-	//can check/create every interaction you make with the database
-	err = dbConn.Init(context.Background())
-
-	return dbConn, err
-	return nil, nil
 }

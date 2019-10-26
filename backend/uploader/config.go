@@ -1,10 +1,8 @@
 package uploader
 
 //Config contains all information needed to run uploader
+import "github.com/sea350/ustart_micro/backend/uploader/storage"
+
 type Config struct {
-	Region             string
-	S3CredentialID     string
-	S3CredentialSecret string
-	S3CredentialToken  string
-	bucketName = "ustart-bucket"
+	StorageConfig *storage.Config
 }

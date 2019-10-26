@@ -8,7 +8,7 @@ import(
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
-func (dbConn *AWSStore) Upload(ctx context.Context, based64, uploaderID string)(string,error) {
+func (upload *AWSStore) Upload(ctx context.Context, based64, uploaderID string)(string,error) {
 	var arr []string
 	i := strings.Index(based64, ",")
 	if i < 0 {
@@ -23,7 +23,7 @@ func (dbConn *AWSStore) Upload(ctx context.Context, based64, uploaderID string)(
 
 	r := bytes.NewReader(dec)
 
-	result, err := dbConn.db.Upload(&s3manager.UploadInput{
+	result, err := upload.upl.Upload(&s3manager.UploadInput{
 		Bucket:      aws.String(bucketName),
 		Key:         aws.String(uploaderID + ".png"),
 		Body:        r,
