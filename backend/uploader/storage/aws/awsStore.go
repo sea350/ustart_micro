@@ -4,6 +4,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
@@ -11,6 +12,7 @@ import (
 type Uploader struct {
 	//REVISION, inconsistant struct naming
 	upl *s3manager.Uploader
+	svc *s3.S3
 	//REVISION, now stores bucket name
 	bucketName string
 }
@@ -22,9 +24,11 @@ func New(cfg *Config) (*Uploader, error) {
 	//sesh := session.Must(session.NewSession(&aws.Config{Region: aws.String(cfg.Region), Credentials: credentials.NewStaticCredentials(cfg.S3CredentialID, cfg.S3CredentialSecret, cfg.S3CredentialToken)}))
 	sesh := session.Must(session.NewSession(&aws.Config{Region: aws.String(cfg.Region), Credentials: credentials.NewStaticCredentials(cfg.S3CredID, cfg.S3CredSecret, cfg.S3Token)}))
 	uploader := s3manager.NewUploader(sesh)
+	svc := s3.New(sesh)
 
 	upload := &Uploader{
 		upl: uploader,
+		svc: svc,
 		//REVISION: passed bucket name from cfg to struct
 		bucketName: cfg.BucketName,
 	}

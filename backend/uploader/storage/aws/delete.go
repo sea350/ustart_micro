@@ -1,24 +1,21 @@
 package awsstore
 
 import (
-	"bytes"
 	"context"
 	"log"
-	urlPackage "net/url"
-	"strings"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
+//Delete deletes the files using the key retrieved from the file's url
 func (upload *Uploader) Delete(ctx context.Context, key string) error {
-	input := upload.upl.Delete(&s3.DeleteObjectInput{
+	input := &s3.DeleteObjectInput{
 		Bucket: aws.String(upload.bucketName),
-		Key:    aws.String(key)
-	})
-​
-	_, err := upload.upl.DeleteObject(input)
+		Key:    aws.String(key),
+	}
+	_, err := upload.svc.DeleteObject(input)
 	if err != nil {
 		if aerr, ok := err.(awserr.Error); ok {
 			switch aerr.Code() {
@@ -34,10 +31,8 @@ func (upload *Uploader) Delete(ctx context.Context, key string) error {
 		}
 		return err
 	}
-​
 	// log.SetFlags(log.LstdFlags | log.Lshortfile)
 	// log.Println("Debug text: " + result.Location)
-​
 	return nil
 
 }
