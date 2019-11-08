@@ -11,9 +11,9 @@ import (
 
 // SQLStore implements the storage interface for the Session module
 type SQLStore struct {
-	db               *sql.DB
-	SessionTableName string
-	TimeFormat       string
+	db                *sql.DB
+	activityTableName string
+	TimeFormat        string
 }
 
 // New returns a new SQLStore service
@@ -29,9 +29,9 @@ func New(cfg *Config) (*SQLStore, error) {
 	}
 
 	dbConn := &SQLStore{
-		db:               client,
-		SessionTableName: cfg.SessionTableName,
-		TimeFormat:       time.RFC3339,
+		db:                client,
+		activityTableName: cfg.TableName,
+		TimeFormat:        time.RFC3339,
 	}
 
 	pingCtx, cancel := context.WithTimeout(context.Background(), time.Second*2)

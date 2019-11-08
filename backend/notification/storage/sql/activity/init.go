@@ -4,15 +4,13 @@ import "context"
 
 // Init initiallizes all required tables
 func (dbConn *SQLStore) Init(ctx context.Context) error {
-	_, err := dbConn.db.QueryContext(ctx, `CREATE TABLE IF NOT EXISTS  `+dbConn.SessionTableName+` (
-	session_id int NOT NULL UNIQUE AUTO_INCREMENT,
-	uuid text NOT NULL UNIQUE,
-	ip_address text,
-	token text,
-	active_since text,
-	expiration text,
-	active bool,
-	PRIMARY KEY  (sessionID)
+	_, err := dbConn.db.QueryContext(ctx, `CREATE TABLE IF NOT EXISTS  `+dbConn.activityTableName+` (
+	activity_id int NOT NULL UNIQUE AUTO_INCREMENT,
+	actor_id text NOT NULL UNIQUE,
+	object_id text,
+	action text,
+	time timestamp,
+	PRIMARY KEY  (activity_id)
 	);
 `)
 
