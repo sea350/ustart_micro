@@ -14,7 +14,7 @@ message Notification {
 
 message Activity {
   string ActivityID = 1;
-  string ActorUUID = 2;
+  string ActorID = 2;
   string ObjectID = 3;
   string Action = 4;
   string Timestamp = 5;
