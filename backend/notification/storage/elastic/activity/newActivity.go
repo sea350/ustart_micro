@@ -7,9 +7,9 @@ import (
 )
 
 //NewActivity performs an activity in ES doc form
-func (estor *ElasticStore) NewActivity(ctx context.Context, uuid, objectID, action, timestamp string) error {
+func (estor *ElasticStore) NewActivity(ctx context.Context, uuid, objectID, action, timestamp string) (string, error) {
 
-	_, err := estor.client.Index().
+	ret, err := estor.client.Index().
 		Index(estor.eIndex).
 		Type(estor.eType).
 		BodyJson(notifpb.Activity{
@@ -20,5 +20,5 @@ func (estor *ElasticStore) NewActivity(ctx context.Context, uuid, objectID, acti
 		}).
 		Do(ctx)
 
-	return err
+	return ret.Id, err
 }

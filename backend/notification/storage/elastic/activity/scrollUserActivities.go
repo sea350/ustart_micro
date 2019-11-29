@@ -10,8 +10,8 @@ import (
 	notifpb "github.com/sea350/ustart_micro/backend/notification/notificationpb"
 )
 
-//ScrollUserActivites scrolls through a user's activites, returns results and scroll id
-func (estor *ElasticStore) ScrollUserActivites(ctx context.Context, uuid, scrollID string) ([]notifpb.Activity, string, error) {
+//ScrollUserActivities scrolls through a user's activites, returns results and scroll id
+func (estor *ElasticStore) ScrollUserActivities(ctx context.Context, uuid, scrollID string) ([]notifpb.Activity, string, error) {
 
 	activQuery := elastic.NewBoolQuery()
 	activQuery = activQuery.Must(elastic.NewTermQuery("Actor", uuid))

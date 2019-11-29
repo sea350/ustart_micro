@@ -10,8 +10,8 @@ import (
 	notifpb "github.com/sea350/ustart_micro/backend/notification/notificationpb"
 )
 
-//ScrollNotifActivites scrolls through a set of activities, returns results and scroll id
-func (estor *ElasticStore) ScrollNotifActivites(ctx context.Context, activityIDs []string, scrollID string) ([]notifpb.Activity, string, error) {
+//ScrollNotifActivities scrolls through a set of activities, returns results and scroll id
+func (estor *ElasticStore) ScrollNotifActivities(ctx context.Context, activityIDs []string, scrollID string) ([]notifpb.Activity, string, error) {
 
 	activQuery := elastic.NewBoolQuery()
 
