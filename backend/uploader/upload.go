@@ -4,13 +4,10 @@ import (
 	"bytes"
 	"encoding/base64"
 	"strings"
-	"github.com/sea350/ustart_micro/backend/uploader/storage"
-
 )
 
 //Upload uploads a profile picture while returning the image link
 func (uploader *Uploader) Upload(based64 string, uploaderID string) (string, error) {
-	//REVISION, this needs to be moved to the logic portion
 	var arr []string
 	i := strings.Index(based64, ",")
 	if i < 0 {

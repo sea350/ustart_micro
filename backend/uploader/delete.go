@@ -7,7 +7,7 @@ import (
 	"github.com/sea350/ustart_micro/backend/uploader/storage"
 )
 
-//Delete Profile deletes a profile picture while returning the image link
+//Delete deletes a profile picture while returning the image link
 func (uploader *Uploader) Delete(url string) error {
 	splt := strings.Split(url, "/")
 	key := splt[len(splt)-1]
