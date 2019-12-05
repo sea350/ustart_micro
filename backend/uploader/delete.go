@@ -1,20 +1,19 @@
 package uploader
 
 import (
-	"bytes"
-	"encoding/base64"
+	"context"
+	urlPackage "net/url"
 	"strings"
-	"github.com/sea350/ustart_micro/backend/uploader/storage"
 )
 
 //Delete deletes a profile picture while returning the image link
-func (uploader *Uploader) Delete(url string) error {
+func (uploader *Uploader) Delete(ctx context.Context, url string) error {
 	splt := strings.Split(url, "/")
 	key := splt[len(splt)-1]
-​
+
 	key, _ = urlPackage.QueryUnescape(key)
 
-	err = storage.delete(key)
+	err := uploader.stor.Delete(ctx, key)
 
 	return err
 }
