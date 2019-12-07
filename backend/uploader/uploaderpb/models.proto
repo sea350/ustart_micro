@@ -5,7 +5,8 @@ package uploader.models;
 option go_package = "uploaderpb";
 
 message Uploader {
-    string URL = 1;
-    string UploaderID = 2;
-    string Base64 = 3;
+    string Base64 = 1;
+    string UUID = 2;
+    string OldImageLink = 3;
+    string NewLink = 4;
 }

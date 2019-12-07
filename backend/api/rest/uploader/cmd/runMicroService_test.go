@@ -8,14 +8,14 @@ import (
 	"strconv"
 
 	_ "github.com/lib/pq"
-	"github.com/sea350/ustart_micro/backend/api/rest/uploader"
+	uploader "github.com/sea350/ustart_micro/backend/api/rest/uploader"
 )
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	log.Println("Dialing up...")
 
-	var config auth.Config
+	var config uploader.Config
 	//Importing configuration from json
 	file, err := os.Open("config.json")
 	if err != nil {
@@ -28,15 +28,15 @@ func main() {
 	}
 
 	//Generating api object
-	restAPI, err := auth.New(&config)
+	restAPI, err := uploader.New(&config)
 	if err != nil {
 		panic(err)
 	}
 
 	//Assigning the handler functions to a url
 	http.HandleFunc("/", nil)
-	http.HandleFunc("/authenticate", restAPI.UploadAvatar)
-	http.HandleFunc("/changePassword", restAPI.UploadBanner)
+	http.HandleFunc("/uploadAvatar", restAPI.UploadAvatar)
+	http.HandleFunc("/uploadBanner", restAPI.UploadBanner)
 
 	//Hear and handle
 	http.ListenAndServe(":"+strconv.Itoa(config.Port), nil)

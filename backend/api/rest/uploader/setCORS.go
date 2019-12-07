@@ -1,4 +1,4 @@
-package auth
+package uploader
 
 import "net/http"
 
