@@ -3,6 +3,7 @@ package awsstore
 import (
 	"bytes"
 	"context"
+	"log"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
@@ -12,7 +13,7 @@ import (
 
 //Upload uploads a file into an s3 bucket
 func (upload *Uploader) Upload(ctx context.Context, file *bytes.Reader, filename string) (string, error) {
-
+	log.Println(filename)
 	result, err := upload.upl.Upload(&s3manager.UploadInput{
 		//REVISION, proper bucket name import
 		//Bucket:      aws.String(bucketName),

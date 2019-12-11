@@ -28,6 +28,7 @@ func (rapi *RESTAPI) UploadAvatar(w http.ResponseWriter, req *http.Request) {
 	} else {
 		req.ParseForm()
 		uploadReq.Base64 = req.Form.Get("base64")
+		logger.Println(uploadReq.Base64)
 		uploadReq.OldImageLink = req.Form.Get("oldimagelink")
 		uploadReq.UUID = req.Form.Get("uuid")
 	}
