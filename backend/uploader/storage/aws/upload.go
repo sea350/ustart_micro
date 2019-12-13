@@ -14,6 +14,7 @@ import (
 //Upload uploads a file into an s3 bucket
 func (upload *Uploader) Upload(ctx context.Context, file *bytes.Reader, filename string) (string, error) {
 	log.Println(filename)
+	log.Println(file)
 	result, err := upload.upl.Upload(&s3manager.UploadInput{
 		//REVISION, proper bucket name import
 		//Bucket:      aws.String(bucketName),

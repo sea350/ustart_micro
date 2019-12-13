@@ -20,10 +20,10 @@ func main() {
 		UploaderCfg: &logicuploader.Config{
 			StorageConfig: &storageuploader.Config{
 				AWSConfig: &awsuploader.Config{
-					Region:       "us-east-1",
-					BucketName:   "ustart-sdp-test",
-					S3CredID:     "AKIAIRILSUSA76T4FBGQ",
-					S3CredSecret: "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",
+					Region:       "us-east-2",
+					BucketName:   "uploader-testbucket",
+					S3CredID:     "AKIAJKRW32O276JJJAFQ",
+					S3CredSecret: "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",
 				},
 			},
 		},

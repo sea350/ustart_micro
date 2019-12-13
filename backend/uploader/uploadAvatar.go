@@ -9,6 +9,13 @@ import (
 
 //UploadAvatar uploads an avatar picture while returning the image link and error by first replacing the old image and then uploading a new image
 func (uploader *Uploader) UploadAvatar(ctx context.Context, req *uploaderpb.UploadAvatarRequest) (*uploaderpb.UploadAvatarResponse, error) {
+	//should upload first incase delete fails
+
+	if req.Base64 == "" {
+		return nil, errBase64Empty
+	}
+	newLink, err := uploader.Upload(ctx, req.Base64, req.UUID)
+
 	if req.OldImageLink != "" {
 		err := uploader.Delete(ctx, req.OldImageLink)
 		if err != nil {
@@ -16,8 +23,6 @@ func (uploader *Uploader) UploadAvatar(ctx context.Context, req *uploaderpb.Uplo
 		}
 	}
 	log.Println("Hi")
-
-	newLink, err := uploader.Upload(ctx, req.Base64, req.UUID)
 
 	return &uploaderpb.UploadAvatarResponse{NewLink: newLink}, err
 }
