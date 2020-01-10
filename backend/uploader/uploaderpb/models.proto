@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package uploader.models;
+
+option go_package = "uploaderpb";
+
+message Uploader {
+    string Base64 = 1;
+    string UUID = 2;
+    string OldImageLink = 3;
+    string NewLink = 4;
+}

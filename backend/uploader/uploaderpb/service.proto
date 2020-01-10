@@ -5,26 +5,28 @@ package uploader.service;
 option go_package= "uploaderpb";
 
 service Uploader {
-  rpc UploadProfile(UploadProfileRequest) returns (UploadProfileResponse);
+  rpc UploadAvatar(UploadAvatarRequest) returns (UploadAvatarResponse);
   rpc UploadBanner(UploadBannerRequest) returns (UploadBannerResponse);
 }
 
 message Empty{}
 
-message UploadProfileRequest{
+message UploadAvatarRequest{
     string Base64 = 1;
-    string UploaderID = 2;
+    string UUID = 2;
+    string OldImageLink = 3;
 }
 
-message UploadProfileResponse{
-    string URL = 1;
+message UploadAvatarResponse{
+    string NewLink = 1;
 }
 
 message UploadBannerRequest{
-    string Blob = 1;
-    string UploaderID = 2;
+    string Base64 = 1;
+    string UUID = 2;
+    string OldImageLink = 3;
 }
 
 message UploadBannerResponse{
-    string URL = 1;
+    string NewLink = 1;
 }

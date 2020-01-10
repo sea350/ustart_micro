@@ -1,38 +1,24 @@
 package uploader
 
 import (
-	"bytes"
-	"encoding/base64"
-	"strings"
+	"context"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/s3/s3manager"
+	"github.com/sea350/ustart_micro/backend/uploader/uploaderpb"
 )
 
-//UploadBanner uploads a banner picture while returning the image link
-func (uploader *Uploader) UploadBanner(based64 string, uploaderID string) (string, error) {
-	var arr []string
-	i := strings.Index(based64, ",")
-	if i < 0 {
-		return ``, ErrImproperImport
+//UploadBanner uploads an banner picture while returning the image link and error by first replacing the old image and then uploading a new image
+func (uploader *Uploader) UploadBanner(ctx context.Context, req *uploaderpb.UploadBannerRequest) (*uploaderpb.UploadBannerResponse, error) {
+	if req.Base64 == "" {
+		return nil, errBase64Empty
 	}
-	arr = strings.Split(based64, `,`)
+	newLink, err := uploader.Upload(ctx, req.Base64, req.UUID)
 
-	dec, err := base64.StdEncoding.DecodeString(arr[1])
-	if err != nil {
-		return ``, err
-	}
-
-	r := bytes.NewReader(dec)
-	result, err := uploader.upl.Upload(&s3manager.UploadInput{
-		Bucket:      aws.String(bucketName),
-		Key:         aws.String(uploaderID + "-banner.png"),
-		Body:        r,
-		ContentType: aws.String("image/png"),
-	})
-	if err != nil {
-		return ``, err
+	if req.OldImageLink != "" {
+		err := uploader.Delete(ctx, req.OldImageLink)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return result.Location, nil
+	return &uploaderpb.UploadBannerResponse{NewLink: newLink}, err
 }
