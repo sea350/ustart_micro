@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package notif.models;
+
+option go_package= "notifpb";
+
+message Notification {
+  string NotifID = 1;
+  string UUID = 2;
+  string ActivityID = 3;
+  bool Seen = 4;
+  string Timestamp = 5;
+}
+
+message Activity {
+  string ActivityID = 1;
+  string ActorID = 2;
+  string ObjectID = 3;
+  string Action = 4;
+  string Timestamp = 5;
+}
