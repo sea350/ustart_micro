@@ -1,0 +1,47 @@
+syntax="proto3";
+
+package emailer.service;
+
+import "models.proto";
+
+option go_package= "emailerpb";
+
+service Auth {
+  rpc SendMail(SendMailRequest) returns (SendMailResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+//  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
+  rpc Lookup(LookupRequest) returns (LookupResponse);
+  rpc Verify(VerifyRequest) returns (VerifyResponse);
+  rpc Reverify(ReverifyRequest) returns (ReverifyResponse);
+  rpc RecoverPassword(RecoverRequest) returns (RecoverResponse);
+}
+
+
+
+message Empty{}
+
+message EmailerRequest {
+  string From = 1;
+  repeated To = 2;
+  string Subject = 3;
+  string Body = 4;
+}
+
+message EmailerResponse {
+  string Success = 1;
+  string error = 2; 
+}
+
+message SendRequest{
+  string Email = 1;
+  string Password = 2;
+}
+
+message SendResponse{
+  string UID = 1;
+  string Token = 2;
+}
+
+
+
