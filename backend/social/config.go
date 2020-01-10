@@ -11,5 +11,6 @@ type Config struct {
 
 // NewConfig returns a default config object
 func NewConfig() *Config {
+
 	return &Config{SQLStoreConfig: sqlstore.NewConfig()}
 }

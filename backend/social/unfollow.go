@@ -2,7 +2,6 @@ package social
 
 import (
 	"context"
-	"time"
 
 	"github.com/sea350/ustart_micro/backend/social/socialpb"
 )
@@ -11,11 +10,11 @@ import (
 func (social *Social) Follow(ctx context.Context, req *socialpb.FollowRequest) (*socialpb.FollowResponse, error) {
 
 	followerID := req.FollowerUUID
-	followerType := req.FollowerType
 	followedID := req.FollowedUUID
-	followedType := req.FollowedType
-	time := time.Now()
-	sqlStatement := `INSERT INTO Follow (follower, followertype, followed, followedtype, time) VALUES (" ` + followerID + `","` + followerType + ` " ,"` + followedID + ` " ,"` + followedType + ` " ,"` + time + `" );`
+	// time := time.Now()
+
+	sqlStatement := `DELETE FROM Follow WHERE Follower =` + followerID + ` AND Followed =` + followedID + `;`
+
 	_, err = social.sqlClient.Exec(sqlStatement)
 	if err != nil {
 		panic(err)
