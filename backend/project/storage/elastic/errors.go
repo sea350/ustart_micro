@@ -3,14 +3,14 @@ package elasticstore
 import "errors"
 
 var (
-	// ErrUserDoesNotExist user doesnt exist
-	ErrUserDoesNotExist = errors.New("User does not exist")
+	// ErrProjectDoesNotExist project doesnt exist
+	ErrProjectDoesNotExist = errors.New("Project does not exist")
 
-	// ErrTooManyResults if more than one result per email shows
-	ErrTooManyResults = errors.New("Too many results, a crititcal error has occurred")
+	// ErrProjectDoesNotExist project doesnt exist
+	ErrCustomURLInUse = errors.New("Project Custom URL is in use")
 
-	// ErrEmailInUse happens when a signup using an existing email occurs
-	ErrEmailInUse = errors.New("Email in use")
+	// ErrTooManyResults if more than one result per custom url shows
+	ErrTooManyResults = errors.New("Too many results, a critical error has occurred")
 
 //
 )

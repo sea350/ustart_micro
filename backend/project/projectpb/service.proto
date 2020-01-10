@@ -1,0 +1,71 @@
+syntax="proto3";
+
+package project.service;
+
+// import "models.proto";
+import "models.proto";
+
+option go_package = "projectpb"; 
+
+service Auth {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Pull(PullRequest) returns (PullResponse);
+  rpc Lite(LiteRequest) returns (LiteResponse);
+  rpc Lookup(LookupRequest) returns (LookupResponse);
+  rpc Search(SearchRequest) returns (SearchResponse);
+
+}
+
+
+
+message Empty{}
+
+message RegisterRequest{
+  string PID = 1;
+  string CustomURL = 2;
+  string Name = 3;
+  string Description = 4;
+  string School = 5;
+}
+
+message RegisterResponse{}
+
+message PullRequest{
+  string CustomURL = 1;
+}
+
+message PullResponse{
+  project.models.Project ProjectPage = 1;
+}
+
+message LiteRequest{
+  string CustomURL = 1;
+}
+
+message LiteResponse{
+  string PID = 1;
+  string CustomURL = 2;
+  string Name = 3;
+  string Description = 4;
+  string Avatar = 5;
+}
+
+message LookupRequest{
+  string CustomURL = 1;
+}
+  
+message LookupResponse{
+  bool Exists = 1;
+}
+
+message SearchRequest{
+  string Query = 1;
+  string Filters = 2;
+  string Scroll = 3;
+  //etc...
+}
+  
+message SearchResponse{
+  repeated LiteResponse Results = 1;
+}
+

@@ -1,0 +1,14 @@
+{
+    "ProjectCfg": {
+        "StorageConfig": {
+            "ElasticConfig": {
+                "ElasticAddr": "http://127.0.0.1:9200",
+                "EIndex": "project",
+                "EType": "test-project_data"
+            }
+        },
+        "DefaultAvatar": "INSERT URL HERE",
+        "DefaultBanner": "INSERT URL HERE"
+    },
+    "Port": 5104
+}

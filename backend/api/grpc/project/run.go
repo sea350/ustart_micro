@@ -1,0 +1,25 @@
+package profileapi
+
+import (
+	"net"
+
+	"github.com/sea350/ustart_micro/backend/profile/projectepb"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
+)
+
+//Run runs the api server
+func (pAPI *GRPCAPI) Run() {
+	listener, err := net.Listen("tcp", ":"+pAPI.port)
+	if err != nil {
+		panic(err)
+	}
+
+	srv := grpc.NewServer()
+	projectepb.RegisterProfileServer(srv, pAPI.prof)
+	reflection.Register(srv)
+
+	if err := srv.Serve(listener); err != nil {
+		panic(err)
+	}
+}

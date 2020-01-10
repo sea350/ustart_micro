@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package project.models;
+
+option go_package = "projectpb";
+
+message Project {
+    string PID = 1;
+    string Name = 2;
+    repeated Member ListMembers = 3;
+    string CreationDate = 4;
+    string Category = 5;
+    string Description = 6;
+    string School = 7;
+    Location Location = 8;
+    repeated string Tags = 9;
+    string Avatar = 10;
+    string Banner = 11;
+    string CustomURL = 12;
+    repeated Member ListFollowers = 13;
+    repeated string SkillsNeeded = 14;
+    repeated string Links = 15;
+    repeated string JoinRequests = 16;
+}
+
+message Member {
+    string UUID = 1;
+    string Title = 2;
+}
+
+message Location {
+    string Country = 1;
+    string State = 2;
+    string City = 3;
+    string Zip = 4;
+}
+
