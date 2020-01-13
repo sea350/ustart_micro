@@ -3,19 +3,16 @@ package sqlstore
 import (
 	"context"
 	"fmt"
-	"time"
 )
 
 //SetToken sets the token and expiration for the acc of the given email
-func (dbConn *SQLStore) SetToken(ctx context.Context, email string, token string, expiration time.Time) error {
-
-	expirationdate := expiration.Format(dbConn.TimeFormat) //format may need to be changed
+func (dbConn *SQLStore) SetToken(ctx context.Context, email, token, expiration string) error {
 
 	queryString := fmt.Sprintf(
-		`UPDATE %s SET token= '%s', expiration_date = '%s' WHERE email = '%s';`,
-		dbConn.RegistryTN, token, expirationdate, email)
+		`UPDATE %s SET token= $1, expiration_date = $2 WHERE email = $3;`,
+		dbConn.registryTN)
 
-	_, err := dbConn.db.QueryContext(ctx, queryString)
+	_, err := dbConn.db.QueryContext(ctx, queryString, token, expiration, email)
 
 	return err
 

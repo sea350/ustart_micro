@@ -21,13 +21,24 @@ func (auth *Auth) RecoverPassword(ctx context.Context, req *authpb.RecoverReques
 		return nil, err
 	}
 
-	if token == req.Token && time.Now().Before(expiration) {
+	expTime, err := time.Parse(auth.timeFormat, expiration)
+	if err != nil {
+		return &authpb.RecoverResponse{}, err
+	}
+
+	if token == req.Token && time.Now().Before(expTime) {
 		err := auth.strg.ChangePassword(ctx, req.Email, string(hashedPass))
 		if err != nil {
 			return nil, err
 		}
-
-		return &authpb.RecoverResponse{}, auth.strg.SetToken(ctx, req.Email, "", time.Time{})
+		//setting expiration time
+		var expireIn time.Duration
+		if auth.tokenExpiration == 0 {
+			expireIn = 48 * time.Hour //default expire time is 2 days
+		} else {
+			expireIn = time.Duration(auth.tokenExpiration) * time.Hour
+		}
+		return &authpb.RecoverResponse{}, auth.strg.SetToken(ctx, req.Email, "", time.Now().Add(expireIn).Format(auth.timeFormat))
 	}
 
 	return &authpb.RecoverResponse{}, ErrInvalidToken

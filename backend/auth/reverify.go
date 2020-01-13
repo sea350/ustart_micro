@@ -20,7 +20,7 @@ func (auth *Auth) Reverify(ctx context.Context, req *authpb.ReverifyRequest) (*a
 
 	token := randString(16) //generate new token
 
-	err := auth.strg.SetToken(ctx, req.Email, token, time.Now().Add(expireIn))
+	err := auth.strg.SetToken(ctx, req.Email, token, time.Now().Add(expireIn).Format(auth.timeFormat))
 	if err != nil {
 		return nil, err
 	}

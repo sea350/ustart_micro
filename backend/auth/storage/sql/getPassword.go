@@ -2,12 +2,17 @@ package sqlstore
 
 import (
 	"context"
+	"fmt"
 )
 
 // GetPassword retreivs a user's password
 func (dbConn *SQLStore) GetPassword(ctx context.Context, email string) (string, error) {
 
-	rows, err := dbConn.db.QueryContext(ctx, "SELECT password FROM "+dbConn.RegistryTN+" WHERE email = '"+email+"';")
+	queryString := fmt.Sprintf(
+		"SELECT password FROM %s WHERE email = $1;",
+		dbConn.registryTN)
+
+	rows, err := dbConn.db.QueryContext(ctx, queryString, email)
 	if err != nil {
 		return "", err
 	}

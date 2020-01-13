@@ -63,7 +63,7 @@ func (auth *Auth) Register(ctx context.Context, req *authpb.RegisterRequest) (*a
 		expireIn = time.Duration(auth.tokenExpiration) * time.Hour
 	}
 
-	err = auth.strg.Register(ctx, uuid, req.Email, string(hashedPass), token, "user", time.Now().Add(expireIn))
+	err = auth.strg.Register(ctx, uuid, req.Email, string(hashedPass), token, "user", time.Now().Format(auth.timeFormat), time.Now().Add(expireIn).Format(auth.timeFormat))
 	if err != nil {
 		return nil, err
 	}

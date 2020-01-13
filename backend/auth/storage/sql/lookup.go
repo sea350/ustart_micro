@@ -2,11 +2,16 @@ package sqlstore
 
 import (
 	"context"
+	"fmt"
 )
 
 // Lookup looks up if a document exists using a certain email. It returns a uuid and an error
 func (dbConn *SQLStore) Lookup(ctx context.Context, email string) (string, error) {
-	rows, err := dbConn.db.QueryContext(ctx, `SELECT "uuid" FROM `+dbConn.RegistryTN+` WHERE email= '`+email+"';")
+	queryString := fmt.Sprintf(
+		`SELECT uuid FROM %s WHERE email= $1;`,
+		dbConn.registryTN)
+
+	rows, err := dbConn.db.QueryContext(ctx, queryString, email)
 	if err != nil {
 		return "", err
 	}

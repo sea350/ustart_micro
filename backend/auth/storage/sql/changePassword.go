@@ -9,10 +9,10 @@ import (
 func (dbConn *SQLStore) ChangePassword(ctx context.Context, email string, newPassword string) error {
 
 	queryString := fmt.Sprintf(
-		`UPDATE %s SET password= '%s' WHERE email = '%s';`,
-		dbConn.RegistryTN, newPassword, email)
+		`UPDATE %s SET password= $1 WHERE email = $2;`,
+		dbConn.registryTN)
 
-	_, err := dbConn.db.QueryContext(ctx, queryString)
+	_, err := dbConn.db.ExecContext(ctx, queryString, newPassword, email)
 
 	return err
 }

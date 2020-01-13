@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"time"
+
 	"github.com/sea350/ustart_micro/backend/auth/storage"
 )
 
@@ -10,6 +12,7 @@ const ()
 type Auth struct {
 	strg            storage.Storage
 	tokenExpiration int
+	timeFormat      string
 }
 
 // New returns a new SQL auth service
@@ -19,6 +22,7 @@ func New(cfg *Config) (*Auth, error) {
 	auth := &Auth{
 		strg:            strg,
 		tokenExpiration: cfg.TokenExpirationHrs,
+		timeFormat:      time.RFC3339,
 	}
 
 	return auth, err
