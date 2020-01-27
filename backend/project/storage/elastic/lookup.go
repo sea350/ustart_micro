@@ -12,7 +12,7 @@ import (
 func (estor *ElasticStore) Lookup(ctx context.Context, pid string) (projectpb.Project, error) {
 	var project projectpb.Project
 
-	termQuery := elastic.NewTermQuery("PID", uuid)
+	termQuery := elastic.NewTermQuery("PID", pid)
 	res, err := estor.client.Search().
 		Index(estor.eIndex).
 		Query(termQuery).
@@ -23,12 +23,12 @@ func (estor *ElasticStore) Lookup(ctx context.Context, pid string) (projectpb.Pr
 	}
 
 	// if there are no hits, then no one exists by that pid
-	if res.Hits.TotalHits < 1 {
-		return project, ErrUserDoesNotExist
+	if res.Hits.TotalHits.Value < 1 {
+		return project, ErrProjectDoesNotExist
 	}
 
 	// if theres more than a single result then a problem has occurred
-	if res.Hits.TotalHits > 1 {
+	if res.Hits.TotalHits.Value > 1 {
 		return project, ErrTooManyResults
 	}
 

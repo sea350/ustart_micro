@@ -44,8 +44,14 @@ func (estor *ElasticStore) ScrollNotifs(ctx context.Context, uuid, scrollID stri
 		if scrollErr == io.EOF {
 			continue
 		}
-		err := json.Unmarshal(*hit.Source, &activ)
-		if err != nil && err != io.EOF {
+		data, err := hit.Source.MarshalJSON()
+		if err != nil {
+			log.SetFlags(log.LstdFlags | log.Lshortfile)
+			log.Println(err)
+			continue
+		}
+		err = json.Unmarshal(data, &activ)
+		if err != nil {
 			log.SetFlags(log.LstdFlags | log.Lshortfile)
 			log.Println(err)
 			continue

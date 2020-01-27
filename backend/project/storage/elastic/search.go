@@ -19,7 +19,7 @@ func (estor *ElasticStore) Search(ctx context.Context, searchTerms []string, sea
 			query = query.Should(elastic.NewTermQuery("Name.keyword", term))
 
 		}
-		if searchUsername {
+		if searchCustomURL {
 			query = query.Should(elastic.NewTermQuery("CustomURL.keyword", term))
 		}
 		if searchTags {
