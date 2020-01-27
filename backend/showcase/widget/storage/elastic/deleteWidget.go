@@ -1,4 +1,4 @@
-package elastic
+package elasticstore
 
 import (
 	"context"

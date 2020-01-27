@@ -71,7 +71,7 @@ func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 
 	data, err := json.Marshal(ret)
 	if err != nil {
-		logger.Println("Problem martialing return data", err)
+		logger.Println("Problem martialing return data during login: ", err)
 	}
 
 	fmt.Fprintln(w, string(data))
