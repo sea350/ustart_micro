@@ -1,8 +1,7 @@
 package storage
 
 import (
-	elasticstore "github.com/sea350/ustart_micro/backend/showcase/widget/storage/elastic"
-	//sqlstore "github.com/sea350/ustart_micro/backend/showcase/widget/storage/sql"
+	elasticstore "github.com/sea350/ustart_micro/backend/widget/storage/elastic"
 )
 
 // Config determines the runtime behavior of the an either SQL or ElasticSearch backed showcase/widget server
