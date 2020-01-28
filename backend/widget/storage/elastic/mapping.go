@@ -18,16 +18,10 @@ func mapping(indexName string) string {
 	},
 	"mappings":{
 		"properties":{
-			"UUID":{
-				"type": "text",
-				"analyzer":"my_analyzer",
-				"fields":{
-					"raw":{
-						"type":"keyword"
-					}
-				}
+			"Index":{
+				"type": "integer"
 			},
-			"ActivityID":{
+			"Body":{
 				"type":"text",
 				"analyzer":"my_analyzer",
 				"fields":{
@@ -36,7 +30,7 @@ func mapping(indexName string) string {
 					}
 				}
 			},
-			"Seen":{
+			"Time":{
 				"type":"text",
 				"analyzer":"my_analyzer",
 				"fields":{
@@ -45,12 +39,26 @@ func mapping(indexName string) string {
 					}
 				}
 			},
-			"TimeSeen":{
-				"type":"text",
-				"analyzer":"my_analyzer",
-				"fields":{
-					"raw":{
-						"type":"keyword"
+			"References": {
+				"type":"nested", 
+				"properties":{
+					"ReferenceID":{
+						"type":"text",
+						"analyzer":"my_analyzer",
+						"fields":{
+							"raw":{
+								"type":"keyword"
+							}
+						}
+					},
+					"Classification":{
+						"type":"text",
+						"analyzer":"my_analyzer",
+						"fields":{
+							"raw":{
+								"type":"keyword"
+							}
+						}
 					}
 				}
 			}
