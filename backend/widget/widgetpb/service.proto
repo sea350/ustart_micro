@@ -33,13 +33,14 @@ service Widg {
 message Empty{}
 
 message StoreRequest{
-  string UID = 1;
-  google.protobuf.Any WidgetData = 2;
+  string OwnerID = 1;
+  string ReplyID = 2;
+  string Body = 3;
+  bool Showcase = 4;
 }
 
 message StoreResponse{
   string WidgetID = 1;
-  string Time = 2;
 }
 
 message DeleteRequest{

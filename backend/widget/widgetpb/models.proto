@@ -10,7 +10,6 @@ message Widget{
     string Body = 3; //Body Json (stored as a string, unmarshal later)
     repeated Reference References= 4;
     string Time = 5;//Time (type string) --> time posted 
-    
 }
 
 message Reference{

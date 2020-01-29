@@ -7,9 +7,9 @@ import (
 )
 
 //StoreWidget creates a new ES document for storing a new widget
-func (estor *Store) StoreWidget(ctx context.Context, index int, body string, time string, references []*widgetpb.Reference) error {
+func (estor *Store) StoreWidget(ctx context.Context, index int, body string, time string, references []*widgetpb.Reference) (string, error) {
 
-	_, err := estor.client.Index().
+	res, err := estor.client.Index().
 		Index(estor.eIndex).
 		Type(estor.eType).
 		BodyJson(widgetpb.Widget{
@@ -19,6 +19,10 @@ func (estor *Store) StoreWidget(ctx context.Context, index int, body string, tim
 			References: references,
 		}).
 		Do(ctx)
-	return err
 
+	if err != nil {
+		return "", err
+	}
+
+	return res.Id, nil
 }
