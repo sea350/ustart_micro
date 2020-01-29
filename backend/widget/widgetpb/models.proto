@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package widget.models;
 
-option go_package= "widgetspb";
+option go_package= "widgetpb";
 
 message Widget{
     string WidgetID = 1;

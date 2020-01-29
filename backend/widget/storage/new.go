@@ -1,7 +1,7 @@
 package storage
 
 import (
-	elasticstore "github.com/sea350/ustart_micro/backend/showcase/widget/storage/elastic"
+	elasticstore "github.com/sea350/ustart_micro/backend/widget/storage/elastic"
 )
 
 // NewES determines the runtime behavior of the ElasticSearch-backed showcase/widget server
