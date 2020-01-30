@@ -5,7 +5,6 @@ import (
 	"io"
 
 	"github.com/olivere/elastic"
-	"github.com/sea350/ustart_go/globals"
 )
 
 // Search searches for... something... i think
@@ -43,7 +42,7 @@ func (estor *ElasticStore) Search(ctx context.Context, searchTerms []string, sea
 	results := []string{}
 
 	scroll := estor.client.Scroll().
-		Index(globals.UserIndex).
+		Index(estor.eIndex).
 		Query(query).
 		Size(10).
 		Sort("_score", false)
