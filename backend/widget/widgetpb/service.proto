@@ -14,7 +14,7 @@ service Widg {
     rpc LookupWidget(LookupRequest) returns (LookupResponse);
     rpc LookupAllWidget(LookupAllRequest) returns (LookupAllResponse);
 
-    rpc LookupUserShowCase(LookupUserShowRequest) returns(LookupUserShowResponse);
+    rpc LookupShowcase(LookupShowcaseRequest) returns(LookupShowcaseResponse);
     rpc LookupUserBlogCase(LookupUserBlogRequest) returns(LookupUserBlogResponse);
     //2 combinations --> User Showcase and User Blog
     rpc LookupProjectShowCase(LookupProjectShowRequest) returns(LookupProjectShowResponse);
@@ -57,7 +57,7 @@ message LookupRequest{
 }
 
 message LookupResponse{
-  google.protobuf.Any WidgetData = 1;
+  widget.models.Widget WidgetData = 1;
   string Time = 2;
 }
 
@@ -69,13 +69,13 @@ message LookupAllResponse{
   repeated google.protobuf.Any WidgetData = 1;
 }
 
-message LookupUserShowRequest{
+message LookupShowcaseRequest{
   string UID = 1;
 }
 
-message LookupUserShowResponse{
+message LookupShowcaseResponse{
   string WidgetID = 1;
-  google.protobuf.Any WidgetData = 2;
+  repeated widget.models.Widget WidgetData = 2;
 }
 
 message LookupUserBlogRequest{

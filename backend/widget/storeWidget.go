@@ -24,9 +24,12 @@ func (wid *Widget) StoreWidget(ctx context.Context, req *widgetpb.StoreRequest) 
 		//there is only concurrency sensitivity when working with showcase widgets
 		widgetLock.Lock()
 		defer widgetLock.Unlock()
-		//TODO:
-		//check max index for showcase (ie hits for showcase widgets)
-		//index = max++
+		i, _, err := wid.strg.GetShowcase(ctx, req.OwnerID)
+		if err != nil {
+			return nil, err
+		}
+		index = i + 1
+
 	} else if req.ReplyID != "" {
 		references = append(
 			references,

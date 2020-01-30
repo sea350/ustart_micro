@@ -12,6 +12,7 @@ type Storage interface {
 	DeleteWidget(context.Context, string) error
 	UpdateBody(context.Context, string, string) error
 	UpdateIndex(context.Context, string, int) error
+	GetShowcase(context.Context, string) (int, []widgetpb.Widget, error)
 
 	//TODO:
 
