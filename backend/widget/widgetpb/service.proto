@@ -8,28 +8,16 @@ import "google/protobuf/any.proto";
 option go_package= "widgetpb";
 
 service Widg {
-    //Store/Delete 1 widget and Retrieve one/all widgets within context
-    rpc StoreWidget(StoreRequest) returns (StoreResponse);
-    rpc DeleteWidget(DeleteRequest) returns (DeleteResponse);
-    rpc LookupWidget(LookupRequest) returns (LookupResponse);
-    rpc LookupAllWidget(LookupAllRequest) returns (LookupAllResponse);
-
-    rpc LookupShowcase(LookupShowcaseRequest) returns(LookupShowcaseResponse);
-    rpc LookupUserBlogCase(LookupUserBlogRequest) returns(LookupUserBlogResponse);
-    //2 combinations --> User Showcase and User Blog
-    rpc LookupProjectShowCase(LookupProjectShowRequest) returns(LookupProjectShowResponse);
-    rpc LookupProjectBlogCase(LookupProjectBlogRequest) returns(LookupProjectBlogResponse);
-    //2 combinations --> Project Showcase and Project Blog
-    rpc LookupEventShowCase(LookupEventShowRequest) returns(LookupEventShowResponse);
-    rpc LookupEventBlogCase(LookupEventBlogRequest) returns(LookupEventBlogResponse);
-    //2 combinations --> Event Showcase and Event Blog
-
-
-    //Test for User --> Posting in Showcase and Blog
-    rpc PostUserShowCase(PostUserShowRequest) returns(PostUserShowResponse);
-    rpc PostUserBlogCase(PostUserBlogRequest) returns(PostUserBlogResponse);
+  //Store/Delete 1 widget and Retrieve one/all widgets within context
+  rpc StoreWidget(StoreRequest) returns (StoreResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc UpdateWidget(UpdateRequest) returns (UpdateResponse);
+  rpc MoveWidget(MoveRequest) returns (MoveResponse);
+  rpc LookupWidget(LookupRequest) returns (LookupResponse);
+  rpc LookupShowcase(LookupShowcaseRequest) returns(LookupShowcaseResponse);
+  rpc LookupBlogcase(LookupBlogcaseRequest) returns(LookupBlogcaseResponse);
 }
-  
+
 message Empty{}
 
 message StoreRequest{
@@ -62,15 +50,15 @@ message LookupResponse{
 }
 
 message LookupAllRequest{
-  string UID = 1;
+  string OwnerID = 1;
 }
 
 message LookupAllResponse{
-  repeated google.protobuf.Any WidgetData = 1;
+  repeated widget.models.Widget WidgetData = 1;
 }
 
 message LookupShowcaseRequest{
-  string UID = 1;
+  string OwnerID = 1;
 }
 
 message LookupShowcaseResponse{
@@ -78,67 +66,11 @@ message LookupShowcaseResponse{
   repeated widget.models.Widget WidgetData = 2;
 }
 
-message LookupUserBlogRequest{
-  string UID = 1;
+message LookupBlogcaseRequest{
+  string OwnerID = 1;
 }
 
-message LookupUserBlogResponse{
+message LookupBlogcaseResponse{
   string WidgetID = 1;
-  google.protobuf.Any WidgetData = 2;
+  repeated widget.models.Widget WidgetData = 2;
 }
-
-message LookupProjectShowRequest{
-  string ProjectID = 1;
-}
-
-message LookupProjectShowResponse{
-  string WdigetID = 1;
-  google.protobuf.Any WidgetData = 2;
-}
-
-message LookupProjectBlogRequest{
-  string ProjectID = 1;
-}
-
-message LookupProjectBlogResponse{
-  string WidgetID = 1;
-  google.protobuf.Any WidgetData = 2;
-}
-
-message LookupEventShowRequest{
-  string EventID = 1;
-}
-
-message LookupEventShowResponse{
-  string WidgetID = 1;
-  google.protobuf.Any WidgetData = 2;
-}
-
-message LookupEventBlogRequest{
-  string EventID = 1;
-}
-
-message LookupEventBlogResponse{
-  string WidgetID = 1;
-  google.protobuf.Any WidgetData = 2;
-}
-
-//Test functions
-message PostUserShowRequest{
-  string UID = 1;
-  string WidgetID = 2;
-}
-
-message PostUserShowResponse{
-  string Time = 1;
-}
-
-message PostUserBlogRequest{
-  string UID = 1;
-  string WidgetID = 2;
-}
-
-message PostUserBlogResponse{
-  string Time = 1;
-}
-
