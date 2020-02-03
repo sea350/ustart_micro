@@ -9,7 +9,7 @@ import (
 //LookupShowcase pulls the showcase of a user
 func (wid *Widget) LookupShowcase(ctx context.Context, req *widgetpb.LookupShowcaseRequest) (*widgetpb.LookupShowcaseResponse, error) {
 
-	_, wigs, err := wid.strg.GetShowcase(ctx, req.UID)
+	_, wigs, err := wid.strg.GetShowcase(ctx, req.OwnerID)
 	if err != nil {
 		return nil, err
 	}

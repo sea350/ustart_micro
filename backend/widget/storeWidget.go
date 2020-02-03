@@ -24,6 +24,8 @@ func (wid *Widget) StoreWidget(ctx context.Context, req *widgetpb.StoreRequest) 
 		//there is only concurrency sensitivity when working with showcase widgets
 		widgetLock.Lock()
 		defer widgetLock.Unlock()
+		//Be careful of initial state logic
+		//unknown behavior when showcase is empty
 		i, _, err := wid.strg.GetShowcase(ctx, req.OwnerID)
 		if err != nil {
 			return nil, err
@@ -31,6 +33,8 @@ func (wid *Widget) StoreWidget(ctx context.Context, req *widgetpb.StoreRequest) 
 		index = i + 1
 
 	} else if req.ReplyID != "" {
+		//This means the current widget is a reply
+		//It should be impossibible for a widget to be both showcase AND reply
 		references = append(
 			references,
 			&widgetpb.Reference{

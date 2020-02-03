@@ -6,14 +6,15 @@ import (
 	"github.com/sea350/ustart_micro/backend/widget/widgetpb"
 )
 
-// Storage is a database-agnostic interface for persisting showcase/widget data
+// Storage is a database-agnostic interface for persisting widget data
 type Storage interface {
 	StoreWidget(context.Context, int, string, string, []*widgetpb.Reference) (string, error)
 	DeleteWidget(context.Context, string) error
 	UpdateBody(context.Context, string, string) error
 	UpdateIndex(context.Context, string, int) error
 	GetShowcase(context.Context, string) (int, []widgetpb.Widget, error)
-
+	GetAfter(context.Context, string, int) (int, []widgetpb.Widget, error)
+	Lookup(context.Context, string) (widgetpb.Widget, error)
 	//TODO:
 
 	//LookupWidgetByReferenceID(context.Context, string) (string, error)

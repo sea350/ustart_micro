@@ -3,7 +3,7 @@ syntax="proto3";
 package widgets.service;
 
 import "models.proto";
-import "google/protobuf/any.proto";
+//import "google/protobuf/any.proto";
 
 option go_package= "widgetpb";
 
@@ -32,9 +32,7 @@ message StoreResponse{
 }
 
 message DeleteRequest{
-  string UID = 1;
-  string Password = 2;
-  google.protobuf.Any WidgetData = 3;
+  string WidgetID = 1;
 }
 
 message DeleteResponse{}
@@ -74,3 +72,11 @@ message LookupBlogcaseResponse{
   string WidgetID = 1;
   repeated widget.models.Widget WidgetData = 2;
 }
+
+message UpdateRequest{}
+
+message UpdateResponse{}
+
+message MoveRequest{}
+
+message MoveResponse{}
