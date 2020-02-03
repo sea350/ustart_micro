@@ -9,13 +9,12 @@ option go_package= "widgetpb";
 
 service Widg {
   //Store/Delete 1 widget and Retrieve one/all widgets within context
-  rpc StoreWidget(StoreRequest) returns (StoreResponse);
+  rpc Store(StoreRequest) returns (StoreResponse);
   rpc Delete(DeleteRequest) returns (DeleteResponse);
-  rpc UpdateWidget(UpdateRequest) returns (UpdateResponse);
-  rpc MoveWidget(MoveRequest) returns (MoveResponse);
-  rpc LookupWidget(LookupRequest) returns (LookupResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc Move(MoveRequest) returns (MoveResponse);
   rpc LookupShowcase(LookupShowcaseRequest) returns(LookupShowcaseResponse);
-  rpc LookupBlogcase(LookupBlogcaseRequest) returns(LookupBlogcaseResponse);
+  rpc ScrollEntries(ScrollRequest) returns(ScrollResponse);
 }
 
 message Empty{}
@@ -37,24 +36,6 @@ message DeleteRequest{
 
 message DeleteResponse{}
 
-message LookupRequest{
-  string UID = 1;
-  string WidgetID = 2;
-}
-
-message LookupResponse{
-  widget.models.Widget WidgetData = 1;
-  string Time = 2;
-}
-
-message LookupAllRequest{
-  string OwnerID = 1;
-}
-
-message LookupAllResponse{
-  repeated widget.models.Widget WidgetData = 1;
-}
-
 message LookupShowcaseRequest{
   string OwnerID = 1;
 }
@@ -64,16 +45,22 @@ message LookupShowcaseResponse{
   repeated widget.models.Widget WidgetData = 2;
 }
 
-message LookupBlogcaseRequest{
+message ScrollRequest{
   string OwnerID = 1;
+  string StartFrom = 2;
+  string ContinueFrom = 3;
 }
 
-message LookupBlogcaseResponse{
+message ScrollResponse{
+  repeated widget.models.Widget WidgetData = 1;
+  string NextStart = 2;
+  int64 ResultsRemaining = 3; 
+}
+
+message UpdateRequest{
   string WidgetID = 1;
-  repeated widget.models.Widget WidgetData = 2;
+  string NewBody = 2;
 }
-
-message UpdateRequest{}
 
 message UpdateResponse{}
 

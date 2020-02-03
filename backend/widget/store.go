@@ -7,8 +7,8 @@ import (
 	"github.com/sea350/ustart_micro/backend/widget/widgetpb"
 )
 
-//StoreWidget adds a new widget to database
-func (wid *Widget) StoreWidget(ctx context.Context, req *widgetpb.StoreRequest) (*widgetpb.StoreResponse, error) {
+//Store adds a new widget to database
+func (wid *Widget) Store(ctx context.Context, req *widgetpb.StoreRequest) (*widgetpb.StoreResponse, error) {
 
 	var index int
 	index = 0
