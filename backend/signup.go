@@ -36,7 +36,6 @@ func (s *Server) Signup(ctx context.Context, req *backendpb.SignupRequest) (*bac
 		Username:  req.Username,
 		FirstName: req.FirstName,
 		LastName:  req.LastName,
-		School:    req.CurrentSchool,
 	})
 	if err != nil {
 		return nil, err

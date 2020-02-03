@@ -7,35 +7,64 @@ import "models.proto";
 option go_package= "backendpb";
 
 service Backend {
+  //Registration
   rpc Signup(SignupRequest) returns (SignupResponse);
+
+  //Authentication
   rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+
+  //Profile
   rpc PublicProfile(ProfileRequest) returns (ProfileResponse);
+  rpc ChangeBasicData(ChangeBasicDataRequest) returns (ChangeBasicDataResponse);
+  rpc ProfileChangeIcon(ProfileChangeIconRequest) returns (ProfileChangeIconResponse);
+  rpc ProfileChangeBanner(ProfileChangeBannerRequest) returns (ProfileChangeBannerResponse);
+  rpc ProfileChangeTags(ProfileChangeTagsRequest) returns (ProfileChangeTagsResponse);
+  rpc ProfileToggleAvailable(ProfileToggleAvailableRequest) returns (ProfileToggleAvailableResponse);
+  rpc ProfileToggleProjectVisisble(ProfileToggleProjectVisisbleResponse) returns (ProfileToggleProjectVisisbleResponse);
+
+  //Project
+
+  //Widget
+
+  //Social
+
+  //Chat
 }
 
 message Empty{}
 
+//REGISTRATION------------
 message SignupRequest {
   string Email = 1;
   string Password = 2;
   string Username = 3;
   string FirstName = 4;
   string LastName = 5;
-  string CurrentSchool = 6;
 }
 
 message SignupResponse {
   string UUID = 1;
 }
 
+//LOGIN-------------------
 message LoginRequest{
   string Identifier = 1;
   string Challenge = 2;
+  string RememberMe = 3;
 }
 
 message LoginResponse{
-  string Name = 1;
+  string SessionID = 1;
 }
 
+message LogoutRequest{
+  string SessionID = 1;
+}
+
+message LogoutResponse{}
+
+//PROFILE-----------------
 message ProfileRequest{
   string Username = 1;
   string Viewer = 2;
@@ -43,4 +72,56 @@ message ProfileRequest{
 
 message ProfileResponse{
   backend.models.Profile UserData = 1;
+  bool FollowStatus = 2;
 }
+
+message ChangeBasicDataRequest{
+  string Firstname = 1;
+  string Lastname = 2;
+  string Description = 3;
+  string Organization = 4;
+  string DOB = 5;
+  string UUID = 6;
+}
+
+message ChangeBasicDataResponse{}
+
+message ProfileChangeIconRequest{
+  string UUID = 1;
+  string Image = 2;
+}
+
+message ProfileChangeIconResponse{}
+
+message ProfileChangeBannerRequest{
+  string UUID = 1;
+  string Image = 2;
+}
+
+message ProfileChangeBannerResponse{}
+
+message ProfileChangeTagsRequest{
+  string UUID = 1;
+  repeated string Tags = 2;
+}
+
+message ProfileChangeTagsResponse{}
+
+message ProfileToggleAvailableRequest{
+  string UUID = 1;
+}
+
+message ProfileToggleAvailableResponse{
+  bool NewStatus = 1;
+}
+
+message ProfileToggleProjectVisibleRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+}
+
+message ProfileToggleProjectVisisbleResponse{
+  bool NewStatus = 1;
+}
+
+//PROJECT-----------------
