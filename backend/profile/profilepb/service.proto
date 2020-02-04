@@ -13,6 +13,10 @@ service Profile {
   rpc Lookup(LookupRequest) returns (LookupResponse);
   rpc Search(SearchRequest) returns (SearchResponse);
   rpc UpdateBasic(UpdateBasicRequest) returns (UpdateBasicResponse);
+  rpc UpdateIcon(UpdateIconRequest) returns (UpdateIconResponse);
+  rpc Get(GetRequest) returns (GetResponse);
+  rpc UpdateBanner(UpdateBannerRequest) returns (UpdateBannerResponse);
+  rpc ToggleAvailable(ToggleAvailableRequest) returns (ToggleAvailableResponse);
 }
 
 message Empty{}
@@ -77,3 +81,33 @@ message UpdateBasicRequest{
 }
 
 message UpdateBasicResponse{}
+
+message UpdateIconRequest{
+  string UUID = 1;
+  string NewIconLink = 2;
+}
+
+message UpdateIconResponse{}
+
+message GetRequest{
+  string UUID = 1;
+}
+
+message GetResponse{
+  profile.models.Profile UserProfile = 1;
+}
+
+message UpdateBannerRequest{
+  string UUID = 1;
+  string NewBannerLink = 2;
+}
+
+message UpdateBannerResponse{}
+
+message ToggleAvailableRequest{
+  string UUID = 1;
+}
+
+message ToggleAvailableResponse{
+  bool NewValue = 1;
+}

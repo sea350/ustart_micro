@@ -6,7 +6,7 @@ import (
 	"io"
 	"log"
 
-	"github.com/olivere/elastic/v7"
+	"github.com/olivere/elastic"
 	notifpb "github.com/sea350/ustart_micro/backend/notification/notificationpb"
 )
 

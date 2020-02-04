@@ -8,7 +8,7 @@ import (
 
 	"github.com/sea350/ustart_micro/backend/widget/widgetpb"
 
-	"github.com/olivere/elastic/v7"
+	"github.com/olivere/elastic"
 )
 
 //GetShowcase pulls all of one owner's showcase widgets

@@ -3,7 +3,7 @@ package elasticstore
 import (
 	"context"
 
-	"github.com/olivere/elastic/v7"
+	"github.com/olivere/elastic"
 )
 
 // Store implements the storage interface for the widget submodule

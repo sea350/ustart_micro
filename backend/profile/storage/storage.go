@@ -13,6 +13,9 @@ type Storage interface {
 	Search(context.Context, []string, bool, bool, bool, map[string][]string, string) ([]string, error)
 	LookupUsername(context.Context, string) (profilepb.Profile, error)
 	UpdateBasicInfo(context.Context, string, string, string, string, string, string) error
+	UpdateAvatar(context.Context, string, string) error
+	UpdateBanner(context.Context, string, string) error
+	UpdateAvailable(context.Context, string, bool) error
 
 	// rest of the functions
 	ErrUserDoesNotExist() error

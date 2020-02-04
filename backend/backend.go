@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/sea350/ustart_micro/backend/uploader/uploaderpb"
+
 	"github.com/sea350/ustart_micro/backend/session"
 
 	"github.com/sea350/ustart_micro/backend/auth/authpb"
@@ -13,10 +15,11 @@ import (
 
 // Server is a centrialized service providing access to all of UStart's microservices
 type Server struct {
-	port          string
-	authClient    *authpb.AuthClient
-	profileClient *profilepb.ProfileClient
-	sesh          *session.Session
+	port           string
+	authClient     *authpb.AuthClient
+	profileClient  *profilepb.ProfileClient
+	sesh           *session.Session
+	uploaderClient *uploaderpb.UploaderClient
 }
 
 // New returns a new backend server, given the config object
@@ -45,6 +48,14 @@ func New(cfg *Config) (*Server, error) {
 	if err != nil {
 		panic(err)
 	}
+
+	//after that, uploader
+	upladerConn, err := grpc.Dial(cfg.UploaderAPIAddress, grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+	uploaderClient := uploaderpb.NewUploaderClient(upladerConn)
+	server.uploaderClient = &uploaderClient
 
 	return server, nil
 

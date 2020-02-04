@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/olivere/elastic/v7"
+	"github.com/olivere/elastic"
 	"github.com/sea350/ustart_micro/backend/project/projectpb"
 )
 
@@ -23,12 +23,12 @@ func (estor *ElasticStore) LookupCustomURL(ctx context.Context, customURL string
 	}
 
 	// if there are no hits, then no one exists by that custom url
-	if res.Hits.TotalHits < 1 {
+	if res.Hits.TotalHits.Value< 1 {
 		return project, ErrCustomURLDoesNotExist
 	}
 
 	// if theres more than a single result then a problem has occurred
-	if res.Hits.TotalHits > 1 {
+	if res.Hits.TotalHits.Value> 1 {
 		return project, ErrTooManyResults
 	}
 
