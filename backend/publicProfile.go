@@ -50,25 +50,12 @@ func (s *Server) PublicProfileHTTP(w http.ResponseWriter, r *http.Request) {
 		req.Username = r.Form.Get("username")
 	}
 
-	ret := make(map[string]interface{})
-
 	resp, err := s.PublicProfile(r.Context(), req)
-	if resp != nil {
-		ret["response"] = resp
-	} else {
-		ret["response"] = ""
-	}
 	if err != nil {
-		ret["error"] = err.Error()
-		logger.Println("Usernmae: "+req.Username+" | err: ", err)
-	} else {
-		ret["error"] = ""
+		logger.Println("Username: "+req.Username+" | err: ", err)
 	}
 
-	data, err := json.Marshal(ret)
-	if err != nil {
-		logger.Println("Problem marshaling return data", err)
-	}
+	data := packageResponse(resp, err)
 
 	fmt.Fprintln(w, string(data))
 

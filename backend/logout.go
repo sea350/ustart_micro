@@ -36,8 +36,6 @@ func (s *Server) LogoutHTTP(w http.ResponseWriter, r *http.Request) {
 		req.SessionID = r.Form.Get("sessionID")
 	}
 
-	ret := make(map[string]interface{})
-
 	resp, err := s.Logout(r.Context(), req)
 
 	var ip string
@@ -46,22 +44,11 @@ func (s *Server) LogoutHTTP(w http.ResponseWriter, r *http.Request) {
 		err = s.sesh.End(ip, &w, r)
 	}
 
-	if resp != nil {
-		ret["response"] = resp
-	} else {
-		ret["response"] = ""
-	}
 	if err != nil {
-		ret["error"] = err.Error()
 		logger.Println("Logout identifier: "+ip+" | err: ", err)
-	} else {
-		ret["error"] = ""
 	}
 
-	data, err := json.Marshal(ret)
-	if err != nil {
-		logger.Println("Problem marshaling return data during Logout: ", err)
-	}
+	data := packageResponse(resp, err)
 
 	fmt.Fprintln(w, string(data))
 

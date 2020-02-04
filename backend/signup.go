@@ -71,25 +71,12 @@ func (s *Server) SignupHTTP(w http.ResponseWriter, r *http.Request) {
 		req.LastName = r.Form.Get("lastname")
 	}
 
-	ret := make(map[string]interface{})
-
 	resp, err := s.Signup(r.Context(), req)
-	if resp != nil {
-		ret["response"] = resp
-	} else {
-		ret["response"] = ""
-	}
 	if err != nil {
-		ret["error"] = err.Error()
 		logger.Println("Email: "+req.Email+" | err: ", err)
-	} else {
-		ret["error"] = ""
 	}
 
-	data, err := json.Marshal(ret)
-	if err != nil {
-		logger.Println("Problem marshaling return data", err)
-	}
+	data := packageResponse(resp, err)
 
 	fmt.Fprintln(w, string(data))
 

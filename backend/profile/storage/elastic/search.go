@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/olivere/elastic"
+	"github.com/olivere/elastic/v7"
 )
 
 // Search searches for... something... i think

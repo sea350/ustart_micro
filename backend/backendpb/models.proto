@@ -5,30 +5,29 @@ package backend.models;
 option go_package= "backendpb";
 
 message Profile {
-    string UUID = 1;
-    string Username = 2;
-    string FirstName = 3;
-    string LastName = 4;
-    string Description = 5;
-    string Organization = 6;
-    repeated AcademicRecord Degrees = 7;
-    repeated string Tags = 8;
-    string Avatar = 9;
-    string Banner = 10;
-    repeated ProjectDisplay Projects = 11;
-    bool Available = 12;
-    string DOB = 13;
-  }
-  
-  message AcademicRecord{
-    string School = 1;
-    repeated string Majors = 2;
-    repeated string Minors = 3;
-    string Graduation = 4;
-    string EducationLevel = 5;
-  }
-  
-  
-  message ProjectDisplay{
-    string ProjectID = 1;
-  }
+  string UUID = 1;
+  string Username = 2;
+  string FirstName = 3;
+  string LastName = 4;
+  string Description = 5;
+  string Organization = 6;
+  repeated AcademicRecord Degrees = 7;
+  repeated string Tags = 8;
+  string Avatar = 9;
+  string Banner = 10;
+  repeated ProjectDisplay Projects = 11;
+  bool Available = 12;
+  string DOB = 13;
+}
+
+message AcademicRecord{
+  string School = 1;
+  repeated string Majors = 2;
+  repeated string Minors = 3;
+  string Graduation = 4;
+  string EducationLevel = 5;
+}
+
+message ProjectDisplay{
+  string ProjectID = 1;
+}

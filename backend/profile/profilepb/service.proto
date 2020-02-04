@@ -12,6 +12,7 @@ service Profile {
   rpc Lite(LiteRequest) returns (LiteResponse);
   rpc Lookup(LookupRequest) returns (LookupResponse);
   rpc Search(SearchRequest) returns (SearchResponse);
+  rpc UpdateBasic(UpdateBasicRequest) returns (UpdateBasicResponse);
 }
 
 message Empty{}
@@ -65,3 +66,14 @@ message SearchRequest{
 message SearchResponse{
   repeated LiteResponse Results = 1;
 }
+
+message UpdateBasicRequest{
+  string UUID = 1;
+  string Firstname = 2;
+  string Lastname = 3;
+  string Description = 4;
+  string Organization = 5;
+  string DOB = 6;
+}
+
+message UpdateBasicResponse{}

@@ -57,8 +57,6 @@ func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 		rememberMe, _ = strconv.ParseBool(r.Form.Get("rememberMe"))
 	}
 
-	ret := make(map[string]interface{})
-
 	resp, err := s.Login(r.Context(), req)
 
 	var sessID string
@@ -67,23 +65,11 @@ func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 		sessID, err = s.sesh.Start(resp.UUID, "", ip, rememberMe, &w, r)
 	}
 	resp.SessionID = sessID
-
-	if resp != nil {
-		ret["response"] = resp
-	} else {
-		ret["response"] = ""
-	}
 	if err != nil {
-		ret["error"] = err.Error()
 		logger.Println("Login identifier: "+req.Identifier+" | err: ", err)
-	} else {
-		ret["error"] = ""
 	}
 
-	data, err := json.Marshal(ret)
-	if err != nil {
-		logger.Println("Problem marshaling return data during login: ", err)
-	}
+	data := packageResponse(resp, err)
 
 	fmt.Fprintln(w, string(data))
 

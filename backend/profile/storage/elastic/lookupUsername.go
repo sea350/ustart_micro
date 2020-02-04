@@ -6,7 +6,7 @@ import (
 
 	"github.com/sea350/ustart_micro/backend/profile/profilepb"
 
-	"github.com/olivere/elastic"
+	"github.com/olivere/elastic/v7"
 )
 
 // LookupUsername pulls up if a document exists using a certain username

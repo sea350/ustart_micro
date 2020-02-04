@@ -12,6 +12,7 @@ type Storage interface {
 	Lookup(context.Context, string) (profilepb.Profile, error)
 	Search(context.Context, []string, bool, bool, bool, map[string][]string, string) ([]string, error)
 	LookupUsername(context.Context, string) (profilepb.Profile, error)
+	UpdateBasicInfo(context.Context, string, string, string, string, string, string) error
 
 	// rest of the functions
 	ErrUserDoesNotExist() error

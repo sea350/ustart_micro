@@ -3,7 +3,7 @@ package elasticstore
 import (
 	"context"
 
-	"github.com/olivere/elastic"
+	"github.com/olivere/elastic/v7"
 )
 
 // ElasticStore implements the storage interface for the Profile module
