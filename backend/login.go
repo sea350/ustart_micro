@@ -13,7 +13,7 @@ import (
 	"github.com/sea350/ustart_micro/backend/backendpb"
 )
 
-//Login registers a new user
+//Login verifies a user's credentials and keeps track of their session
 func (s *Server) Login(ctx context.Context, req *backendpb.LoginRequest) (*backendpb.LoginResponse, error) {
 
 	//Authenticate credentials
@@ -37,7 +37,7 @@ func (s *Server) Login(ctx context.Context, req *backendpb.LoginRequest) (*backe
 
 //EXPERIMENTAL
 
-//LoginHTTP is an http wrapper for the signup function
+//LoginHTTP is an http wrapper for the login function, also initializes a new http session
 func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 
 	if !setCORS(&w, r) {
