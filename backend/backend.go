@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/sea350/ustart_micro/backend/session"
+
 	"github.com/sea350/ustart_micro/backend/auth/authpb"
 	"github.com/sea350/ustart_micro/backend/profile/profilepb"
 	"google.golang.org/grpc"
@@ -14,6 +16,7 @@ type Server struct {
 	port          string
 	authClient    *authpb.AuthClient
 	profileClient *profilepb.ProfileClient
+	sesh          *session.Session
 }
 
 // New returns a new backend server, given the config object
@@ -37,6 +40,12 @@ func New(cfg *Config) (*Server, error) {
 	profileClient := profilepb.NewProfileClient(profileConn)
 	server.profileClient = &profileClient
 
+	//next session
+	server.sesh, err = session.New(&cfg.SessionConfig)
+	if err != nil {
+		panic(err)
+	}
+
 	return server, nil
 
 }
@@ -47,6 +56,13 @@ func (srv *Server) Run() error {
 	log.Println("Booting...")
 
 	http.HandleFunc("/", nil)
+
+	http.HandleFunc("/Registration/Register", srv.SignupHTTP)
+
+	http.HandleFunc("/Authentication/Login", srv.LoginHTTP)
+	http.HandleFunc("/Authentication/Logoout", nil)
+
+	http.HandleFunc("/Profile/UserPage", srv.PublicProfileHTTP)
 
 	log.Printf("Listening on %s\n", srv.port)
 	return http.ListenAndServe(":"+srv.port, nil)

@@ -49,7 +49,7 @@ func (rapi *RESTAPI) UploadAvatar(w http.ResponseWriter, req *http.Request) {
 
 	data, err := json.Marshal(ret)
 	if err != nil {
-		logger.Println("Problem martialing return data", err)
+		logger.Println("Problem marshaling return data", err)
 	}
 
 	fmt.Fprintln(w, string(data))

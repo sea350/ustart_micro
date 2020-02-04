@@ -4,7 +4,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/sea350/ustart_micro/backend/auth/authpb"
@@ -28,10 +30,9 @@ func (s *Server) Login(ctx context.Context, req *backendpb.LoginRequest) (*backe
 	}
 	//Credentials verified
 
-	//TODO:
-	//Set up session
+	//Session activated in http wrapper of this func
 
-	return &backendpb.LoginResponse{}, nil
+	return &backendpb.LoginResponse{UUID: resAuth.UUID}, nil
 }
 
 //EXPERIMENTAL
@@ -44,6 +45,7 @@ func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	req := &backendpb.LoginRequest{}
+	var rememberMe bool
 
 	if strings.Contains(r.Header.Get("Content-type"), "application/json") {
 		r.Header.Set("Content-Type", "application/json")
@@ -52,11 +54,20 @@ func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 		req.Identifier = r.Form.Get("email")
 		req.Challenge = r.Form.Get("password")
+		rememberMe, _ = strconv.ParseBool(r.Form.Get("rememberMe"))
 	}
 
 	ret := make(map[string]interface{})
 
 	resp, err := s.Login(r.Context(), req)
+
+	var sessID string
+	if resp != nil && err == nil {
+		ip, _, _ := net.SplitHostPort(r.RemoteAddr)
+		sessID, err = s.sesh.Start(resp.UUID, "", ip, rememberMe, &w, r)
+	}
+	resp.SessionID = sessID
+
 	if resp != nil {
 		ret["response"] = resp
 	} else {
@@ -71,7 +82,7 @@ func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {
 
 	data, err := json.Marshal(ret)
 	if err != nil {
-		logger.Println("Problem martialing return data during login: ", err)
+		logger.Println("Problem marshaling return data during login: ", err)
 	}
 
 	fmt.Fprintln(w, string(data))

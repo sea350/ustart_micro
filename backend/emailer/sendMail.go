@@ -184,5 +184,5 @@ func (emailer *Emailer) SendMail(ctx context.Context, req *emailerpb.EmailerRequ
 
 	data, err := json.Marshal(ret)
 	if err != nil {
-		logger.Println("Problem martialing return data", err)
+		logger.Println("Problem marshaling return data", err)
 	}
