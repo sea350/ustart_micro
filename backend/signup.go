@@ -25,7 +25,7 @@ func (s *Server) Signup(ctx context.Context, req *backendpb.SignupRequest) (*bac
 	}
 	if resAuth == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//TODO:

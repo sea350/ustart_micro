@@ -21,7 +21,7 @@ service Backend {
   rpc ProfileChangeBanner(ProfileChangeBannerRequest) returns (ProfileChangeBannerResponse);
   rpc ProfileChangeTags(ProfileChangeTagsRequest) returns (ProfileChangeTagsResponse);
   rpc ProfileToggleAvailable(ProfileToggleAvailableRequest) returns (ProfileToggleAvailableResponse);
-  rpc ProfileToggleProjectVisisble(ProfileToggleProjectVisisbleResponse) returns (ProfileToggleProjectVisisbleResponse);
+  rpc ProfileToggleProjectVisible(ProfileToggleProjectVisibleResponse) returns (ProfileToggleProjectVisibleResponse);
 
   //Project
 
@@ -121,7 +121,7 @@ message ProfileToggleProjectVisibleRequest{
   string ProjectID = 2;
 }
 
-message ProfileToggleProjectVisisbleResponse{
+message ProfileToggleProjectVisibleResponse{
   bool NewStatus = 1;
 }
 

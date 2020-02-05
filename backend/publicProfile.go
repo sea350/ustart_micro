@@ -22,7 +22,7 @@ func (s *Server) PublicProfile(ctx context.Context, req *backendpb.ProfileReques
 	}
 	if pullRes == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//TODO

@@ -24,7 +24,7 @@ func (s *Server) ProfileChangeIcon(ctx context.Context, req *backendpb.ProfileCh
 	}
 	if iconRes == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//Need to upload new image data
@@ -38,7 +38,7 @@ func (s *Server) ProfileChangeIcon(ctx context.Context, req *backendpb.ProfileCh
 	}
 	if uplRes == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//Then update profile with the new link
@@ -51,7 +51,7 @@ func (s *Server) ProfileChangeIcon(ctx context.Context, req *backendpb.ProfileCh
 	}
 	if profileRes == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//TODO

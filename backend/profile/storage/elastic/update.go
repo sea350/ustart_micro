@@ -2,6 +2,8 @@ package elasticstore
 
 import (
 	"context"
+
+	"github.com/sea350/ustart_micro/backend/profile/profilepb"
 )
 
 //update for local use only
@@ -43,5 +45,19 @@ func (estor *ElasticStore) UpdateBanner(ctx context.Context, uuid, newImgLink st
 //UpdateAvailable updates that field
 func (estor *ElasticStore) UpdateAvailable(ctx context.Context, uuid string, available bool) error {
 	err := estor.update(ctx, uuid, "Available", available)
+	return err
+}
+
+//UpdateTags updates that field
+func (estor *ElasticStore) UpdateTags(ctx context.Context, uuid string, tags []string) error {
+	err := estor.update(ctx, uuid, "Tags", tags)
+	return err
+}
+
+//UpdateProjects updates that field
+func (estor *ElasticStore) UpdateProjects(ctx context.Context, uuid string, tags []*profilepb.ProjectDisplay) error {
+	modProjectsLock.Lock()
+	defer modProjectsLock.Unlock()
+	err := estor.update(ctx, uuid, "Projects", tags)
 	return err
 }

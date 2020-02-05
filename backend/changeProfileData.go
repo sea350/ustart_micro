@@ -27,7 +27,7 @@ func (s *Server) ChangeProfileData(ctx context.Context, req *backendpb.ChangeBas
 	}
 	if pullRes == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//TODO

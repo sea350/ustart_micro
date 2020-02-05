@@ -26,7 +26,7 @@ func (s *Server) Login(ctx context.Context, req *backendpb.LoginRequest) (*backe
 	}
 	if resAuth == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 	//Credentials verified
 

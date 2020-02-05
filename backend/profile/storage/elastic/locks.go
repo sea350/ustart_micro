@@ -5,3 +5,5 @@ import (
 )
 
 var newUserLock sync.Mutex
+
+var modProjectsLock sync.Mutex

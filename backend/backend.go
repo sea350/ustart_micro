@@ -74,6 +74,12 @@ func (srv *Server) Run() error {
 	http.HandleFunc("/Authentication/Logoout", nil)
 
 	http.HandleFunc("/Profile/UserPage", srv.PublicProfileHTTP)
+	http.HandleFunc("/Profile/ChangeBasicData", srv.ChangeProfileDataHTTP)
+	http.HandleFunc("/Profile/ChangeIcon", srv.ProfileChangeIconHTTP)
+	http.HandleFunc("/Profile/ChangeBanner", srv.ProfileChangeBannerHTTP)
+	http.HandleFunc("/Profile/ChangeTags", srv.ProfileChangeTagsHTTP)
+	http.HandleFunc("/Profile/ToggleAvailable", srv.ProfileToggleAvailableHTTP)
+	http.HandleFunc("/Profile/ToggleProjectVisible", srv.ProfileToggleProjectVisibleHTTP)
 
 	log.Printf("Listening on %s\n", srv.port)
 	return http.ListenAndServe(":"+srv.port, nil)

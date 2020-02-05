@@ -17,6 +17,10 @@ service Profile {
   rpc Get(GetRequest) returns (GetResponse);
   rpc UpdateBanner(UpdateBannerRequest) returns (UpdateBannerResponse);
   rpc ToggleAvailable(ToggleAvailableRequest) returns (ToggleAvailableResponse);
+  rpc UpdateTags(UpdateTagsRequest) returns (UpdateTagsResponse);
+  rpc ToggleProjectDisplay(ToggleDisplayRequest) returns (ToggleDisplayResponse);
+  rpc AddProject(AddProjectRequest) returns (AddProjectResponse);
+  rpc RemoveProject(RemoveProjectRequest) returns (RemoveProjectResponse);
 }
 
 message Empty{}
@@ -110,4 +114,40 @@ message ToggleAvailableRequest{
 
 message ToggleAvailableResponse{
   bool NewValue = 1;
+}
+
+message UpdateTagsRequest{
+  string UUID = 1;
+  repeated string Tags = 2;
+}
+
+message UpdateTagsResponse{}
+
+message ToggleDisplayRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+}
+
+message ToggleDisplayResponse{
+  bool NewValue = 1;
+}
+
+message AddProjectRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+}
+
+message AddProjectResponse{
+  string UUID = 1;
+  string ProjectID = 2;
+}
+
+message RemoveProjectRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+}
+
+message RemoveProjectResponse{
+  string UUID = 1;
+  string ProjectID = 2;
 }

@@ -16,6 +16,8 @@ type Storage interface {
 	UpdateAvatar(context.Context, string, string) error
 	UpdateBanner(context.Context, string, string) error
 	UpdateAvailable(context.Context, string, bool) error
+	UpdateTags(context.Context, string, []string) error
+	UpdateProjects(context.Context, string, []*profilepb.ProjectDisplay) error
 
 	// rest of the functions
 	ErrUserDoesNotExist() error

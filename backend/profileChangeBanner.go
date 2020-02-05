@@ -24,7 +24,7 @@ func (s *Server) ProfileChangeBanner(ctx context.Context, req *backendpb.Profile
 	}
 	if iconRes == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//Need to upload new image data
@@ -38,20 +38,20 @@ func (s *Server) ProfileChangeBanner(ctx context.Context, req *backendpb.Profile
 	}
 	if uplRes == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//Then update profile with the new link
 	profileRes, err := (*s.profileClient).UpdateBanner(ctx, &profilepb.UpdateBannerRequest{
 		UUID:          req.UUID,
-		NewBannerLink: "",
+		NewBannerLink: uplRes.NewLink,
 	})
 	if err != nil {
 		return nil, err
 	}
 	if profileRes == nil {
 		logger.Println("this shouldnt happen")
-		return nil, err
+		return nil, errNilResponse
 	}
 
 	//TODO

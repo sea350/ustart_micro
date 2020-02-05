@@ -14,4 +14,7 @@ var (
 
 	//ErrProblemLoadingProfile This user already has a profile
 	ErrProblemLoadingProfile = errors.New("There was a problem loading one or more profiles in this list")
+
+	//ErrNoProjectFound couldnt find project
+	ErrNoProjectFound = errors.New("Could not find a project with that ID on display")
 )
