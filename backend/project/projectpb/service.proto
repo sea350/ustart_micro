@@ -7,7 +7,7 @@ import "models.proto";
 
 option go_package = "projectpb"; 
 
-service Auth {
+service Project {
   rpc Register(RegisterRequest) returns (RegisterResponse);
   rpc Pull(PullRequest) returns (PullResponse);
   rpc Lite(LiteRequest) returns (LiteResponse);

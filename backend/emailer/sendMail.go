@@ -1,30 +1,18 @@
 package emailer
 
-
-import(
+import (
 	"context"
-		"bytes"
 	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/pinpointemail"
-	"github.com/sea350/ustart_micro/backend/profile/profilepb"
 )
 
-func (emailer *Emailer) SendMail(ctx context.Context, req *emailerpb.EmailerRequest ) (*emailerpb.SendMailResponse, error) {
-
-
-
-	sess, err := session.NewSession(&aws.Config{Region: aws.String(AWSRegion), Credentials: credentials.NewStaticCredentials(CredID, CredSecret, CredToken)})
-
-	// Create a Pinpoint Email session.
-	svc := pinpointemail.New(sess)
+func (emailer *Emailer) SendMail(ctx context.Context, req *emailerpb.EmailerRequest) (*emailerpb.SendMailResponse, error) {
 
 	sendTo := Req.To[0]
-	 
+
 	input := &pinpointemail.SendEmailInput{
 		Destination: &pinpointemail.Destination{
 			CcAddresses: []*string{},
@@ -54,7 +42,7 @@ func (emailer *Emailer) SendMail(ctx context.Context, req *emailerpb.EmailerRequ
 	}
 
 	// Attempt to send the email.
-	result, err := svc.SendEmail(input)
+	result, err := emailer.pinpointEmail.SendEmail(input)
 
 	// Display error messages if they occur.
 	if err != nil {
@@ -75,71 +63,15 @@ func (emailer *Emailer) SendMail(ctx context.Context, req *emailerpb.EmailerRequ
 			fmt.Println(err.Error())
 		}
 
-		return false
+		return nil, false
 
+		return &emailerpb.EmailerResponse{Success: true}, nil
 
-
-	return &emailerpb.EmailerResponse{Success: true}, nil
+	}
 
 }
 
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
 	svc := pinpointemailiface.New(sess)
 	pinpointEmail := new aws.PinpointEmail()
 
@@ -168,6 +100,7 @@ func (emailer *Emailer) SendMail(ctx context.Context, req *emailerpb.EmailerRequ
 		}
 	}
 
+
 	ret := make(map[string]interface{})
 
 	resp, err := rapi.auth.Authenticate(regCtx, emailReq)
@@ -185,4 +118,4 @@ func (emailer *Emailer) SendMail(ctx context.Context, req *emailerpb.EmailerRequ
 	data, err := json.Marshal(ret)
 	if err != nil {
 		logger.Println("Problem marshaling return data", err)
-	}
+	}*/

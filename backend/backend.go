@@ -10,6 +10,7 @@ import (
 
 	"github.com/sea350/ustart_micro/backend/auth/authpb"
 	"github.com/sea350/ustart_micro/backend/profile/profilepb"
+	"github.com/sea350/ustart_micro/backend/project/projectpb"
 	"google.golang.org/grpc"
 )
 
@@ -20,6 +21,7 @@ type Server struct {
 	profileClient  *profilepb.ProfileClient
 	sesh           *session.Session
 	uploaderClient *uploaderpb.UploaderClient
+	projectClient  *projectpb.ProjectClient
 }
 
 // New returns a new backend server, given the config object
@@ -32,16 +34,16 @@ func New(cfg *Config) (*Server, error) {
 	if err != nil {
 		panic(err)
 	}
-	authClient := authpb.NewAuthClient(authConn)
-	server.authClient = &authClient
+	autC := authpb.NewAuthClient(authConn)
+	server.authClient = &autC
 
 	//then profile
 	profileConn, err := grpc.Dial(cfg.ProfileAPIAdresss, grpc.WithInsecure())
 	if err != nil {
 		panic(err)
 	}
-	profileClient := profilepb.NewProfileClient(profileConn)
-	server.profileClient = &profileClient
+	prfC := profilepb.NewProfileClient(profileConn)
+	server.profileClient = &prfC
 
 	//next session
 	server.sesh, err = session.New(&cfg.SessionConfig)
@@ -50,12 +52,20 @@ func New(cfg *Config) (*Server, error) {
 	}
 
 	//after that, uploader
-	upladerConn, err := grpc.Dial(cfg.UploaderAPIAddress, grpc.WithInsecure())
+	uploaderConn, err := grpc.Dial(cfg.UploaderAPIAddress, grpc.WithInsecure())
 	if err != nil {
 		panic(err)
 	}
-	uploaderClient := uploaderpb.NewUploaderClient(upladerConn)
-	server.uploaderClient = &uploaderClient
+	uplC := uploaderpb.NewUploaderClient(uploaderConn)
+	server.uploaderClient = &uplC
+
+	//furthermore, project
+	projConn, err := grpc.Dial(cfg.ProjectAPIAddress, grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+	prjC := projectpb.NewProjectClient(projConn)
+	server.projectClient = &prjC
 
 	return server, nil
 

@@ -11,6 +11,7 @@ type Config struct {
 	ProfileAPIAdresss  string
 	SessionConfig      session.Config
 	UploaderAPIAddress string
+	ProjectAPIAddress  string
 }
 
 // NewConfig returns a new config object with default params
