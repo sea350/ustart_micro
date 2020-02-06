@@ -14,7 +14,7 @@ func (auth *Auth) RemoveRequest(ctx context.Context, projectID, userID, removerI
 	}
 
 	//checks if user currently has permission to remove request, or if the user is removing their own request
-	if removerID == userID || removerRole.ManageRequests {
+	if removerID == userID || removerRole.ManageMembers {
 		auth.Strg.RemoveRequest(ctx, projectID, removerID)
 		if err != nil {
 			return err

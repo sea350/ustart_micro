@@ -2,26 +2,24 @@ package auth
 
 import (
 	"context"
-	"time"
 )
 
 //GetRequests retrieves the project join requests
-func (auth *Auth) GetRequests(ctx context.Context, projectID, userID) error {
+func (auth *Auth) GetRequests(ctx context.Context, projectID, userID string) ([]string, error) {
 	//first check user permissions
 	role, err := auth.FindUserRole(ctx, projectID, userID)
 	if err != nil {
-		return err
+		return []string{}, err
 	}
 	if !role.ManageMembers {
-		return errInvalidPermission
+		return []string{}, errInvalidPermission
 	}
-
 
 	//Add new member with given role
-	err = auth.Strg.GetRequests(ctx, projectID)
+	reqs, err := auth.Strg.GetRequests(ctx, projectID)
 	if err != nil {
-		return err
+		return []string{}, err
 	}
 
-	return nil
+	return reqs, nil
 }

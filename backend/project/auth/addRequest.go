@@ -9,7 +9,7 @@ import (
 func (auth *Auth) AddRequest(ctx context.Context, projectID, userID string) error {
 
 	//first checks if user currently is part of the project
-	role, err := auth.FindUserRole(ctx, projectID, userID)
+	_, err := auth.FindUserRole(ctx, projectID, userID)
 	if err == nil {
 		return errAlreadyExists //user is already a member
 	}

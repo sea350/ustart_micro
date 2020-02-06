@@ -6,7 +6,7 @@ import (
 )
 
 //AcceptRequest removes the request from the request list, but adds the new member to the project
-func (dbConn *SQLStore) AcceptRequest(ctx context.Context, uuid, projectID, requestDate string) error {
+func (dbConn *SQLStore) AcceptRequest(ctx context.Context, uuid, projectID, joinDate string) error {
 	queryString := fmt.Sprintf(
 		`INSERT INTO %s (uuid, project_id, join_date) 
 		VALUES ($1, $2, $3);`,

@@ -32,9 +32,8 @@ func (project *Project) Register(ctx context.Context, req *projectpb.RegisterReq
 		return nil, err
 	}
 
-	//TODO:
-	//Add owner as member
+	err = project.auth.NewProject(ctx, pid, req.CreatorID)
 
-	return &projectpb.RegisterResponse{ProjectID: pid}, nil
+	return &projectpb.RegisterResponse{ProjectID: pid}, err
 
 }

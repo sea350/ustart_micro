@@ -14,11 +14,11 @@ func (auth *Auth) AcceptRequest(ctx context.Context, projectID, userID, newMembe
 	}
 
 	if role.ManageMembers {
-		err = RemoveRequest(ctx, projectID, userID, newMemberID)
+		err = auth.RemoveRequest(ctx, projectID, userID, newMemberID)
 		if err != nil {
 			return err
 		}
-		err = AddMember(ctx, projectID, userID, newMemberID, newRole)
+		err = auth.AddMember(ctx, projectID, userID, newMemberID, newRole)
 		if err != nil {
 			return err
 		}

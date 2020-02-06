@@ -26,6 +26,7 @@ message RegisterRequest{
   string Name = 3;
   string Description = 4;
   string School = 5;
+  string Avatar = 6;
 }
 
 message RegisterResponse{

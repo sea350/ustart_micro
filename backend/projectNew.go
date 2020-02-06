@@ -16,11 +16,12 @@ import (
 func (s *Server) ProjectNew(ctx context.Context, req *backendpb.ProjectNewRequest) (*backendpb.ProjectNewResponse, error) {
 
 	resProj, err := (*s.projectClient).Register(ctx, &projectpb.RegisterRequest{
-		PID:         req.UUID,
+		CreatorID:   req.UUID,
 		CustomURL:   req.CustomURL,
 		Name:        req.ProjectName,
-		Description: "",
+		Description: req.Description,
 		School:      "",
+		Avatar:      req.Avatar,
 	})
 	if err != nil {
 		return nil, err
@@ -31,8 +32,8 @@ func (s *Server) ProjectNew(ctx context.Context, req *backendpb.ProjectNewReques
 	}
 
 	resUser, err := (*s.profileClient).AddProject(ctx, &profilepb.AddProjectRequest{
-		UUID: req.UUID,
-		//		ProjectID:resProj.
+		UUID:      req.UUID,
+		ProjectID: resProj.ProjectID,
 	})
 	if err != nil {
 		return nil, err

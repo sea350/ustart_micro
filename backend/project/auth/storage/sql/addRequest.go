@@ -12,7 +12,7 @@ func (dbConn *SQLStore) AddRequest(ctx context.Context, uuid, projectID, request
 		VALUES ($1, $2, $3);`,
 		dbConn.memberTN)
 
-	_, err := dbConn.db.ExecContext(ctx, queryString, uuid, projectID, joinDate)
+	_, err := dbConn.db.ExecContext(ctx, queryString, uuid, projectID, requestDate)
 
 	return err
 }

@@ -32,10 +32,10 @@ type Storage interface {
 	GetProjectRoles(context.Context, string) ([]types.Role, error)      //pass project id | get list of role profiles, error
 
 	//Member Request functions
-	AddRequest(context.Context, string, string, string) error //pass user id, project id, and request date
-	RemoveRequest(context.Context, string, string) error      //pass user id and project id
-	GetRequests(context.Context, string)                      //pass project id
-	AcceptRequest(context.Context, string, string, string)    //pass project id, newMember id, and user id
+	AddRequest(context.Context, string, string, string) error    //pass user id, project id, and request date
+	RemoveRequest(context.Context, string, string) error         //pass user id and project id
+	GetRequests(context.Context, string) ([]string, error)       //pass project id
+	AcceptRequest(context.Context, string, string, string) error //pass project id, newMember id, and user id
 
 	//Errors
 	ErrNoResultsFound() error
