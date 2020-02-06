@@ -7,17 +7,16 @@ import (
 )
 
 //Register creates a new ES document for a newly created project
-func (estor *ElasticStore) Register(ctx context.Context, pid string, customURL string, name string, category string, avatar string, banner string, creationDate string, school string, tags []string, skillsNeeded []string, links []string) error {
+func (estor *ElasticStore) Register(ctx context.Context, customURL string, name string, category string, avatar string, banner string, creationDate string, school string, tags []string, skillsNeeded []string, links []string) (string, error) {
 
 	//Lock just to make sure no two people can register the same project url at the same time
 	newProjectLock.Lock()
 	defer newProjectLock.Unlock()
 
-	_, err := estor.client.Index().
+	res, err := estor.client.Index().
 		Index(estor.eIndex).
 		// Type(estor.eType).
 		BodyJson(projectpb.Project{
-			PID:          pid,
 			CustomURL:    customURL,
 			Name:         name,
 			Category:     category,
@@ -29,10 +28,9 @@ func (estor *ElasticStore) Register(ctx context.Context, pid string, customURL s
 			SkillsNeeded: skillsNeeded,
 			Links:        links,
 		}).
-		Id(pid).
 		Do(ctx)
 
-	return err
+	return res.Id, err
 }
 
 // message Project {

@@ -9,15 +9,17 @@ import (
 // Register is a generic register function that registers a user in a database
 func (project *Project) Register(ctx context.Context, req *projectpb.RegisterRequest) (*projectpb.RegisterResponse, error) {
 
-	_, err := project.strg.Lookup(ctx, req.PID)
-	if err != nil && err != project.strg.ErrProjectDoesNotExist() {
-		return nil, err
-	}
-	if err == nil {
-		return nil, ErrProjectExists
-	}
+	//Why would you even need to use this, YOU CANT HAVE AN ID OF AN OBJECT UR TRYING TO MAKE
+	//MIN REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+	// _, err := project.strg.Lookup(ctx, req.PID)
+	// if err != nil && err != project.strg.ErrProjectDoesNotExist() {
+	// 	return nil, err
+	// }
+	// if err == nil {
+	// 	return nil, ErrProjectExists
+	// }
 
-	_, err = project.strg.LookupCustomURL(ctx, req.CustomURL)
+	_, err := project.strg.LookupCustomURL(ctx, req.CustomURL)
 	if err != nil && err != project.strg.ErrProjectDoesNotExist() {
 		return nil, err
 	}
