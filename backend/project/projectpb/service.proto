@@ -21,14 +21,16 @@ service Project {
 message Empty{}
 
 message RegisterRequest{
-  string PID = 1;
+  string CreatorID = 1;
   string CustomURL = 2;
   string Name = 3;
   string Description = 4;
   string School = 5;
 }
 
-message RegisterResponse{}
+message RegisterResponse{
+  string ProjectID = 1;
+}
 
 message PullRequest{
   string CustomURL = 1;
@@ -39,7 +41,7 @@ message PullResponse{
 }
 
 message LiteRequest{
-  string CustomURL = 1;
+  string ProjectID = 1;
 }
 
 message LiteResponse{

@@ -27,11 +27,14 @@ func (project *Project) Register(ctx context.Context, req *projectpb.RegisterReq
 		return nil, ErrCustomURLInUse
 	}
 
-	err = project.strg.Register(ctx, req.PID, req.CustomURL, req.Name, req.Description, project.defaultAvatar, project.defaultBanner, req.School, false, true)
+	pid, err := project.strg.Register(ctx, req.CustomURL, req.Name, "category", project.defaultAvatar, project.defaultBanner, "creationdate", req.School, []string{}, []string{}, []string{})
 	if err != nil {
 		return nil, err
 	}
 
-	return &projectpb.RegisterResponse{}, nil
+	//TODO:
+	//Add owner as member
+
+	return &projectpb.RegisterResponse{ProjectID: pid}, nil
 
 }

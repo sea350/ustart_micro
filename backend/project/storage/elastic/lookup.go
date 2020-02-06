@@ -23,12 +23,12 @@ func (estor *ElasticStore) Lookup(ctx context.Context, pid string) (projectpb.Pr
 	}
 
 	// if there are no hits, then no one exists by that pid
-	if res.Hits.TotalHits.Value< 1 {
-		return project, ErrProjectDoesNotExist
+	if res.Hits.TotalHits.Value < 1 {
+		return project, errProjectDoesNotExist
 	}
 
 	// if theres more than a single result then a problem has occurred
-	if res.Hits.TotalHits.Value> 1 {
+	if res.Hits.TotalHits.Value > 1 {
 		return project, ErrTooManyResults
 	}
 

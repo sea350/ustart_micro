@@ -12,6 +12,6 @@ var (
 	// //ErrProjectExists ...
 	// ErrProjectExists = errors.New("This user already has a profile")
 
-	//ErrProblemLoadingProfile This user already has a profile
+	//ErrProblemLoadingProject iunno
 	ErrProblemLoadingProject = errors.New("There was a problem loading one or more projects in this list")
 )

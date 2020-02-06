@@ -9,7 +9,7 @@ import (
 // Lite retreives minimal profile data based off of a uuid
 func (project *Project) Lite(ctx context.Context, req *projectpb.LiteRequest) (*projectpb.LiteResponse, error) {
 
-	proj, err := project.strg.Lookup(ctx, req.PID)
+	proj, err := project.strg.Lookup(ctx, req.ProjectID)
 	if err != nil {
 		return nil, err
 	}

@@ -3,8 +3,7 @@ package elasticstore
 import "errors"
 
 var (
-	// ErrProjectDoesNotExist project doesnt exist
-	ErrProjectDoesNotExist = errors.New("Project does not exist")
+	errProjectDoesNotExist = errors.New("Project does not exist")
 
 	//ErrCustomURLInUse Project Custom URL is in use
 	ErrCustomURLInUse = errors.New("Project Custom URL is in use")
@@ -15,3 +14,8 @@ var (
 	//ErrCustomURLDoesNotExist Url not found
 	ErrCustomURLDoesNotExist = errors.New("Url not found")
 )
+
+//ErrProjectDoesNotExist project doesnt exist
+func (e *ElasticStore) ErrProjectDoesNotExist() error {
+	return errProjectDoesNotExist
+}

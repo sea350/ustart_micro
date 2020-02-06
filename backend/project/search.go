@@ -37,11 +37,11 @@ func (project *Project) Search(ctx context.Context, req *projectpb.SearchRequest
 	var res []*projectpb.LiteResponse
 	var resErr error
 	for _, id := range ids {
-		liteRes, err := project.Lite(ctx, &projectpb.LiteRequest{UUID: id})
+		liteRes, err := project.Lite(ctx, &projectpb.LiteRequest{ProjectID: id})
 		if err != nil {
 			res = append(res, liteRes)
 		} else {
-			resErr = ErrProblemLoadingProfile
+			resErr = ErrProblemLoadingProject
 		}
 	}
 	return &projectpb.SearchResponse{Results: res}, resErr
