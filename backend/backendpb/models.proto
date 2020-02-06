@@ -31,3 +31,11 @@ message AcademicRecord{
 message ProjectDisplay{
   string ProjectID = 1;
 }
+
+message LiteProfile{
+  string UUID = 1;
+  string Username = 2;
+  string FirstName = 3;
+  string LastName = 4;
+  string Avatar = 5;
+}

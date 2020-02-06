@@ -24,7 +24,12 @@ service Backend {
   rpc ProfileToggleProjectVisible(ProfileToggleProjectVisibleResponse) returns (ProfileToggleProjectVisibleResponse);
 
   //Project
-
+  rpc ProjectNew(ProjectNewRequest) returns (ProjectNewResponse);
+  rpc GetJoiners(GetJoinersRequest) returns (GetJoinersResponse);
+//  rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
+//  rpc ApproveMember(ApproveMemberRequest) returns (ApproveMemberResponse);
+//  rpc RejectJoin(RejectJoinRequest) returns (RejectJoinResponse);
+//  rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
   //Widget
 
   //Social
@@ -126,3 +131,29 @@ message ProfileToggleProjectVisibleResponse{
 }
 
 //PROJECT-----------------
+message ProjectNewRequest{
+  string UUID = 1;
+  string ProjectName = 2;
+  string CustomURL = 3;
+  string Category = 4;
+  string Description = 5;
+  string Avatar = 6;
+}
+message ProjectNewResponse{}
+
+message GetJoinersRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+}
+
+message GetJoinersResponse{
+  repeated backend.models.LiteProfile Applicants = 1;
+}
+//GetRolesRequest
+//GetRolesResponse
+//ApproveMemberRequest
+//ApproveMemberResponse
+//RejectJoinRequest
+//RejectJoinResponse
+//RemoveMemberRequest
+//RemoveMemberResponse

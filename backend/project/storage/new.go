@@ -1,4 +1,4 @@
-package elasticstore
+package storage
 
 import (
 	elasticstore "github.com/sea350/ustart_micro/backend/project/storage/elastic"
