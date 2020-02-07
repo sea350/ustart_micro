@@ -14,6 +14,8 @@ service Project {
   rpc Lookup(LookupRequest) returns (LookupResponse);
   rpc Search(SearchRequest) returns (SearchResponse);
   rpc GetApplicants(GetApplicantsRequest) returns (GetApplicantsResponse);
+  rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
+  rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
 }
 
 
@@ -80,3 +82,21 @@ message GetApplicantsRequest{
 message GetApplicantsResponse{
   repeated string ApplicantIDs = 1;
 }
+
+message GetRolesRequest{
+  string ProjectID = 1;
+  string UserID = 2;
+}
+
+message GetRolesResponse{
+  repeated project.models.Role Roles = 1;
+}
+
+message AddMemberRequest{
+  string ProjectID = 1;
+  string AdderID = 2;
+  string NewMemberID = 3;
+  string RoleName = 4;
+}
+
+message AddMemberResponse{}

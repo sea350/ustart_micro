@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sea350/ustart_micro/backend/project/auth/types"
+	"github.com/sea350/ustart_micro/backend/project/projectpb"
 )
 
 // GetRoleProfile retreivs a certain role profile
-func (dbConn *SQLStore) GetRoleProfile(ctx context.Context, projectID, roleName string) (types.Role, error) {
+func (dbConn *SQLStore) GetRoleProfile(ctx context.Context, projectID, roleName string) (projectpb.Role, error) {
 
 	queryString := fmt.Sprintf(
 		`SELECT manage_members, change_icon, change_banner, manage_entries, manage_links, manage_tags
@@ -18,11 +18,11 @@ func (dbConn *SQLStore) GetRoleProfile(ctx context.Context, projectID, roleName 
 	)
 	rows, err := dbConn.db.QueryContext(ctx, queryString, projectID, roleName)
 	if err != nil {
-		return types.Role{}, err
+		return projectpb.Role{}, err
 	}
 
 	defer rows.Close()
-	var role types.Role
+	var role projectpb.Role
 
 	if rows.Next() { //if the first row loads
 		//scan/load data into struct
@@ -34,17 +34,17 @@ func (dbConn *SQLStore) GetRoleProfile(ctx context.Context, projectID, roleName 
 			&role.ManageEntries,
 			&role.ManageLinks,
 			&role.ManageTags); err != nil { //unless err!=nil
-			return types.Role{}, err
+			return projectpb.Role{}, err
 		}
 
 		//if there is a second row there is a problem
 		if rows.Next() {
-			return types.Role{}, errTooManyResults
+			return projectpb.Role{}, errTooManyResults
 		}
 
 	} else {
 		//if first row doesnt load there are no results
-		return types.Role{}, errNoResultsFound
+		return projectpb.Role{}, errNoResultsFound
 	}
 	return role, nil //everything went well
 }

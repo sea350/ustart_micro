@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sea350/ustart_micro/backend/project/auth/types"
+	"github.com/sea350/ustart_micro/backend/project/projectpb"
 )
 
 // GetProjectRoles retreivs all roles from a certain project
-func (dbConn *SQLStore) GetProjectRoles(ctx context.Context, projectID string) ([]types.Role, error) {
+func (dbConn *SQLStore) GetProjectRoles(ctx context.Context, projectID string) ([]*projectpb.Role, error) {
 
 	queryString := fmt.Sprintf(
 		`SELECT role_name, manage_members, change_icon, change_banner, manage_entries, manage_links, manage_tags
@@ -18,19 +18,19 @@ func (dbConn *SQLStore) GetProjectRoles(ctx context.Context, projectID string) (
 	)
 	rows, err := dbConn.db.QueryContext(ctx, queryString, projectID)
 	if err != nil {
-		return []types.Role{}, err
+		return []*projectpb.Role{}, err
 	}
 
 	defer rows.Close()
-	var roles []types.Role
+	var roles []*projectpb.Role
 
 	for rows.Next() { //loop through rows
 		var roleName string
 		var manageMembers, changeIcon, changeBanner, manageEntries, manageLinks, manageTags bool
 		if err := rows.Scan(&roleName, &manageMembers, &changeIcon, &changeBanner, &manageEntries, &manageLinks, &manageTags); err != nil {
-			return []types.Role{}, err
+			return []*projectpb.Role{}, err
 		}
-		roles = append(roles, types.Role{
+		roles = append(roles, &projectpb.Role{
 			Name:          roleName,
 			ManageMembers: manageMembers,
 			ChangeIcon:    changeIcon,
@@ -41,7 +41,7 @@ func (dbConn *SQLStore) GetProjectRoles(ctx context.Context, projectID string) (
 		})
 	}
 	if len(roles) == 0 {
-		return []types.Role{}, errNoResultsFound
+		return []*projectpb.Role{}, errNoResultsFound
 	}
 
 	return roles, nil //everything went well

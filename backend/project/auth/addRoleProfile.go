@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/sea350/ustart_micro/backend/project/auth/types"
+	"github.com/sea350/ustart_micro/backend/project/projectpb"
 )
 
 //AddRoleProfile checks permissions of the user and adds a new role
@@ -26,7 +26,7 @@ func (auth *Auth) AddRoleProfile(ctx context.Context, projectID, userID, roleNam
 
 	//Creator role doesnt have a formal role profile so it must be added to the check
 	//actual permissions arent relevant
-	roles = append(roles, types.Role{Name: creator})
+	roles = append(roles, &projectpb.Role{Name: creator})
 	for _, role := range roles {
 		//Make the casing equivalent to try to avoid shady new roles
 		//This will probably need to be made more sophisticated later

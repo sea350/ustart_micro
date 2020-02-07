@@ -3,7 +3,7 @@ package storage
 import (
 	"context"
 
-	"github.com/sea350/ustart_micro/backend/project/auth/types"
+	"github.com/sea350/ustart_micro/backend/project/projectpb"
 )
 
 // Storage is a database-agnostic interface for persisting auth data
@@ -26,10 +26,10 @@ type Storage interface {
 	RemoveRole(context.Context, string, string) error   //pass project id, role name | get error
 
 	//Retreive Member functions
-	GetMemberRole(context.Context, string, string) (string, error)      //pass user id, project id | get role name, error
-	GetMembers(context.Context, string) ([]types.Member, error)         //pass project id | get a list of members, error
-	GetRoleProfile(context.Context, string, string) (types.Role, error) //pass project id, profile name | get role profile, error
-	GetProjectRoles(context.Context, string) ([]types.Role, error)      //pass project id | get list of role profiles, error
+	GetMemberRole(context.Context, string, string) (string, error)          //pass user id, project id | get role name, error
+	GetMembers(context.Context, string) ([]projectpb.Member, error)         //pass project id | get a list of members, error
+	GetRoleProfile(context.Context, string, string) (projectpb.Role, error) //pass project id, profile name | get role profile, error
+	GetProjectRoles(context.Context, string) ([]*projectpb.Role, error)     //pass project id | get list of role profiles, error
 
 	//Member Request functions
 	AddRequest(context.Context, string, string, string) error    //pass user id, project id, and request date
