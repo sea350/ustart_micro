@@ -31,7 +31,7 @@ func convertProfileUserToBackendUser(profU profilepb.Profile) *backendpb.Profile
 	return &profB
 }
 
-func convertLiteResToLiteProfile(liteA profilepb.LiteResponse) *backendpb.LiteProfile {
+func convertLiteResToLiteProfile(liteA *profilepb.LiteResponse) *backendpb.LiteProfile {
 	liteB := backendpb.LiteProfile{
 		UUID:      liteA.UUID,
 		Username:  liteA.Username,

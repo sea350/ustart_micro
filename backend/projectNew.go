@@ -55,23 +55,31 @@ func (s *Server) ProjectNewHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	req := &backendpb.SignupRequest{}
+	uid, err := s.sesh.UID(r)
+	if err != nil {
+		logger.Println("Session error | err: ", err)
+		data := packageResponse(nil, err)
+		fmt.Fprintln(w, string(data))
+		return
+	}
+
+	req := &backendpb.ProjectNewRequest{UUID: uid}
 
 	if strings.Contains(r.Header.Get("Content-type"), "application/json") {
 		r.Header.Set("Content-Type", "application/json")
 		json.NewDecoder(r.Body).Decode(req)
 	} else {
 		r.ParseForm()
-		req.Email = r.Form.Get("email")
-		req.Password = r.Form.Get("password")
-		req.Username = r.Form.Get("username")
-		req.FirstName = r.Form.Get("firstname")
-		req.LastName = r.Form.Get("lastname")
+		req.ProjectName = r.Form.Get("projectName")
+		req.CustomURL = r.Form.Get("customURL")
+		req.Category = r.Form.Get("category")
+		req.Description = r.Form.Get("description")
+		req.Avatar = r.Form.Get("avatar")
 	}
 
-	resp, err := s.Signup(r.Context(), req)
+	resp, err := s.ProjectNew(r.Context(), req)
 	if err != nil {
-		logger.Println("Email: "+req.Email+" | err: ", err)
+		logger.Println("UUID: "+uid+" | err: ", err)
 	}
 
 	data := packageResponse(resp, err)

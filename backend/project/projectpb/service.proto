@@ -13,7 +13,7 @@ service Project {
   rpc Lite(LiteRequest) returns (LiteResponse);
   rpc Lookup(LookupRequest) returns (LookupResponse);
   rpc Search(SearchRequest) returns (SearchResponse);
-
+  rpc GetApplicants(GetApplicantsRequest) returns (GetApplicantsResponse);
 }
 
 
@@ -72,3 +72,11 @@ message SearchResponse{
   repeated LiteResponse Results = 1;
 }
 
+message GetApplicantsRequest{
+  string RequesterID = 1;
+  string ProjectID = 2;
+}
+
+message GetApplicantsResponse{
+  repeated string ApplicantIDs = 1;
+}
