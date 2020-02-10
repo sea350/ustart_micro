@@ -17,7 +17,7 @@ func (s *Server) Logout(ctx context.Context, req *backendpb.LogoutRequest) (*bac
 	return &backendpb.LogoutResponse{}, nil
 }
 
-//EXPERIMENTAL
+
 
 //LogoutHTTP is an http wrapper for the logout function
 func (s *Server) LogoutHTTP(w http.ResponseWriter, r *http.Request) {

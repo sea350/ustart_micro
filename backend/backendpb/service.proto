@@ -26,9 +26,9 @@ service Backend {
   //Project
   rpc ProjectNew(ProjectNewRequest) returns (ProjectNewResponse);
   rpc GetJoiners(GetJoinersRequest) returns (GetJoinersResponse);
-//  rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
-//  rpc ApproveMember(ApproveMemberRequest) returns (ApproveMemberResponse);
-//  rpc RejectJoin(RejectJoinRequest) returns (RejectJoinResponse);
+  rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
+  rpc ApproveMember(ApproveMemberRequest) returns (ApproveMemberResponse);
+  rpc RejectJoin(RejectJoinRequest) returns (RejectJoinResponse);
 //  rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
   //Widget
 
@@ -149,11 +149,36 @@ message GetJoinersRequest{
 message GetJoinersResponse{
   repeated backend.models.LiteProfile Applicants = 1;
 }
-//GetRolesRequest
-//GetRolesResponse
-//ApproveMemberRequest
-//ApproveMemberResponse
-//RejectJoinRequest
-//RejectJoinResponse
-//RemoveMemberRequest
-//RemoveMemberResponse
+message GetRolesRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+}
+
+message GetRolesResponse{
+  repeated backend.models.Role  Roles = 1;
+}
+
+message ApproveMemberRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+  string NewMember = 3;
+  string Role = 4;
+}
+
+message ApproveMemberResponse{}
+
+message RejectJoinRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+  string CandidateID = 3;
+}
+
+message RejectJoinResponse{}
+
+message RemoveMemberRequest{
+  string UUID = 1;
+  string ProjectID = 2;
+  string RemovedMemberID = 3;
+}
+
+message RemoveMemberResponse{}

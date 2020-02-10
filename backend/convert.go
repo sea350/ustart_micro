@@ -3,6 +3,7 @@ package backend
 import (
 	"github.com/sea350/ustart_micro/backend/backendpb"
 	"github.com/sea350/ustart_micro/backend/profile/profilepb"
+	"github.com/sea350/ustart_micro/backend/project/projectpb"
 )
 
 func convertProfileUserToBackendUser(profU profilepb.Profile) *backendpb.Profile {
@@ -40,4 +41,16 @@ func convertLiteResToLiteProfile(liteA *profilepb.LiteResponse) *backendpb.LiteP
 		Avatar:    liteA.Avatar,
 	}
 	return &liteB
+}
+
+func convertProjRoleToBackRole(roleA *projectpb.Role) *backendpb.Role {
+	roleB := backendpb.Role{
+		Name:          roleA.Name,
+		ManageMembers: roleA.ManageMembers,
+		ChangeIcon:    roleA.ChangeIcon,
+		ManageEntries: roleA.ManageEntries,
+		ManageLinks:   roleA.ManageLinks,
+		ManageTags:    roleA.ManageTags,
+	}
+	return &roleB
 }

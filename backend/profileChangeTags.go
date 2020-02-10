@@ -31,7 +31,7 @@ func (s *Server) ProfileChangeTags(ctx context.Context, req *backendpb.ProfileCh
 	return &backendpb.ProfileChangeTagsResponse{}, nil
 }
 
-//EXPERIMENTAL
+
 
 //ProfileChangeTagsHTTP is an http wrapper for the signup function
 func (s *Server) ProfileChangeTagsHTTP(w http.ResponseWriter, r *http.Request) {

@@ -27,10 +27,10 @@ func (auth *Auth) AddMember(ctx context.Context, projectID, userID, newMemberID,
 		return errInvalidPermission
 	}
 
-	//then check if role exists
+	//then check if role exists, default to member if anything goes wrong
 	_, err = auth.Strg.GetRoleProfile(ctx, projectID, roleName)
 	if err != nil {
-		return err
+		roleName = "Member"
 	}
 
 	//Add new member with given role

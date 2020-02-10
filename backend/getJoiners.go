@@ -42,7 +42,7 @@ func (s *Server) GetJoiners(ctx context.Context, req *backendpb.GetJoinersReques
 	return &backendpb.GetJoinersResponse{Applicants: applicants}, err
 }
 
-//EXPERIMENTAL
+
 
 //GetJoinersHTTP is an http wrapper for the signup function
 func (s *Server) GetJoinersHTTP(w http.ResponseWriter, r *http.Request) {
@@ -66,7 +66,7 @@ func (s *Server) GetJoinersHTTP(w http.ResponseWriter, r *http.Request) {
 		json.NewDecoder(r.Body).Decode(req)
 	} else {
 		r.ParseForm()
-		req.ProjectID = r.Form.Get("username")
+		req.ProjectID = r.Form.Get("projectID")
 	}
 
 	resp, err := s.GetJoiners(r.Context(), req)

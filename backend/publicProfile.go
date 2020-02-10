@@ -31,7 +31,7 @@ func (s *Server) PublicProfile(ctx context.Context, req *backendpb.ProfileReques
 	return &backendpb.ProfileResponse{UserData: convertProfileUserToBackendUser(*pullRes.UserProfile)}, nil
 }
 
-//EXPERIMENTAL
+
 
 //PublicProfileHTTP is an http wrapper for the signup function
 func (s *Server) PublicProfileHTTP(w http.ResponseWriter, r *http.Request) {

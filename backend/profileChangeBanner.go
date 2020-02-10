@@ -60,7 +60,7 @@ func (s *Server) ProfileChangeBanner(ctx context.Context, req *backendpb.Profile
 	return &backendpb.ProfileChangeBannerResponse{}, nil
 }
 
-//EXPERIMENTAL
+
 
 //ProfileChangeBannerHTTP is an http wrapper for the ProfileChangeBanner function
 func (s *Server) ProfileChangeBannerHTTP(w http.ResponseWriter, r *http.Request) {

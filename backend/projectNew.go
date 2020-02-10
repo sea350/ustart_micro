@@ -46,7 +46,7 @@ func (s *Server) ProjectNew(ctx context.Context, req *backendpb.ProjectNewReques
 	return &backendpb.ProjectNewResponse{}, nil
 }
 
-//EXPERIMENTAL
+
 
 //ProjectNewHTTP is an http wrapper for the new project function
 func (s *Server) ProjectNewHTTP(w http.ResponseWriter, r *http.Request) {

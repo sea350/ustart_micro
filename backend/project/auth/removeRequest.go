@@ -4,7 +4,7 @@ import (
 	"context"
 )
 
-//RemoveRequest checks whether the user is currently part of the project and sends the request to the queue if not
+//RemoveRequest removes an applicant request, used to reject
 func (auth *Auth) RemoveRequest(ctx context.Context, projectID, userID, removerID string) error {
 
 	//retreive user role

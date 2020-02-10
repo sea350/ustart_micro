@@ -91,6 +91,13 @@ func (srv *Server) Run() error {
 	http.HandleFunc("/Profile/ToggleAvailable", srv.ProfileToggleAvailableHTTP)
 	http.HandleFunc("/Profile/ToggleProjectVisible", srv.ProfileToggleProjectVisibleHTTP)
 
+	http.HandleFunc("/Project/New", srv.ProjectNewHTTP)
+	http.HandleFunc("/Project/GetJoinRequests", srv.GetJoinersHTTP)
+	http.HandleFunc("/Project/GetRoles", srv.GetRolesHTTP)
+	http.HandleFunc("/Project/ApproveMember", srv.ApproveMemberHTTP)
+	http.HandleFunc("/Project/RejectJoinRequest", srv.RejectJoinHTTP)
+	http.HandleFunc("/Project/RemoveMember", srv.RemoveMemberHTTP)
+
 	log.Printf("Listening on %s\n", srv.port)
 	return http.ListenAndServe(":"+srv.port, nil)
 }

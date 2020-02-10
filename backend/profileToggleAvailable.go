@@ -31,7 +31,7 @@ func (s *Server) ProfileToggleAvailable(ctx context.Context, req *backendpb.Prof
 	return &backendpb.ProfileToggleAvailableResponse{NewStatus: res.NewValue}, nil
 }
 
-//EXPERIMENTAL
+
 
 //ProfileToggleAvailableHTTP is an http wrapper for the signup function
 func (s *Server) ProfileToggleAvailableHTTP(w http.ResponseWriter, r *http.Request) {

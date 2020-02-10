@@ -32,7 +32,7 @@ func (s *Server) ProfileToggleProjectVisible(ctx context.Context, req *backendpb
 	return &backendpb.ProfileToggleProjectVisibleResponse{NewStatus: res.NewValue}, nil
 }
 
-//EXPERIMENTAL
+
 
 //ProfileToggleProjectVisibleHTTP is an http wrapper for the signup function
 func (s *Server) ProfileToggleProjectVisibleHTTP(w http.ResponseWriter, r *http.Request) {

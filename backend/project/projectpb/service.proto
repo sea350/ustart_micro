@@ -16,6 +16,8 @@ service Project {
   rpc GetApplicants(GetApplicantsRequest) returns (GetApplicantsResponse);
   rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
   rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
+  rpc Reject(RejectRequest) returns (RejectResponse);
+  rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
 }
 
 
@@ -100,3 +102,19 @@ message AddMemberRequest{
 }
 
 message AddMemberResponse{}
+
+message RejectRequest{
+  string ProjectID = 1;
+  string RemoverID = 2;
+  string RemovedID = 3;
+}
+
+message RejectResponse{}
+
+message RemoveMemberRequest{
+  string ProjectID = 1;
+  string RemoverID = 2;
+  string RemovedID = 3;
+}
+
+message RemoveMemberResponse{}

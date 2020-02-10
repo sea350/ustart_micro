@@ -35,7 +35,7 @@ func (s *Server) Login(ctx context.Context, req *backendpb.LoginRequest) (*backe
 	return &backendpb.LoginResponse{UUID: resAuth.UUID}, nil
 }
 
-//EXPERIMENTAL
+
 
 //LoginHTTP is an http wrapper for the login function, also initializes a new http session
 func (s *Server) LoginHTTP(w http.ResponseWriter, r *http.Request) {

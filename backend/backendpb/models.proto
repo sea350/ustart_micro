@@ -39,3 +39,13 @@ message LiteProfile{
   string LastName = 4;
   string Avatar = 5;
 }
+
+message Role {
+  string Name = 1;
+  bool ManageMembers = 2;
+	bool ChangeIcon = 3;
+	bool ChangeBanner = 4;
+	bool ManageEntries = 5;
+	bool ManageLinks = 6;
+	bool ManageTags  = 7;
+}

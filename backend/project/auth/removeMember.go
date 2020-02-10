@@ -6,6 +6,8 @@ import (
 
 //RemoveMember checks several conditions before removing a member
 func (auth *Auth) RemoveMember(ctx context.Context, projectID, removerID, removedID string) error {
+	memberMod.Lock()
+	defer memberMod.Unlock()
 
 	removerRole, err := auth.FindUserRole(ctx, projectID, removerID)
 	if err != nil {

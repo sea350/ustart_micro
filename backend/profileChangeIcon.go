@@ -60,7 +60,7 @@ func (s *Server) ProfileChangeIcon(ctx context.Context, req *backendpb.ProfileCh
 	return &backendpb.ProfileChangeIconResponse{}, nil
 }
 
-//EXPERIMENTAL
+
 
 //ProfileChangeIconHTTP is an http wrapper for the ProfileChangeIcon function
 func (s *Server) ProfileChangeIconHTTP(w http.ResponseWriter, r *http.Request) {
