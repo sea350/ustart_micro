@@ -15,7 +15,6 @@ func (estor *ElasticStore) Register(ctx context.Context, uuid string, username s
 
 	_, err := estor.client.Index().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		BodyJson(profilepb.Profile{
 			UUID:      uuid,
 			Username:  username,
