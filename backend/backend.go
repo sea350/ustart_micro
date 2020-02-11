@@ -99,5 +99,6 @@ func (srv *Server) Run() error {
 	http.HandleFunc("/Project/RemoveMember", srv.RemoveMemberHTTP)
 
 	log.Printf("Listening on %s\n", srv.port)
+
 	return http.ListenAndServe(":"+srv.port, nil)
 }

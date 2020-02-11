@@ -55,7 +55,7 @@ func main() {
 	}
 
 	//Assigning the handler functions to a url
-	http.HandleFunc("/", nil)
+	http.HandleFunc("/", restAPI.Ping)
 	http.HandleFunc("/lite", restAPI.Lite)
 	http.HandleFunc("/lookup", restAPI.Lookup)
 	http.HandleFunc("/pull", restAPI.Pull)

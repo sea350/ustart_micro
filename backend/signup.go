@@ -48,8 +48,6 @@ func (s *Server) Signup(ctx context.Context, req *backendpb.SignupRequest) (*bac
 	return &backendpb.SignupResponse{}, nil
 }
 
-
-
 // SignupHTTP is an http wrapper for the signup function
 func (s *Server) SignupHTTP(w http.ResponseWriter, r *http.Request) {
 

@@ -12,7 +12,7 @@ Note that the port doesn't have to be 5001 but since this is the root sub servic
     "ProfileCfg":{
         "StorageConfig":{
             "ElasticConfig":{
-            "ElasticAddr":"",
+            "ElasticAddr":"http://localhost:9200",
             "EIndex":"profile",
                 "EType":"test-profile_data"
             }
