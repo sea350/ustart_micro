@@ -9,7 +9,6 @@ func (estor *Store) UpdateIndex(ctx context.Context, widgetID string, newIndex i
 
 	_, err := estor.client.Update().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		Id(widgetID).
 		Doc(map[string]interface{}{"Index": newIndex}).
 		Do(ctx)

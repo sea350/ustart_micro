@@ -11,7 +11,6 @@ func (estor *ElasticStore) update(ctx context.Context, uuid, field string, newVa
 
 	_, err := estor.client.Update().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		Id(uuid).
 		Doc(map[string]interface{}{field: newValue}).
 		Do(ctx)

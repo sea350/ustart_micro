@@ -11,7 +11,6 @@ func (estor *Store) StoreWidget(ctx context.Context, index int, body string, tim
 
 	res, err := estor.client.Index().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		BodyJson(widgetpb.Widget{
 			Index:      int64(index),
 			Body:       body,

@@ -9,7 +9,6 @@ func (estor *ElasticStore) ChangeSeen(ctx context.Context, notifID string, newVa
 
 	_, err := estor.client.Update().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		Id(notifID).
 		Doc(map[string]interface{}{"Seen": newValue}).
 		Do(ctx)

@@ -15,7 +15,6 @@ func (estor *ElasticStore) Register(ctx context.Context, customURL string, name 
 
 	res, err := estor.client.Index().
 		Index(estor.eIndex).
-		// Type(estor.eType).
 		BodyJson(projectpb.Project{
 			CustomURL:    customURL,
 			Name:         name,

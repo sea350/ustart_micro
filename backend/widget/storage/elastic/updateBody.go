@@ -9,7 +9,6 @@ func (estor *Store) UpdateBody(ctx context.Context, widgetID string, newBody str
 
 	_, err := estor.client.Update().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		Id(widgetID).
 		Doc(map[string]interface{}{"Body": newBody}).
 		Do(ctx)

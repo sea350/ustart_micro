@@ -14,7 +14,6 @@ func (estor *Store) Lookup(ctx context.Context, widgetID string) (widgetpb.Widge
 
 	res, err := estor.client.Get().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		Id(widgetID).
 		Do(ctx)
 

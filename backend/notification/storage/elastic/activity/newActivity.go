@@ -11,7 +11,6 @@ func (estor *ElasticStore) NewActivity(ctx context.Context, uuid, objectID, acti
 
 	ret, err := estor.client.Index().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		BodyJson(notifpb.Activity{
 			ActorID:   uuid,
 			ObjectID:  objectID,

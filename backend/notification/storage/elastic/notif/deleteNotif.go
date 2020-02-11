@@ -9,7 +9,6 @@ func (estor *ElasticStore) DeleteNotif(ctx context.Context, notifID string) erro
 
 	_, err := estor.client.Delete().
 		Index(estor.eIndex).
-		Type(estor.eType).
 		Id(notifID).
 		Do(ctx)
 
