@@ -9,9 +9,12 @@ import (
 
 	_ "github.com/lib/pq"
 	"github.com/sea350/ustart_micro/backend/api/rest/project"
-	//prof "github.com/sea350/ustart_micro/backend/project"
-	//"github.com/sea350/ustart_micro/backend/project/storage"
-	//elasticstore "github.com/sea350/ustart_micro/backend/project/storage/elastic"
+	// proj "github.com/sea350/ustart_micro/backend/project"
+	// auth "github.com/sea350/ustart_micro/backend/project/auth"
+	// authstrg "github.com/sea350/ustart_micro/backend/project/auth/storage"
+	// authsqlstrg "github.com/sea350/ustart_micro/backend/project/auth/storage/sql"
+	// "github.com/sea350/ustart_micro/backend/project/storage"
+	// elasticstore "github.com/sea350/ustart_micro/backend/project/storage/elastic"
 )
 
 func main() {
@@ -20,14 +23,29 @@ func main() {
 
 	var config project.Config
 
-	// config = profile.Config{
+	// config = project.Config{
 	// 	Port: 5002,
-	// 	ProfCfg: &prof.Config{
+	// 	ProjCfg: &proj.Config{
 	// 		StorageConfig: &storage.Config{
 	// 			ElasticConfig: &elasticstore.Config{
-	// 				ElasticAddr: "localhost:9200",
-	// 				EType:       "test-profile_data",
-	// 				EIndex:      "PROFILE",
+	// 				ElasticAddr: "http://localhost:9200/",
+	// 				EType:       "test-project_data",
+	// 				EIndex:      "project",
+	// 			},
+	// 		},
+	// 		AuthConfig: &auth.Config{
+	// 			StorageConfig: &authstrg.Config{
+	// 				SQLConfig: &authsqlstrg.Config{
+	// 					DriverName:       "postgres",
+	// 					Host:             "localhost",
+	// 					Port:             "5432",
+	// 					DBName:           "test",
+	// 					Username:         "postgres",
+	// 					Password:         "password",
+	// 					RoleTableName:    "project_roles",
+	// 					RequestTableName: "project_requests",
+	// 					MemberTableName:  "project_members",
+	// 				},
 	// 			},
 	// 		},
 	// 		DefaultAvatar: "INSERT URL HERE",
@@ -55,7 +73,7 @@ func main() {
 	}
 
 	//Assigning the handler functions to a url
-	http.HandleFunc("/", nil)
+	http.HandleFunc("/", restAPI.Ping)
 	http.HandleFunc("/lite", restAPI.Lite)
 	http.HandleFunc("/lookup", restAPI.Lookup)
 	http.HandleFunc("/pull", restAPI.Pull)

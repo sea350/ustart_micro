@@ -6,6 +6,5 @@ import (
 
 // NewES determines the runtime behavior of the ElasticSearch-backed auth server
 func NewES(config *Config) (Storage, error) {
-	strg, err := elasticstore.New(config.ElasticConfig)
-	return strg, err
+	return elasticstore.New(config.ElasticConfig)
 }

@@ -17,8 +17,8 @@ Note that the port doesn't have to be 5001 but since this is the root sub servic
                 "EType":"test-profile_data"
             }
         },
-        "DefaultAvatar":"INSERT URL HERE",
-        "DefaultBanner":"INSERT URL HERE"
+        "DefaultAvatar":"https://ustart-default.s3.amazonaws.com/Defult_Profile_Page_Logo.png",
+        "DefaultBanner":"https://ustart-default.s3.amazonaws.com/Defult_Profile_Banner_Logo.png"
     },
     "Port":5002
 }

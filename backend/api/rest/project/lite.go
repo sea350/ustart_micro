@@ -10,7 +10,7 @@ import (
 	"github.com/sea350/ustart_micro/backend/project/projectpb"
 )
 
-// Lite wraps backend/profile/lite.go
+// Lite wraps backend/project/lite.go
 func (rapi *RESTAPI) Lite(w http.ResponseWriter, req *http.Request) {
 	regCtx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
@@ -19,7 +19,7 @@ func (rapi *RESTAPI) Lite(w http.ResponseWriter, req *http.Request) {
 	pid := req.Form.Get("pid")
 
 	lookReq := &projectpb.LiteRequest{
-		PID: pid,
+		ProjectID: pid,
 	}
 
 	ret := make(map[string]interface{})

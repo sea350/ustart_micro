@@ -9,18 +9,34 @@ Note that the port doesn't have to be 5102 but since this is the root sub servic
 
 ```json
 {
-    "ProjectCfg":{
+    "ProjCfg":{
         "StorageConfig":{
             "ElasticConfig":{
-                "ElasticAddr":"",
+                "ElasticAddr":"http://localhost:9200/",
                 "EIndex":"project",
                 "EType":"test-project_data"
             }
         },
-        "DefaultAvatar":"INSERT URL HERE",
-        "DefaultBanner":"INSERT URL HERE"
+        "AuthConfig":{
+            "StorageConfig":{
+                "ElasticConfig":null,
+                "SQLConfig":{
+                    "DriverName":"postgres",
+                    "Host":"localhost",
+                    "Port":"5432",
+                    "DBName":"",
+                    "Username":"postgres",
+                    "Password":"",
+                    "MemberTableName":"project_members",
+                    "RoleTableName":"project_roles",
+                    "RequestTableName":"project_requests"
+                }
+            }
+        },
+        "DefaultAvatar":"https://ustart-default.s3.amazonaws.com/Defult_Project_Page_Logo.png",
+        "DefaultBanner":"https://ustart-default.s3.amazonaws.com/Defult_project_Banner_Logo.png"
     },
-    "Port":5104
+    "Port":5002
 }
 
 ```

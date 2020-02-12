@@ -1,6 +1,6 @@
 # HOW TO RUN
 
-Create a `config.json` file. Then create an auth config object, this will be imported into the reun and unmarshalled.
+Create a `config.json` file. Then create an project config object, this will be imported into the reun and unmarshalled.
 
 ## Sample Config object
 
