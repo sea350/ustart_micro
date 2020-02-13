@@ -55,11 +55,10 @@ func main() {
 	}
 
 	//Assigning the handler functions to a url
-	http.HandleFunc("/", nil)
 	http.HandleFunc("/block", restAPI.Block)
 	http.HandleFunc("/lookup", restAPI.Lookup)
 	http.HandleFunc("/pull", restAPI.Pull)
-	http.HandleFunc("/Follow", restAPI.Follow)
+	http.HandleFunc("/follow", restAPI.Follow)
 
 	//Hear and handle
 	http.ListenAndServe(":"+strconv.Itoa(config.Port), nil)

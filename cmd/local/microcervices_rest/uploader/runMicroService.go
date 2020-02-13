@@ -1,45 +1,49 @@
 package main
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	_ "github.com/lib/pq"
 	uploader "github.com/sea350/ustart_micro/backend/api/rest/uploader"
-	logicuploader "github.com/sea350/ustart_micro/backend/uploader"
-	storageuploader "github.com/sea350/ustart_micro/backend/uploader/storage"
-	awsuploader "github.com/sea350/ustart_micro/backend/uploader/storage/aws"
 )
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	log.Println("Dialing up...")
 
-	config := uploader.Config{
-		UploaderCfg: &logicuploader.Config{
-			StorageConfig: &storageuploader.Config{
-				AWSConfig: &awsuploader.Config{
-					Region:       "us-east-2",
-					BucketName:   "uploader-testbucket",
-					S3CredID:     "AKIAJKRW32O276JJJAFQ",
-					S3CredSecret: "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",
-				},
-			},
-		},
-		Port: 5001,
-	}
+	var config uploader.Config
+
+	// config := uploader.Config{
+	// 	UploaderCfg: &logicuploader.Config{
+	// 		StorageConfig: &storageuploader.Config{
+	// 			AWSConfig: &awsuploader.Config{
+	// 				Region:       "us-east-2",
+	// 				BucketName:   "uploader-testbucket",
+	// 				S3CredID:     "AKIAJKRW32O276JJJAFQ",
+	// 				S3CredSecret: "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",
+	// 			},
+	// 		},
+	// 	},
+	// 	Port: 5001,
+	// }
+	// bite, _ := json.Marshal(config)
+	// fmt.Println(string(bite))
+
 	// //Importing configuration from json
-	// file, err := os.Open("config.json")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// decoder := json.NewDecoder(file)
-	// err = decoder.Decode(&config)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// fmt.Printf("%+v\n", config.UploaderCfg.StorageConfig.AWSConfig.BucketName)
+	file, err := os.Open("config.json")
+	if err != nil {
+		panic(err)
+	}
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&config)
+	if err != nil {
+		panic(err)
+	}
+
 	//Generating api object
 	restAPI, err := uploader.New(&config)
 	if err != nil {
