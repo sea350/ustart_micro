@@ -1,0 +1,30 @@
+{
+	"ProjCfg":{
+		"StorageConfig":{
+			"ElasticConfig":{
+				"ElasticAddr":"http://localhost:9200/",
+				"EIndex":"project",
+				"EType":"test-project_data"
+			}
+		},
+		"AuthConfig":{
+			"StorageConfig":{
+				"ElasticConfig":null,
+				"SQLConfig":{
+					"DriverName":"postgres",
+					"Host":"localhost",
+					"Port":"5432",
+					"DBName":"test",
+					"Username":"postgres",
+					"Password":"password",
+					"MemberTableName":"project_members",
+					"RoleTableName":"project_roles",
+					"RequestTableName":"project_requests"
+				}
+			}
+		},
+		"DefaultAvatar":"https://ustart-default.s3.amazonaws.com/Defult_Project_Page_Logo.png",
+		"DefaultBanner":"https://ustart-default.s3.amazonaws.com/Defult_project_Banner_Logo.png"
+	},
+	"Port":5002
+}

@@ -1,0 +1,14 @@
+{
+	"ProfCfg":{
+		"StorageConfig":{
+			"ElasticConfig":{
+				"ElasticAddr":"http://localhost:9200/",
+				"EIndex":"profile",
+				"EType":"test-profile_data"
+			}
+		},
+		"DefaultAvatar":"https://ustart-default.s3.amazonaws.com/Defult_Profile_Page_Logo.png",
+		"DefaultBanner":"https://ustart-default.s3.amazonaws.com/Defult_Profile_Banner_Logo.png"
+	},
+	"Port":5102
+}
