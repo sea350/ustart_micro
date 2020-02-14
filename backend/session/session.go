@@ -12,6 +12,7 @@ type Session struct {
 	strg       storage.Storage
 	cookie     *sessions.CookieStore
 	timeFormat string
+	sessionKey string
 }
 
 // New returns a new SQL session service
@@ -23,6 +24,7 @@ func New(cfg *Config) (*Session, error) {
 		strg:       strg,
 		cookie:     sessions.NewCookieStore([]byte(cfg.SessionKey)),
 		timeFormat: time.RFC3339,
+		sessionKey: cfg.SessionKey,
 	}
 
 	return sesh, err

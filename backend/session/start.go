@@ -9,7 +9,7 @@ import (
 //Returns session id and error
 func (sesh *Session) Start(uuid string, username string, ipAddress string, rememberMe bool, w *http.ResponseWriter, r *http.Request) (string, error) {
 
-	session, _ := sesh.cookie.Get(r, "session_please")
+	session, _ := sesh.cookie.Get(r, sesh.sessionKey)
 	session.Values["UUID"] = uuid
 	session.Values["Username"] = username
 	cookie := http.Cookie{Name: session.Values["UUID"].(string), Value: "user", Path: "/"}

@@ -27,6 +27,15 @@ func main() {
 		panic(err)
 	}
 
+	portString := os.Getenv("USTART_EMAILER_PORT")
+	if portString != "" {
+		port, err := strconv.Atoi(portString)
+		if err != nil {
+			panic(err)
+		}
+		config.Port = port
+	}
+
 	//Generating api object
 	restAPI, err := auth.New(&config)
 	if err != nil {

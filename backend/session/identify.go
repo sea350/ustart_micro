@@ -11,7 +11,7 @@ func (sesh *Session) Identify(ipAddress string, w *http.ResponseWriter, r *http.
 
 	//TODO:
 	// Session called session_please is retreived if it exists
-	session, _ := sesh.cookie.Get(r, "session_please")
+	session, _ := sesh.cookie.Get(r, sesh.sessionKey)
 	// check if uuid exists within the session note: there is inconsistency with checking docid/username.
 	uuid, _ := session.Values["UUID"]
 	if uuid != nil { // if logged in

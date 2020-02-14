@@ -1,60 +1,38 @@
 package main
 
 import (
-	"encoding/json"
 	"log"
 	"os"
 
 	"github.com/sea350/ustart_micro/backend"
-	authapi "github.com/sea350/ustart_micro/backend/api/grpc/auth"
-	profileapi "github.com/sea350/ustart_micro/backend/api/grpc/profile"
+	"github.com/sea350/ustart_micro/backend/session"
+	"github.com/sea350/ustart_micro/backend/session/storage"
+	sqlstore "github.com/sea350/ustart_micro/backend/session/storage/sql"
 )
 
 func main() {
 	log.SetPrefix("Backend Command, ")
 	log.Println("Loading config...")
 	cfg := &backend.Config{
-		Port:              "5000",
-		AuthAPIAdress:     "localhost:5101",
-		ProfileAPIAdresss: "localhost:5102",
-	}
-
-	log.Println("Setting up auth microservice...")
-	var authConfig authapi.Config
-	//Importing configuration from json
-	authFile, err := os.Open("auth-config.json")
-	if err != nil {
-		panic(err)
-	}
-
-	err = json.NewDecoder(authFile).Decode(&authConfig)
-	if err != nil {
-		panic(err)
-	}
-
-	//Generating api object
-	authService, err := authapi.New(&authConfig)
-	if err != nil {
-		panic(err)
-	}
-
-	log.Println("Setting up profile microservice...")
-	var profConfig profileapi.Config
-	//Importing configuration from json
-	profFile, err := os.Open("prof-config.json")
-	if err != nil {
-		panic(err)
-	}
-
-	err = json.NewDecoder(profFile).Decode(&profConfig)
-	if err != nil {
-		panic(err)
-	}
-
-	//Generating api object
-	profService, err := profileapi.New(&profConfig)
-	if err != nil {
-		panic(err)
+		Port:               os.Getenv("BACKEND_PORT"),
+		AuthAPIAdress:      "http://localhost:" + os.Getenv("USTART_AUTH_PORT"),
+		ProfileAPIAdresss:  "http://localhost:" + os.Getenv("USTART_PROF_PORT"),
+		ProjectAPIAddress:  "http://localhost:" + os.Getenv("USTART_PROJ_PORT"),
+		UploaderAPIAddress: "http://localhost:" + os.Getenv("USTART_UPLOADER_PORT"),
+		SessionConfig: session.Config{
+			StorageConfig: &storage.Config{
+				SQLConfig: &sqlstore.Config{
+					DriverName:       "postgres",
+					Host:             "localhost",
+					Port:             "5432",
+					DBName:           "test",
+					Username:         "postgres",
+					Password:         "password",
+					SessionTableName: "sessions",
+				},
+			},
+			SessionKey: "session_please",
+		},
 	}
 
 	log.Println("Creating new backend service from config...")
@@ -62,12 +40,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	log.Println("Running auth...")
-	go authService.Run()
-
-	log.Println("Running profile...")
-	go profService.Run()
 
 	log.Println("Running server...")
 

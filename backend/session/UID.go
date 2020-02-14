@@ -8,7 +8,7 @@ import (
 //Returns session userid and error
 func (sesh *Session) UID(r *http.Request) (string, error) {
 
-	session, _ := sesh.cookie.Get(r, "session_please")
+	session, _ := sesh.cookie.Get(r, sesh.sessionKey)
 	uuid, _ := session.Values["UUID"]
 	if uuid != nil { // if logged in
 		return uuid.(string), nil

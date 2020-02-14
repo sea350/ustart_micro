@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"strconv"
 
 	_ "github.com/lib/pq"
 	profileapi "github.com/sea350/ustart_micro/backend/api/grpc/profile"
@@ -23,6 +24,15 @@ func main() {
 	err = json.NewDecoder(file).Decode(&config)
 	if err != nil {
 		panic(err)
+	}
+
+	portString := os.Getenv("USTART_PROF_PORT")
+	if portString != "" {
+		port, err := strconv.Atoi(portString)
+		if err != nil {
+			panic(err)
+		}
+		config.Port = port
 	}
 
 	//Generating api object

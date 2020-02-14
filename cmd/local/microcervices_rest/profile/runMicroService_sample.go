@@ -48,6 +48,15 @@ func main() {
 		panic(err)
 	}
 
+	portString := os.Getenv("USTART_PROF_PORT")
+	if portString != "" {
+		port, err := strconv.Atoi(portString)
+		if err != nil {
+			panic(err)
+		}
+		config.Port = port
+	}
+
 	//Generating api object
 	restAPI, err := profile.New(&config)
 	if err != nil {
