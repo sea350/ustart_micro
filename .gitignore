@@ -1,6 +1,6 @@
 *.pb.go
 backend/api/*/*/cmd/*.json
-cmd/*/*/*/config.json
+cmd/*/*/*/*.json
 vendor
 coverage.txt
 profile.out

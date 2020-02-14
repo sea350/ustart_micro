@@ -10,5 +10,5 @@
 		"DefaultAvatar":"https://ustart-default.s3.amazonaws.com/Defult_Profile_Page_Logo.png",
 		"DefaultBanner":"https://ustart-default.s3.amazonaws.com/Defult_Profile_Banner_Logo.png"
 	},
-	"Port":5102
+	"Port":5004
 }
