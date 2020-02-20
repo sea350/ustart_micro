@@ -5,6 +5,18 @@ NOTE: This repo is in the middle of refactoring.  Delete this sentence when it i
 
 ## Installation
 
+The following need to be installed:
+
+- Git
+
+- Golang
+
+- Tree
+
+- Protoc
+
+- Protoc-gen-go (remember to export PATH on linux)
+
 Make sure you have golang, protoc (and all associated dependancies), olivere/elastic for elastic7 installed.
 
 Screen must be installed to easily run multiple services in tandem.
