@@ -5,7 +5,7 @@ NOTE: This repo is in the middle of refactoring.  Delete this sentence when it i
 
 ## Installation
 
-The following need to be installed:
+The following are needed to run this package:
 
 - Git
 
@@ -17,9 +17,11 @@ The following need to be installed:
 
 - Protoc-gen-go (remember to export PATH on linux)
 
-Make sure you have golang, protoc (and all associated dependancies), olivere/elastic for elastic7 installed.
+- Screen
 
-Screen must be installed to easily run multiple services in tandem.
+Make sure you have the associated dependancies and olivere/elastic for elastic7 installed.
+
+Screen is used to easily run multiple services in tandem.
 
 Before running anything spin up `gen-proto.sh` you should then find auto generated go files in all `*pb` folders. After that you should be good to go.
 

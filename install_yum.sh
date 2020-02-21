@@ -7,9 +7,13 @@ unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
 rm -f $PROTOC_ZIP
 
 export GIT_TAG=v1.2.0 # change as needed
+export GOPATH=$HOME/go # change as needed
 go get -d -u github.com/golang/protobuf/protoc-gen-go
 git -C "$(go env GOPATH)"/src/github.com/golang/protobuf checkout $GIT_TAG
 go install github.com/golang/protobuf/protoc-gen-go
 
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:/usr/local/go/bin
+
+go get github.com/olivere/elastic
+env GIT_TERMINAL_PROMPT=1 go get github.com/sea350/ustart_mono
