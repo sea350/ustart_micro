@@ -1,6 +1,6 @@
 yum install git golang tree -y
 
-export PROTOC_ZIP=protoc-3.11.4-linux-x86_64.zip
+export PROTOC_ZIP=protoc-3.11.4-linux-x86_64.zip # change as needed
 curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v3.11.4/$PROTOC_ZIP
 unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
 unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
