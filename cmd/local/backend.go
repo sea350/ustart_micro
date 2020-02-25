@@ -22,13 +22,12 @@ func main() {
 		SessionConfig: session.Config{
 			StorageConfig: &storage.Config{
 				SQLConfig: &sqlstore.Config{
-					DriverName:       "postgres",
-					Host:             "localhost",
-					Port:             "5432",
-					DBName:           "test",
-					Username:         "postgres",
-					Password:         "password",
-					SessionTableName: "sessions",
+					DriverName: "postgres",
+					Host:       "ustart-postgres-test.crgo1xxhh8o5.us-east-1.rds.amazonaws.com",
+					Port:       "5432",
+					DBName:     "ustart-postgres-test",
+					Username:   "ustart",
+					Password:   "imadirtyweeb",
 				},
 			},
 			SessionKey: "session_please",
