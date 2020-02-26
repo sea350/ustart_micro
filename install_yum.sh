@@ -16,4 +16,4 @@ export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:/usr/local/go/bin
 
 go get github.com/olivere/elastic
-env GIT_TERMINAL_PROMPT=1 go get github.com/sea350/ustart_mono
+env GIT_TERMINAL_PROMPT=1 go get github.com/sea350/ustart_micro
