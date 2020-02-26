@@ -1,6 +1,6 @@
 # HOW TO RUN
 
-Create a `config.json` file. Then create a session config object, this will be imported into the run and unmarshalled. 
+Create a `config.json` file. Then create a session config object, this will be imported into the run and unmarshalled.
 
 ## Sample Config object
 
