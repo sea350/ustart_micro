@@ -7,7 +7,7 @@ Create a `config.json` file. Then create a session config object, this will be i
 You can verbatim copy paste this object into your `config.json` but remember to fill out proper credentials depending on your run environment.
 
 ```json
-{{
+{
     "StorageConfig":{
         "SQLConfig":{
             "DriverName":"postgres",
