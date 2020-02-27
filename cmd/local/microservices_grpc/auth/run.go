@@ -18,19 +18,22 @@ func main() {
 	//Importing configuration from json
 	file, err := os.Open("config.json")
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 
 	err = json.NewDecoder(file).Decode(&config)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
+
+	log.Println("Displaying config data")
+	log.Println("DB Host: ", config.AuthCfg.StorageConfig.SQLConfig.Host)
 
 	portString := os.Getenv("USTART_AUTH_PORT")
 	if portString != "" {
 		port, err := strconv.Atoi(portString)
 		if err != nil {
-			panic(err)
+			log.Panic(err)
 		}
 		config.Port = port
 	}
@@ -38,7 +41,7 @@ func main() {
 	//Generating api object
 	authService, err := authapi.New(&config)
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 
 	authService.Run()
