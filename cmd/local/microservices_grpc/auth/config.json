@@ -1,17 +1,18 @@
-{"AuthCfg":
-    {"StorageConfig":{
-        "ElasticConfig":null,
-        "SQLConfig":{
-		"DriverName":"postgres",
-		"Host":"ustart-postgres-test.crgo1xxhh8o5.us-east-1.rds.amazonaws.com",
-		"Port":"5432",
-		"DBName":"ustart-postgres-test",
-		"Username":"ustart",
-		"Password":"imadirtyweeb",
-         	"RegistryTable":"registry",
-		"LoginTrackingTable":"login"
-            }
-        }
-    },
-    "Port":5101
+{
+	"AuthCfg":{
+		"StorageConfig":{
+			"ElasticConfig":null,
+			"SQLConfig":{
+		 		"DriverName":"postgres",
+				"Host":"ustart-postgres-test.crgo1xxhh8o5.us-east-1.rds.amazonaws.com",
+				"Port":"5432",
+				"DBName":"ustart-postgres-test",
+				"Username":"ustart",
+				"Password":"imadirtyweeb",
+				"RegistryTable":"registry",
+				"LoginTrackingTable":"login"
+			}
+		}
+	},
+	"Port":5101
 }
