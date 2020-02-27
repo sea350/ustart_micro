@@ -2,13 +2,13 @@
 	"ProfileCfg":{
 		"StorageConfig":{
 			"ElasticConfig":{
-				"ElasticAddr":"http://127.0.0.1:9200",
+				"ElasticAddr":"https://vpc-ustart-micro-test-xygryy4zgqv7qz3kmmaahlbgvq.us-east-1.es.amazonaws.com",
 				"EIndex":"profile",
 				"EType":"test-profile_data"
 			}
 		},
-		"DefaultAvatar":"INSERT URL HERE",
-		"DefaultBanner":"INSERT URL HERE"
+		"DefaultAvatar":"https://ustart-default.s3.amazonaws.com/Defult_Profile_Page_Logo.png",
+		"DefaultBanner":"https://ustart-default.s3.amazonaws.com/Defult_Profile_Banner_Logo.png"
 	},
-	"Port":5102
+	"Port":5104
 }

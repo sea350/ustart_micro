@@ -6,7 +6,7 @@ unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
 unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
 rm -f $PROTOC_ZIP
 
-export GIT_TAG=v1.2.0 # change as needed
+export GIT_TAG=v1.3.4 # change as needed
 export GOPATH=$HOME/go # change as needed
 go get -d -u github.com/golang/protobuf/protoc-gen-go
 git -C "$(go env GOPATH)"/src/github.com/golang/protobuf checkout $GIT_TAG

@@ -10,12 +10,12 @@ export BACKEND_PORT="5000"
 
 # Then, we run the services
 # you should build and run binaries with log files when in production
-cd microservices_grpc/auth/
-screen -d -m -S auth go run microservices_grpc/auth/run.go
-cd ../profile/
-screen -d -m -S profile go run microservices_grpc/profile/run.go
-cd ../project/
-screen -d -m -S project go run microservices_grpc/project/run.go
+cd microservices_grpc/auth
+go run run.go
+cd ../profile
+screen -d -m -S profile go run run.go
+cd ../project
+screen -d -m -S project go run run.go
 cd ../..
 screen -d -m -S backend go run backend backend.go
 
