@@ -12,7 +12,8 @@ rm -f protoc-$PROTOC_VERSION-linux-x86_64.zip
 
 
 export GOPATH=$HOME/go # change as needed
-go get github.com/golang/protobuf/protoc-gen-go
+go get -d -u github.com/golang/protobuf/protoc-gen-go
+go install github.com/golang/protobuf/protoc-gen-go
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH=$PATH:/usr/local/go/bin
 
