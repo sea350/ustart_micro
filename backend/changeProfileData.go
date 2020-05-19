@@ -36,8 +36,6 @@ func (s *Server) ChangeProfileData(ctx context.Context, req *backendpb.ChangeBas
 	return &backendpb.ChangeBasicDataResponse{}, nil
 }
 
-
-
 //ChangeProfileDataHTTP is an http wrapper for the ChangeProfileData function
 func (s *Server) ChangeProfileDataHTTP(w http.ResponseWriter, r *http.Request) {
 	if !setCORS(&w, r) {
