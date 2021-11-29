@@ -1,7 +1,8 @@
 # UStart mono
 
-Re factored beta2 for ustart. Monolithic design stores frontend and backend in one hub.
+Re factored b0.2 for ustart. Monolithic design stores frontend and backend in one hub.
 NOTE: This repo is in the middle of refactoring.  Delete this sentence when it is stable.
+NOTE the second: This project is RETIRED
 
 ## Installation
 
